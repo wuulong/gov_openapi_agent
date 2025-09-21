@@ -1,0 +1,310 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "金管會金融統計資料",
+    "description": "FSC Open API Ver.2",
+    "version": "第二版"
+  },
+  "servers": [
+    {
+      "url": "/FSC_OAS3_RESTORE"
+    }
+  ],
+  "paths": {
+    "/API/CSV_EXPORT": {
+      "get": {
+        "tags": [
+          "CSV_EXPORT"
+        ],
+        "summary": "取得資料表",
+        "parameters": [
+          {
+            "name": "DATA_TYPE",
+            "in": "query",
+            "description": "1=月,2=年,空白=全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "TableID",
+            "in": "query",
+            "description": "資料表代號,EX A01=公開發行公司股票發行概況統計表(1),詳細資料內容會公布在網頁中",
+            "schema": {
+              "type": "string",
+              "default": "A01"
+            }
+          },
+          {
+            "name": "OUTPUT_FILE",
+            "in": "query",
+            "description": "Y=輸出檔案,N=網頁呈現",
+            "schema": {
+              "type": "string",
+              "default": "N"
+            }
+          },
+          {
+            "name": "YY01",
+            "in": "query",
+            "description": "開始年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "1912"
+            }
+          },
+          {
+            "name": "YY02",
+            "in": "query",
+            "description": "結束年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "2999"
+            }
+          },
+          {
+            "name": "FFields",
+            "in": "query",
+            "description": "取得資料表",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/CSV_FieldName": {
+      "get": {
+        "tags": [
+          "CSV_FieldName"
+        ],
+        "summary": "取得欄位名稱",
+        "parameters": [
+          {
+            "name": "Table_ID",
+            "in": "query",
+            "description": "資料表的代號,空白或者代號不存在傳回空白檔案",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "OUTPUT_FILE",
+            "in": "query",
+            "description": "Y=輸出檔案,N=網頁呈現",
+            "schema": {
+              "type": "string",
+              "default": "N"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/CSV_TABLEID": {
+      "get": {
+        "tags": [
+          "CSV_TABLEID"
+        ],
+        "summary": "取得資料表的代號",
+        "parameters": [
+          {
+            "name": "OUTPUT_FILE",
+            "in": "query",
+            "description": "Y=輸出檔案,N=網頁呈現",
+            "schema": {
+              "type": "string",
+              "default": "N"
+            }
+          },
+          {
+            "name": "Table_Name",
+            "in": "query",
+            "description": "資料表名稱,空白代表全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/json_EXPORT": {
+      "get": {
+        "tags": [
+          "JSON_EXPORT"
+        ],
+        "summary": "取得資料表",
+        "parameters": [
+          {
+            "name": "DATA_TYPE",
+            "in": "query",
+            "description": "1=月,2=年,空白=全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "TableID",
+            "in": "query",
+            "description": "資料表代號,EX A01=公開發行公司股票發行概況統計表(1),詳細資料內容會公布在網頁中",
+            "schema": {
+              "type": "string",
+              "default": "A01"
+            }
+          },
+          {
+            "name": "OUTPUT_FILE",
+            "in": "query",
+            "description": "Y=輸出檔案,N=網頁呈現",
+            "schema": {
+              "type": "string",
+              "default": "N"
+            }
+          },
+          {
+            "name": "YY01",
+            "in": "query",
+            "description": "開始年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "1912"
+            }
+          },
+          {
+            "name": "YY02",
+            "in": "query",
+            "description": "結束年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "2999"
+            }
+          },
+          {
+            "name": "FFields",
+            "in": "query",
+            "description": "中文欄位名稱空白代表全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/XML_EXPORT": {
+      "get": {
+        "tags": [
+          "XML_EXPORT"
+        ],
+        "summary": "取得資料表",
+        "parameters": [
+          {
+            "name": "DATA_TYPE",
+            "in": "query",
+            "description": "1=月,2=年,空白=全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "TableID",
+            "in": "query",
+            "description": "資料表代號,EX A01=公開發行公司股票發行概況統計表(1),詳細資料內容會公布在網頁中",
+            "schema": {
+              "type": "string",
+              "default": "A01"
+            }
+          },
+          {
+            "name": "OUTPUT_FILE",
+            "in": "query",
+            "description": "Y=輸出檔案,N=網頁呈現",
+            "schema": {
+              "type": "string",
+              "default": "N"
+            }
+          },
+          {
+            "name": "YY01",
+            "in": "query",
+            "description": "開始年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "1912"
+            }
+          },
+          {
+            "name": "YY02",
+            "in": "query",
+            "description": "結束年月:yyyy/MM",
+            "schema": {
+              "type": "string",
+              "default": "2999"
+            }
+          },
+          {
+            "name": "FFields",
+            "in": "query",
+            "description": "中文欄位名稱空白代表全部",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": { },
+  "tags": [
+    {
+      "name": "CSV_EXPORT",
+      "description": "取得資料表內容"
+    },
+    {
+      "name": "CSV_FieldName",
+      "description": "取得欄位名稱"
+    },
+    {
+      "name": "CSV_TABLEID",
+      "description": "取得資料表的代號"
+    },
+    {
+      "name": "JSON_EXPORT",
+      "description": "取得資料表"
+    },
+    {
+      "name": "XML_EXPORT",
+      "description": "取得XML資料表"
+    }
+  ]
+}

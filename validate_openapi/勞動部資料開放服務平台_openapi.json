@@ -1,0 +1,685 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "勞動部 政府開放資料整合及作業管理系統 API Service",
+    "version": "1.0.0",
+    "description": "## 勞動部資料開放服務平臺提供應用資料使用方之開發人員使用 API Service    自行開發程式方式自動取得平臺上的開放資料使用及加值。\n\n* 平臺的開發標準：\n\n  API 開發標準，依循數位部於民國 111 年 12 月所頒布的「[共通性資料存取應用程式介面（API）規範](https://file.data.gov.tw/content/about/%E5%85%B1%E9%80%9A%E6%80%A7%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%BB%8B%E9%9D%A2%E6%8C%87%E5%BC%95.pdf)」為設計準則。\n  \n* 平臺資料集的詮釋資料標準：\n\n  資料集詮釋資料 ，依循數位部於民國 111 年 12 月所頒布的「[資料集詮釋資料標準規範](https://file.data.gov.tw/content/%E8%B3%87%E6%96%99%E9%9B%86%E8%A9%AE%E9%87%8B%E8%B3%87%E6%96%99%E6%A8%99%E6%BA%96%E8%A6%8F%E7%AF%84_%E6%A0%B8%E5%AE%9A%E7%89%88_.pdf)」為設計準則。\n\n* API 的分類及使用：\n\n  API 依據規範設計了八個 API，依功能性不同可分為二大類，第一部分為依資料集詮釋資料的不同角度或分類的方式查詢相關資料集或直接使用已知的資料集透過序號編號方式真接取得特定資料集的相關資訊及描述；另一部分則是特定資料集的實體資料的取得。\n\n* API 的使用規範：\n\n  Request URL請勿串接多個URL(例：以標點符號串接)，會無法取得資料。\n"
+  },
+  "externalDocs": {
+    "description": "API Service 開發指引下載",
+    "url": "https://apiservice.mol.gov.tw/OdService/doc/API%20Service%20%E9%96%8B%E7%99%BC%E6%8C%87%E5%BC%95.pdf"
+  },
+  "servers": [
+    {
+      "url": "https://apiservice.mol.gov.tw/OdService/",
+      "description": "勞動部政府開放資料整合及作業管理系統 API Service"
+    }
+  ],
+  "tags": [
+    {
+      "name": "資料集詮釋資料 API",
+      "description": "資料集的詮釋資料之取得"
+    },
+    {
+      "name": "資料資源內容 API",
+      "description": "資料集的資料資源內容取得"
+    }
+  ],
+  "paths": {
+    "/rest/group": {
+      "get": {
+        "operationId": "getGroupList",
+        "summary": "取得符合條件之資料集分類編號",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得分類群組清單。\n\n* 分類編號(categoryCode)為政府入口網之服務分類編號 3 碼 18 類。\n    \n* 輸出範例之分類編號等於資料集詮釋資料之分類編號。\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam100"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "回傳資料開放平臺上所有資料集之分類編號(categoryCode)。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "分類編號(categoryCode)"
+                  }
+                },
+                "example": [
+                  "100",
+                  "A00"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/group/{categoryCode}": {
+      "get": {
+        "operationId": "getGroupCategory",
+        "summary": "取得平臺上符合條件之群組相關的資料集識別碼",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得群組相關之資料集識別碼。\n\n* 分類編號(categoryCode)為政府入口網之服務分類編號 3 碼 18 類。\n\n* 此資源路徑 categoryCode 等於資料集詮釋資料之分類編號。\n\n* categoryCode 可由「取得分類群組清單」API 項目取得。\n\n* 輸出範例之資料集識別碼等於資料集詮釋資料之資料集識別碼。\n",
+        "parameters": [
+          {
+            "name": "categoryCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "回傳群組相關之資料集識別碼。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryResult"
+                },
+                "example": {
+                  "categoryCode": "E00",
+                  "display_name": "生活安全及品質",
+                  "description": "E00 類別",
+                  "package_count": 2,
+                  "created": "2014-05-14 17:26:56",
+                  "packages": [
+                    "43261",
+                    "6622"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/tag": {
+      "get": {
+        "operationId": "getTagList",
+        "summary": "取得平臺上符合條件之標籤清單",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得標籤清單。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam100"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料開放平臺上所有資料集之標籤清單。標籤(tag)為各機關紀錄於資料集詮釋資料中之標籤/關鍵字(keyword)。若查無資料則回傳空陣列。\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "example": [
+                  "tag1",
+                  "tag2z`"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/tag/{tagName}": {
+      "get": {
+        "operationId": "getTag",
+        "summary": "取得平臺上符合條件之標籤相關的資料集識別碼",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得標籤相關之資料集識別碼。\n\n* 輸出內容之資料集識別碼(datasetId) 係為資料集之資訊辨識編碼。資料集識別碼可由平臺資料集識別碼清單或資料集詮釋資料描述取得。\n\n* 標籤(tag)為各機關紀錄於資料集詮釋資料中的標籤/關鍵字(keyword)。\n\n* tagName 可由「取得標籤清單」API 項目取得。",
+        "parameters": [
+          {
+            "name": "tagName",
+            "in": "path",
+            "description": "標籤，如：勞動力發展署",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料開放平臺上所有具該標籤的資料集之資料集識別碼。若查無資料則回傳空陣列。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "標籤相關之資料集識別碼(datasetId)"
+                  }
+                },
+                "example": {
+                  "application/json": [
+                    "159704",
+                    "159721",
+                    "159960",
+                    "160117",
+                    "160233",
+                    "43261"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/dataset": {
+      "get": {
+        "operationId": "getDatasetList",
+        "summary": "取得平臺上符合條件之資料集識別碼清單",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得資料集識別碼清單。\n\n* 輸出內容之資料集識別碼(datasetId)係為資料集之資訊辨識編碼。\n\n* 輸出內容之資料集識別碼等於資料集詮釋資料之資料集識別碼。\n",
+        "parameters": [
+          {
+            "name": "modified",
+            "in": "query",
+            "description": "日期, 詮釋資料最後更新時間大於或等於輸入之查詢條件。若無輸入，則傳回所有資料集識別碼清單。日期格式為 yyyy-MM-dd HH:mm:ss。\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/limitParam100"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料開放平臺所有資料集之資料集識別碼。若查無資料則回傳空陣列。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "example": [
+                  "159704",
+                  "159721",
+                  "159960",
+                  "160117",
+                  "160233"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/dataset/{datasetId}": {
+      "get": {
+        "operationId": "getDatasetData",
+        "summary": "取得平臺上符合條件之資料集詮釋資料",
+        "tags": [
+          "資料集詮釋資料 API"
+        ],
+        "description": "取得資料集詮釋資料。\n\n* 資料集識別碼(datasetId)係為資料集之資訊辨識編碼。等於資料集詮釋資料的資料集識別碼\n\n* 資源路徑之資料集識別碼可由「取得資料集識別碼清單」、「取得群組相關的資料集識別碼」、「取得標籤相關的資料集識別碼」等 API 項目取得。\n\n* 若不輸入{datasetId}參數，則請詳見「取得資料集識別碼清單」說明。\n",
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "資料集識別碼，如：159704",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "* 資料開放平臺提供之資料集詮釋資料欄位及內容。詮釋資料欄位為「資料集詮釋資料標準規範」制定之詮釋資料欄位或機關自行定義之詮釋資料欄位。\n\n* 當執行跨平臺詮釋資料交換時，輸出內容必須包含機關 OID(publisherOID)與機關代號(publisherOrgCode)，以利各資料開放平臺識別資料集來源。機關 OID 與機關代號欄位內容，請參見政府物件識別碼網站(http://oid.nat.gov.tw/OIDWeb/chmain.html)。\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "資料集詮釋資料"
+                },
+                "example": {
+                  "categoryService": "I00",
+                  "categoryDataset": "A",
+                  "datasetId": "159704",
+                  "title": "行政院公報",
+                  "description": "行政院及所屬機關涉及人民權益之法 令等重要事項，主要內容有法規、行 政規則、公告及送達、處分、特載 （總統文告及院長談話）、轉載（經 總統公布之條約、法律、緊急命 令）、專載（院會院長提示、決定、 決議事項）及其他等 8 大類。",
+                  "license": "1",
+                  "cost": "free",
+                  "publisherOID": "2.16.886.101.20003.20069|國家發展委員會",
+                  "publisherContactName": "鄭先生",
+                  "publisherContactPhone": "02-23165300#OO ",
+                  "publisherContactEmail": "example2@ndc.gov.tw",
+                  "updateFrequency": {
+                    "regularupdate": "1",
+                  "frequency": "1",
+                    "unittime": "月"
+                  },
+                  "coverageStartedDate": "2014-01-01",
+                  "coverageEndedDate": "2015-01-01",
+                  "publishedDate": "2015-01-01 23:59:59",
+                  "modifiedDate": "2015-01-01 23:59:59",
+                  "spatialCoverage": "臺灣",
+                  "language": "zh",
+                  "relatedUrl": "http://gazette.nat.gov.tw/egFront/Open Data/list.jsp",
+                  "keyword": [
+                    "公報",
+                    "施政",
+                    "服務",
+                    "行政院"
+                  ],
+                  "notes": "正式出版後時有異動，請以正式出版之書 目資料為準。API 參數：year 代表年度",
+                  "distribution": [
+                    {
+                      "resourceID": "A41000000G-000001-001",
+                      "resourceDescription": "行政院公報-民國 103 年-交通建設篇- XML",
+                      "resourceField": "公報類型、編輯分類(篇名)、公 告機關、承辦機關、發文日期、發文 字號、標題、英文標題、主旨、依 據、關鍵字、英文關鍵字、公告事 項、表示意見截止日、內容主題、施 政分類、服務分類、附件個數、內容 網頁連結、英文網址連結",
+                      "resourceFormat": "XML",
+                      "resourceCharacterEncoding": "UTF-8",
+                      "resourceModified": "2015-01-01 23:59:59",
+                      "resourceDownloadUrl": "http://gazette.nat.gov.tw/eg Front/OpenData/download.jsp",
+                      "resourceAmount": 4600,
+                      "resourceNotes": ""
+                    },
+                    {
+                      "resourceID": "A41000000G-000001-002",
+                      "resourceDescription": "行政院公報-民國 103 年-衛生勞動篇- ZIP",
+                      "resourceField": "公報類型、編輯分類(篇名)、公 告機關、承辦機關、發文日期、發文 字號、標題、英文標題、主旨、依 據、關鍵字、英文關鍵字、公告事 項、表示意見截止日、內容主題、施 政分類、服務分類、附件個數、內容 網頁連結、英文網址連結",
+                      "resourceFormat": "ZIP",
+                      "resourceCharacterEncoding": "BIG-5",
+                      "resourceModified": "2015-01-01 23:59:59",
+                      "resourceDownloadUrl": "http://oid.nat.gov.tw/OID Web/GDS.zip",
+                      "resourceAmount": 1,
+                      "resourceNotes": ""
+                    },
+                    {
+                      "resourceID": "A41000000G-000001-003",
+                      "resourceDescription": "行政院公報-民國 103 年-教育文化篇- services",
+                      "resourceField": "公報類型、編輯分類(篇名)、公 告機關、承辦機關、發文日期、發文 字號、標題、英文標題、主旨、依 據、關鍵字、英文關鍵字、公告事 項、表示意見截止日、內容主題、施 政分類、服務分類、附件個數、內容 網頁連結、英文網址連結",
+                      "resourceFormat": "services",
+                      "resourceCharacterEncoding": "UTF-8",
+                      "resourceModified": "2015-01-01 23:59:59",
+                      "resourceDownloadUrl": "http://example/endpoint",
+                      "resourceAmount": 4600,
+                      "resourceNotes": ""
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/datastore/{resourceID}": {
+      "get": {
+        "operationId": "getResource",
+        "summary": "取得平臺上符合條件之資料資源的資料內容",
+        "tags": [
+          "資料資源內容 API"
+        ],
+        "description": "取得資料集之資料資源內容。",
+        "parameters": [
+          {
+            "name": "resourceID",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "description": "資料資源編號。"
+            }
+          },
+          {
+            "name": "filters",
+            "required": false,
+            "in": "query",
+            "description": "輸入資料資源之過濾條件，參數為資料的欄位名稱。\n\n正確範例：{\"年度\":\"2019\",\"行業別\":\"製造業\"}\n\n錯誤範例：年度:2019 或 \"年度\":\"2019\"\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "排序資料資源的欄位名稱之順序位置，只能指定一個。\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/limitParam100"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam0"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "description": "資料資源之欄位名稱，將回傳指定欄位的內容。指定複數欄位時以逗號(,)隔開。",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "輸出資訊包含資料集欄位內容，將先呈現欄位格式，再回傳資料內容。\n成功時回傳不含 error 欄位，失敗時回傳不含 result 欄位。\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "表示回傳是否成功。"
+                    },
+                    "updateTime": {
+			                "type": "string"
+                    },
+                    "result": {
+                      "$ref": "#/components/schemas/DataStoreResult"
+                    },
+                    "error": {
+                      "$ref": "#/components/schemas/DataStoreError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/datastore/compression/{resourceID}": {
+      "get": {
+        "operationId": "getCompressionResource",
+        "summary": "取得平臺上符合條件之資料資源(壓縮檔)的資料內容",
+        "tags": [
+          "資料資源內容 API"
+        ],
+        "description": "取得資料集之資料資源(壓縮檔)內容。",
+        "parameters": [
+          {
+            "name": "resourceID",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "description": "資料資源編號。"
+            }
+          },
+          {
+            "name": "reportForm",
+            "required": false,
+            "in": "query",
+            "description": "直接輸入詮釋資料的「資料資源欄位名稱」的報表名稱，可查詢單一報表資料內容。\n\n\"resourceField\":\"歲入來源別預算表、歲出機關別預算表、歲入項目說明提要表、歲出計畫提要及分支計畫概況表、各項費用彙計表、歲出用途別科目分析表\"\n\n正確範例：歲入來源別預算表\n\n錯誤範例：報表:歲入來源別預算表 或 \"報表\":\"歲入來源別預算表\"\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "輸出資訊包含資料集欄位內容，將先呈現欄位格式，再回傳資料內容。\n成功時回傳不含 error 欄位，失敗時回傳不含 result 欄位。\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "表示回傳是否成功。"
+                    },
+                    "updateTime": {
+			            "type": "string"
+		            },
+                    "result": {
+                      "$ref": "#/components/schemas/DataStoreCompressionResult"
+                    },
+                    "error": {
+                      "$ref": "#/components/schemas/DataStoreError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dump/datastore/{resourceID}": {
+      "get": {
+        "operationId": "downloadResource",
+        "summary": "取得平臺上符合條件之資料資源的資料全部內容並壓縮傳回",
+        "tags": [
+          "資料資源內容 API"
+        ],
+        "description": "下載資料集之資料資源全部內容。",
+        "parameters": [
+          {
+            "name": "resourceID",
+            "required": true,
+            "in": "path",
+            "description": "資料格式為CSV的資料資源編號。",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "description": "資料資源回傳之內容格式，可為 JSON, CSV, XML 其中之一。若空白則預設為 CSV。\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "JSON",
+                "CSV",
+                "XML"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "以指定格式提供資料集之資料資源全部內容，以 zip 檔案輸出。",
+            "content": {
+              "application/x-gzip": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "limitParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "限制最多回傳的資料筆數。",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "limitParam100": {
+        "name": "limit",
+        "in": "query",
+        "description": "限制最多回傳的資料筆數。",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 100
+        }
+      },
+      "offsetParam": {
+        "name": "offset",
+        "in": "query",
+        "description": "指定從第幾筆後開始回傳。可與 limit 配合使用達到分頁目的。",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "offsetParam0": {
+        "name": "offset",
+        "in": "query",
+        "description": "指定從第幾筆後開始回傳。可與 limit 配合使用達到分頁目的。",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        }
+      }
+    },
+    "schemas": {
+      "CategoryResult": {
+        "type": "object",
+        "description": "表示回傳成功之資料集分類內容。",
+        "properties": {
+          "categoryCode": {
+            "type": "string",
+            "description": "群組分類編號。"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "群組分類名稱，可使用中文。"
+          },
+          "description": {
+            "type": "string",
+            "description": "群組分類描述。"
+          },
+          "package_count": {
+            "type": "integer",
+            "description": "群組內資料集數量。"
+          },
+          "created": {
+            "type": "string",
+            "description": "建立日期。"
+          },
+          "packages": {
+            "type": "array",
+            "description": "群組內資料集識別碼清單。",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DataStoreResult": {
+        "type": "object",
+        "description": "表示回傳成功之內容。",
+        "properties": {
+          "resource_id": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "field 名稱"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "field 的 json 資料型態"
+                }
+              }
+            }
+          },
+          "records": {
+            "type": "array",
+            "description": "回傳之資料內容列表，資料內容包含欄位名稱及欄位值；欄位名稱與 fields 回傳的名稱相同，但順序可不同。",
+            "items": {
+              "type": "object"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "description": "限制最多回傳之資料筆數。"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "為從第幾筆之後開始回傳。"
+          },
+          "total": {
+            "type": "integer",
+            "description": "全部資料筆數。"
+          }
+        }
+      },
+      "DataStoreCompressionResult": {
+        "type": "object",
+        "description": "表示回傳成功之內容。",
+        "properties": {
+          "resource_id": {
+            "type": "string"
+          },
+          "records": {
+            "type": "array",
+            "description": "回傳資料資源(主計總處)壓縮檔的資料內容，若有指定reportForm，則回傳單一報表資料內容。",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "DataStoreError": {
+        "type": "object",
+        "description": "表示回傳失敗之資訊內容。\n",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "錯誤訊息。"
+          },
+          "type": {
+            "type": "string",
+            "description": "| 錯誤代碼 | 訊息內容 | 說明 |\n|----------|----------|----------|\n| ER0100 | 找不到Resource 資料。| 找不到指定的 resourceID資料內容。|\n| ER0200 | 輸入的參數名稱錯誤。| 輸入的參數名稱不在規範中。|\n| ER0210 | 輸入的參數內容格式錯誤。|輸入的參數內容格式有錯誤，例如 limit=11.5 或offset=all。|\n| ER0220 | 輸入的參數內容中，欄位名稱不存在。|在輸入參數 filters、sort、fields 的內容中，所指定欄位名稱不存在。|\n| ER0500 | 系統錯誤。| 其他系統錯誤。| \n\n# 錯誤類別。回傳錯誤代碼如上表，錯誤代碼為ER 開頭，加上 4 位數字，錯誤內容詳細描述方式由系統自行定義。亦可自行定義詳細之錯誤代碼，於原代碼後增加自行定義位數，錯誤代碼不超過 10 個字元。如輸入的參數內容格式錯誤代碼為ER0210，可再細分為內容未輸入 ER021001、內容過長 ER021002 等。\n"
+          }
+        }
+      }
+    }
+  }
+}

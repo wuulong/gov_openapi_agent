@@ -1,0 +1,926 @@
+openapi: 3.0.1
+info:
+  title: 交通部運輸研究運輸技術研究中心-OpenData API
+  description: 提供本中心目前開放資料介接之API(本資料集所提供之觀測資料因監測儀器設備保養、更新及重置等緣故，資料使用蒐集時請留意觀測位置(經緯度)之變動情形，且資料尚未經嚴密品管，建議以短期觀測資訊使用為宜。)
+  version: v1
+servers:
+  - url: /opendata
+paths:
+  /Corrosion:
+    get:
+      tags:
+        - 金屬年腐蝕速率資料
+      summary: 金屬年腐蝕速率資料
+      description: 提供本中心於各港口之金屬年腐蝕速率資料
+      parameters:
+        - name: metal
+          in: query
+          description: '港口：鋁(Al),銅(Cu),碳鋼(Fe),鋅(Zn)'
+          schema:
+            $ref: '#/components/schemas/MyMetal'
+        - name: year
+          in: query
+          description: 西元年:例如2019
+          schema:
+            type: integer
+            format: int32
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CorrosionReport_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CorrosionReport_Data'
+  /Current:
+    get:
+      tags:
+        - 海氣象觀測
+      summary: 3日內的海流觀測資料(1小時1筆)
+      description: 提供本中心於國際與國內商港之海流觀測資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),馬祖南竿(NG)'
+          schema:
+            $ref: '#/components/schemas/MyPortOBS'
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Current_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Current_Data'
+  /Tide:
+    get:
+      tags:
+        - 海氣象觀測
+      summary: 3日內的潮位觀測資料(6分鐘1筆)
+      description: 提供本中心於國際與國內商港之潮位觀測資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),馬祖南竿(NG)'
+          schema:
+            $ref: '#/components/schemas/MyPortOBS'
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tide_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tide_Data'
+  /Wave:
+    get:
+      tags:
+        - 海氣象觀測
+      summary: 3日內的波浪觀測資料(1小時1筆)
+      description: 提供本中心於國際與國內商港之波浪觀測資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),馬祖南竿(NG)'
+          schema:
+            $ref: '#/components/schemas/MyPortOBS'
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wave_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wave_Data'
+  /Wind:
+    get:
+      tags:
+        - 海氣象觀測
+      summary: 3日內的風力觀測資料(10分鐘1筆)
+      description: 提供本中心於國際與國內商港之風力觀測資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),馬祖南竿(NG)'
+          schema:
+            $ref: '#/components/schemas/MyPortOBS'
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wind_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wind_Data'
+  /CurrentReport:
+    get:
+      tags:
+        - 海氣象觀測-統計資料
+      summary: 歷年的海流觀測月統計資料
+      description: 提供本中心於國際與國內商港之歷年海流觀測月統計資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),澎湖港(PH)'
+          schema:
+            $ref: '#/components/schemas/MyPortReport'
+        - name: year
+          in: query
+          description: 西元年:例如2020
+          schema:
+            type: integer
+            format: int32
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrentReport_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrentReport_Data'
+  /WaveReport:
+    get:
+      tags:
+        - 海氣象觀測-統計資料
+      summary: 歷年的波浪觀測月統計資料
+      description: 提供本中心於國際與國內商港之歷年波浪觀測月統計資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),澎湖港(PH)'
+          schema:
+            $ref: '#/components/schemas/MyPortReport'
+        - name: year
+          in: query
+          description: 西元年:例如2020
+          schema:
+            type: integer
+            format: int32
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WaveReport_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WaveReport_Data'
+  /WindReport:
+    get:
+      tags:
+        - 海氣象觀測-統計資料
+      summary: 歷年風力觀測月統計資料
+      description: 提供本中心於國際與國內商港之歷年風力觀測月統計資料
+      parameters:
+        - name: port
+          in: query
+          description: '港口：基隆港(KL),臺北港(TP),臺中港(TC),布袋港(BD),安平港(AP),高雄港(KH),花蓮港(HL),蘇澳港(SA),澎湖港(PH)'
+          schema:
+            $ref: '#/components/schemas/MyPortReport'
+        - name: year
+          in: query
+          description: 西元年:例如2020
+          schema:
+            type: integer
+            format: int32
+        - name: format
+          in: query
+          description: 格式：JSON或XML
+          schema:
+            $ref: '#/components/schemas/MyFormat'
+      responses:
+        '200':
+          description: 完成
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WindReport_Data'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WindReport_Data'
+components:
+  schemas:
+    CorrosionReport_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        metal:
+          type: string
+          nullable: true
+        description_year:
+          type: string
+          nullable: true
+        description_Year:
+          type: string
+          nullable: true
+        description_Station:
+          type: string
+          nullable: true
+        description_Value:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorrosionReport_Item'
+          nullable: true
+      additionalProperties: false
+    CorrosionReport_Item:
+      type: object
+      properties:
+        station:
+          type: string
+          nullable: true
+        year:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Current_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        declare:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        station_Coordinate:
+          type: string
+          nullable: true
+        station_Info:
+          type: string
+          nullable: true
+        description_DateTime:
+          type: string
+          nullable: true
+        description_Velocity_cms:
+          type: string
+          nullable: true
+        description_Velocity_Direction_degree:
+          type: string
+          nullable: true
+        description_Velocity_Direction:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Current_Item'
+          nullable: true
+      additionalProperties: false
+    Current_Item:
+      type: object
+      properties:
+        dateTime:
+          type: integer
+          format: int64
+        velocity_cms:
+          type: number
+          format: float
+        velocity_Direction_degree:
+          type: number
+          format: float
+        velocity_Direction:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CurrentReport_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        description_year:
+          type: string
+          nullable: true
+        description_Year:
+          type: string
+          nullable: true
+        description_month:
+          type: string
+          nullable: true
+        description_Data_Count:
+          type: string
+          nullable: true
+        description_Velocity_Avg:
+          type: string
+          nullable: true
+        description_Velocity_Max_To_Dir:
+          type: string
+          nullable: true
+        description_Kt_LE_0p5:
+          type: string
+          nullable: true
+        description_Kt_0p5_1:
+          type: string
+          nullable: true
+        description_Kt_1_2:
+          type: string
+          nullable: true
+        description_Kt_GT_2:
+          type: string
+          nullable: true
+        description_N2E:
+          type: string
+          nullable: true
+        description_E2S:
+          type: string
+          nullable: true
+        description_S2W:
+          type: string
+          nullable: true
+        description_W2N:
+          type: string
+          nullable: true
+        description_Dir:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentReport_Item'
+          nullable: true
+      additionalProperties: false
+    CurrentReport_Item:
+      type: object
+      properties:
+        year:
+          type: string
+          nullable: true
+        month:
+          type: string
+          nullable: true
+        data_Count:
+          type: string
+          nullable: true
+        velocity_Avg:
+          type: number
+          format: float
+        velocity_Max_To_Dir:
+          type: string
+          nullable: true
+        kt_LE_0p5:
+          type: number
+          format: float
+        kt_0p5_1:
+          type: number
+          format: float
+        kt_1_2:
+          type: number
+          format: float
+        kt_GT_2:
+          type: number
+          format: float
+        n2E:
+          type: number
+          format: float
+        e2S:
+          type: number
+          format: float
+        s2W:
+          type: number
+          format: float
+        w2N:
+          type: number
+          format: float
+        dir:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MyFormat:
+      enum:
+        - JSON
+        - XML
+      type: string
+    MyMetal:
+      enum:
+        - Al
+        - Cu
+        - Fe
+        - Zn
+      type: string
+    MyPortOBS:
+      enum:
+        - KL
+        - TP
+        - TC
+        - BD
+        - AP
+        - KH
+        - HL
+        - SA
+        - NG
+      type: string
+    MyPortReport:
+      enum:
+        - KL
+        - TP
+        - TC
+        - BD
+        - AP
+        - KH
+        - HL
+        - SA
+        - PH
+      type: string
+    Tide_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        declare:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        station_Coordinate:
+          type: string
+          nullable: true
+        station_Info:
+          type: string
+          nullable: true
+        description_DateTime:
+          type: string
+          nullable: true
+        description_Tide_TWVD_m:
+          type: string
+          nullable: true
+        description_Tide_CDL_m:
+          type: string
+          nullable: true
+        description_Tide_REF_m:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tide_Item'
+          nullable: true
+      additionalProperties: false
+    Tide_Item:
+      type: object
+      properties:
+        dateTime:
+          type: integer
+          format: int64
+        tide_TWVD_m:
+          type: number
+          format: float
+        tide_CDL_m:
+          type: number
+          format: float
+        tide_REF_m:
+          type: number
+          format: float
+      additionalProperties: false
+    Wave_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        declare:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        station_Coordinate:
+          type: string
+          nullable: true
+        station_Info:
+          type: string
+          nullable: true
+        description_DateTime:
+          type: string
+          nullable: true
+        description_Hs_m:
+          type: string
+          nullable: true
+        description_Tp_sec:
+          type: string
+          nullable: true
+        description_Wave_Direction_degree:
+          type: string
+          nullable: true
+        description_Wave_Direction:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wave_Item'
+          nullable: true
+      additionalProperties: false
+    Wave_Item:
+      type: object
+      properties:
+        dateTime:
+          type: integer
+          format: int64
+        hs_m:
+          type: number
+          format: float
+        tp_sec:
+          type: number
+          format: float
+        wave_Direction_degree:
+          type: number
+          format: float
+        wave_Direction:
+          type: string
+          nullable: true
+      additionalProperties: false
+    WaveReport_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        description_year:
+          type: string
+          nullable: true
+        description_Year:
+          type: string
+          nullable: true
+        description_month:
+          type: string
+          nullable: true
+        description_Data_Count:
+          type: string
+          nullable: true
+        description_Hs_Avg:
+          type: string
+          nullable: true
+        description_Tp_Avg:
+          type: string
+          nullable: true
+        description_Hs_Max_To_Dir_Tp:
+          type: string
+          nullable: true
+        description_Tp_Max_To_Hs_Dir:
+          type: string
+          nullable: true
+        description_Hs_LE_0p5:
+          type: string
+          nullable: true
+        description_Hs_0p5_1p5:
+          type: string
+          nullable: true
+        description_Hs_1p5_3:
+          type: string
+          nullable: true
+        description_Hs_GT_3:
+          type: string
+          nullable: true
+        description_Tp_LE_6:
+          type: string
+          nullable: true
+        description_Tp_6_8:
+          type: string
+          nullable: true
+        description_Tp_8_10:
+          type: string
+          nullable: true
+        description_Tp_GT_10:
+          type: string
+          nullable: true
+        description_N2E:
+          type: string
+          nullable: true
+        description_E2S:
+          type: string
+          nullable: true
+        description_S2W:
+          type: string
+          nullable: true
+        description_W2N:
+          type: string
+          nullable: true
+        description_Dir:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/WaveReport_Item'
+          nullable: true
+      additionalProperties: false
+    WaveReport_Item:
+      type: object
+      properties:
+        year:
+          type: string
+          nullable: true
+        month:
+          type: string
+          nullable: true
+        data_Count:
+          type: string
+          nullable: true
+        hs_Avg:
+          type: number
+          format: float
+        tp_Avg:
+          type: number
+          format: float
+        hs_Max_To_Dir_Tp:
+          type: string
+          nullable: true
+        tp_Max_To_Hs_Dir:
+          type: string
+          nullable: true
+        hs_LE_0p5:
+          type: number
+          format: float
+        hs_0p5_1p5:
+          type: number
+          format: float
+        hs_1p5_3:
+          type: number
+          format: float
+        hs_GT_3:
+          type: number
+          format: float
+        tp_LE_6:
+          type: number
+          format: float
+        tp_6_8:
+          type: number
+          format: float
+        tp_8_10:
+          type: number
+          format: float
+        tp_GT_10:
+          type: number
+          format: float
+        n2E:
+          type: number
+          format: float
+        e2S:
+          type: number
+          format: float
+        s2W:
+          type: number
+          format: float
+        w2N:
+          type: number
+          format: float
+        dir:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Wind_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        declare:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        station_Coordinate:
+          type: string
+          nullable: true
+        station_Info:
+          type: string
+          nullable: true
+        description_DateTime:
+          type: string
+          nullable: true
+        description_Wind_Speed_ms:
+          type: string
+          nullable: true
+        description_Wind_Direction_degree:
+          type: string
+          nullable: true
+        description_Wind_Direction:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wind_Item'
+          nullable: true
+      additionalProperties: false
+    Wind_Item:
+      type: object
+      properties:
+        dateTime:
+          type: integer
+          format: int64
+        wind_Speed_ms:
+          type: number
+          format: float
+        wind_Direction_degree:
+          type: number
+          format: float
+        wind_Direction:
+          type: string
+          nullable: true
+      additionalProperties: false
+    WindReport_Data:
+      type: object
+      properties:
+        publisher:
+          type: string
+          nullable: true
+        port:
+          type: string
+          nullable: true
+        description_year:
+          type: string
+          nullable: true
+        description_Year:
+          type: string
+          nullable: true
+        description_month:
+          type: string
+          nullable: true
+        description_Data_Count:
+          type: string
+          nullable: true
+        description_WS10min_Avg:
+          type: string
+          nullable: true
+        description_WS10min_Avg_To_Max_Dir:
+          type: string
+          nullable: true
+        description_WS_LE_3p3:
+          type: string
+          nullable: true
+        description_WS_3p3_7p9:
+          type: string
+          nullable: true
+        description_WS_7p9_13p8:
+          type: string
+          nullable: true
+        description_WS_GT_13p8:
+          type: string
+          nullable: true
+        description_N2E:
+          type: string
+          nullable: true
+        description_E2S:
+          type: string
+          nullable: true
+        description_S2W:
+          type: string
+          nullable: true
+        description_W2N:
+          type: string
+          nullable: true
+        description_Dir:
+          type: string
+          nullable: true
+        datas:
+          type: array
+          items:
+            $ref: '#/components/schemas/WindReport_Item'
+          nullable: true
+      additionalProperties: false
+    WindReport_Item:
+      type: object
+      properties:
+        year:
+          type: string
+          nullable: true
+        month:
+          type: string
+          nullable: true
+        data_Count:
+          type: string
+          nullable: true
+        wS10min_Avg:
+          type: number
+          format: float
+        wS10min_Avg_To_Max_Dir:
+          type: string
+          nullable: true
+        wS_LE_3p3:
+          type: number
+          format: float
+        wS_3p3_7p9:
+          type: number
+          format: float
+        wS_7p9_13p8:
+          type: number
+          format: float
+        wS_GT_13p8:
+          type: number
+          format: float
+        n2E:
+          type: number
+          format: float
+        e2S:
+          type: number
+          format: float
+        s2W:
+          type: number
+          format: float
+        w2N:
+          type: number
+          format: float
+        dir:
+          type: string
+          nullable: true
+      additionalProperties: false

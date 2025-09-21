@@ -1,0 +1,636 @@
+openapi: 3.0.0
+info:
+  title: SCHEMA 資料標準 API
+  version: "1.0.0"
+  description: >
+    本平臺涵蓋政府資料標準之共通性、戶政、財稅、商工、公路監理、勞保、健保、長照、金融、政府主計、貨幣與金融領域資料服務API，歡迎各界取用。
+servers:
+  - url: "https://schema.gov.tw/"
+paths:
+  '/api/{field}/{subject}/{category}/{schema_name}':
+    get:
+      summary: 資料標準查詢API
+      description: >
+        根據 path 中的 field、subject、category 與 schema_name 參數來決定回傳的資料內容。
+      parameters:
+        - name: field
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 領域參數，例如「Commonality」。
+        - name: subject
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 主題參數，例如「Object」。
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 類別參數，例如「ObjectAttributes」。
+        - name: schema_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 資料標準名稱參數，例如「Length」。
+      responses:
+        '200':
+          description: 請求成功，回傳資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+  '/api/v1/schemauri.check':
+    post:
+      summary: 透過URI或UID驗證資料標準
+      description: >
+        進行驗證：
+        - `text` 必填
+        - `text` 為資料標準驗證所要驗證的值
+        - 若資料標準不符合，則回傳錯誤訊息
+        - 驗證後可能遇到其他錯誤情況並回應對應訊息
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+              properties:
+                text:
+                  type: string
+                  description: 輸入一個有效的值進行驗證
+                  example: 'A123456789'
+                uid:
+                  type: string
+                  description: 選填，唯一識別碼 (UID)
+                  example: ''
+                uri:
+                  type: string
+                  description: 選填，資料標準 URI
+                  example: 'api/Commonality/Commonality/CommonData/Id'
+      responses:
+        '200':
+          description: 驗證成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateSchemaUriResponse'
+              examples:
+                successCase:
+                  summary: 驗證成功
+                  value:
+                    success: true
+                    code: 200
+                    s_message: "驗證成功"
+                    payload:
+                      result_message: "這是驗證成功後的訊息"
+        '400':
+          description: 格式錯誤或驗證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateSchemaUriResponse'
+              examples:
+                errorCase:
+                  summary: 格式錯誤範例
+                  value:
+                    success: false
+                    code: 400
+                    s_message: "格式錯誤，請提供正確的 URI 或 UID"
+                    payload:
+                      result_message: "提供的格式不符合要求"              
+  '/api/v1/category.search':
+    get:
+      summary: 查詢類別
+      description: >
+        以關鍵字搜尋類別，並依據頁數、每頁筆數及排序條件回傳類別列表（前臺列表格式）。
+      parameters:
+        - name: search_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 以關鍵字搜尋
+        - name: page_num
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: 預設第1頁
+        - name: page_limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: 預設每頁10筆
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - created_desc
+              - created_asc
+              - uid_desc
+              - uid_asc
+              - quantity_desc
+              - quantity_asc
+          description: >
+            排序條件：
+            - 異動日期新至舊 (created_desc)
+            - 異動日期舊至新 (created_asc)
+            - UID新至舊 (uid_desc)
+            - UID舊至新 (uid_asc)
+            - 引用次數多到少 (quantity_desc)
+            - 引用次數少到多 (quantity_asc)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: 查詢成功，回傳類別資料列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorySearchResponse'
+  '/api/v1/zip/validate':
+    post:
+      summary: 驗證 ZIP 格式檔案
+      description: >
+        上傳一個 ZIP 檔案連結 (url) 進行驗證：
+        - 檢查是否為合法的 ZIP 格式
+        - 解壓縮後是否含有 manifest.csv 與 schema-file.csv
+        - 需驗證的檔案必須放在壓縮檔第一層，而非再度壓縮於資料夾
+        - 檔案與 manifest.csv 中列出的數量是否一致
+        - 檢查各檔案的資料欄位與 URI 符合度
+
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: User-Agent
+          in: header
+          description: 強制指定 User-Agent，避免伺服器拒絕
+          required: false
+          schema:
+            type: string
+            default: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 壓縮檔網址
+      responses:
+        '200':
+          description: 驗證結果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateZipResponse'
+              examples:
+                successCase:
+                  summary: 驗證成功
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "驗證成功"
+                notZipCase:
+                  summary: 壓縮檔非 ZIP 格式
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "請使用zip格式建立壓縮檔 (file type:rar)"
+                noKmlCase:
+                  summary: 壓縮檔第一層無資料或無法檢測檔案
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "沒有可檢測的kml檔，請確認壓縮檔中是否有檔案，並且其中沒有資料夾。(檢測檔案須在第一層)"
+                detailedCase:
+                  summary: 更詳細的驗證資訊 (含欄位驗證失敗範例)
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      search_count: 1
+                      search_result:
+                        desc:
+                          - name: "年度"
+                            uri: "api/BudgetAccountingandStatistics/BudgetandAccounting/GeneralFundBudgetandAccounting/Year"
+                          - name: "秘書處數量"
+                            uri: "api/BudgetAccountingandStatistics/BudgetandAccounting/GeneralFundBudgetandAccounting/Quantity"
+                          # ...此處可列出更多欄位...
+                        schema_state: 1
+                        test_state: 1
+                        message: "第2列 [欄位:年度] 驗證失敗 <br>其值為: 110年 <br>正規表示式為: /^[0-9]{3}$/"
+  '/api/v1/shp/validate':
+    post:
+      summary: 驗證 SHP 格式檔案
+      description: >
+        上傳一個 SHP 檔案連結 (`url`) 進行驗證：
+        - 確認是否為合法的 ZIP 檔
+        - 解壓縮檔案後檢查是否包含 SHP 文件
+        - 若有 SHP 檔案，則轉換為 GeoJSON 並檢查座標格式
+        - 若為 `LineString`，則使用二維座標陣列驗證
+        - 若為 `Polygon`，則使用三維座標陣列驗證
+        - 確認所有座標值符合非負浮點數正則表示式
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          description: SHP檔網址
+      responses:
+        '200':
+          description: 驗證結果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateShpResponse'
+              examples:
+                successCase:
+                  summary: 驗證成功
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "驗證成功"
+                notShpCase:
+                  summary: 檔案非 SHP 格式
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "請使用ZIP格式建立壓縮檔 (file type:)"
+                noShpCase:
+                  summary: 壓縮檔內無 SHP 檔
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "沒有可檢測的shp檔，請確認壓縮檔中是否有檔案，並且其中沒有資料夾。(檢測檔案須在第一層)"
+                rarFormat:
+                  summary: 檔案格式錯誤 (RAR)
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "請使用ZIP格式建立壓縮檔 (file type:rar)"
+  '/api/v1/kml/validate':
+    post:
+      summary: 驗證 KML 格式檔案
+      description: >
+        上傳一個 KML 檔案連結 (`url`) 進行驗證：
+        - 確認是否為合法的 KML 檔案
+        - 解析 KML 檔案，並透過 XPath 查找所有 `coordinates` 標籤
+        - 逐一檢視各個座標點是否符合浮點數格式
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          description: KML檔網址
+      responses:
+        '200':
+          description: 驗證結果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateKmlResponse'
+              examples:
+                successCase:
+                  summary: 驗證成功
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "驗證成功"
+                noKmlCase:
+                  summary: 壓縮檔內無 KML 檔
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "沒有可檢測的kml檔，請確認壓縮檔中是否有檔案，並且其中沒有資料夾。(檢測檔案須在第一層)"
+  '/api/v1/kmz/validate':
+    post:
+      summary: 驗證 KMZ 格式檔案
+      description: >
+        上傳一個 KMZ 檔案連結 (`url`) 進行驗證：
+        - 確認是否為合法的 KMZ 檔案
+        - 解壓縮 KMZ 檔案，並檢查是否包含 KML 文件
+        - 解析 KML 檔案，透過 XPath 查找所有 `coordinates` 標籤
+        - 逐一檢視各個座標點是否符合浮點數格式
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          description: KMZ檔網址
+      responses:
+        '200':
+          description: 驗證結果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateKmzResponse'
+              examples:
+                successCase:
+                  summary: 驗證成功
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "驗證成功"
+                notZipCase:
+                  summary: 檔案格式錯誤
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "請使用zip格式建立壓縮檔 (file type:)"
+                noKmlCase:
+                  summary: KMZ 壓縮檔內無 KML 檔
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "沒有可檢測的kml檔，請確認壓縮檔中是否有檔案，並且其中沒有資料夾。(檢測檔案須在第一層)"
+                rarFormat:
+                  summary: KMZ 格式錯誤 (RAR)
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      message: "請使用kmz格式建立壓縮檔 (file type:rar)"
+  '/api/v1/schemauri/match.view':
+    get:
+      summary: 查詢資料標準的可檢核欄位名稱
+      description: >
+        透過 `uid` 或 `uri` 其中一個參數，查詢該資料標準的可檢核欄位名稱。
+        查詢的結果來自 `schema_uri` 資料表，返回該標準的匹配欄位名稱。
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: uid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: UID，與 URI 擇一必填
+        - name: uri
+          in: query
+          required: false
+          schema:
+            type: string
+          description: URI，與 UID 擇一必填
+      responses:
+        '200':
+          description: 查詢成功，回傳符合的欄位資訊
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaUriMatchResponse'
+              examples:
+                successCase:
+                  summary: 查詢成功範例
+                  value:
+                    success: true
+                    code: 200
+                    s_message: ""
+                    payload:
+                      uid: "18080002"
+                      uri: "api/Commonality/Commonality/CommonData/Id"
+                      field: "共通性"
+                      subject: "共通性"
+                      category: "共通資料"
+                      name: "國民身分證統一編號"
+                      match: "身分證字號、身分證統一編號、國民身分證、身分證"
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Data:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: "Hello, dynamic API!"
+    CategorySearchResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: 類別項目列表
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 類別識別碼
+              name:
+                type: string
+                description: 類別名稱
+              description:
+                type: string
+                description: 類別描述
+      example:
+        data:
+          - id: "1"
+            name: "範例類別"
+            description: "這是一個範例類別的描述。"
+        message:
+          type: string
+    ValidateSchemaUriResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: 呼叫是否成功
+        code:
+          type: integer
+          description: 狀態碼，成功通常是200，失敗是400或404
+        s_message:
+          type: string
+          description: 簡短訊息，用來提示成功或錯誤原因
+        payload:
+          type: object
+          description: 回傳的資料內容
+          properties:
+            result_message:
+              type: string
+              description: 詳細訊息內容 
+      example:
+        success: true
+        code: 200
+        s_message: "驗證成功"
+        payload:
+          result_message: "這是驗證成功後的訊息"             
+    ValidateZipResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: integer
+        s_message:
+          type: string
+        payload:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 主要顯示驗證結果
+            search_count:
+              type: integer
+              description: 範例中可能出現的搜尋筆數
+            search_result:
+              type: object
+              description: 範例中可能出現的詳細驗證資訊
+    ValidateShpResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: integer
+        s_message:
+          type: string
+        payload:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 主要顯示驗證結果
+      example:
+        success: true
+        code: 200
+        s_message: ""
+        payload:
+          message: "驗證成功"
+    ValidateKmlResponse:
+        type: object
+        properties:
+          success:
+            type: boolean
+          code:
+            type: integer
+          s_message:
+            type: string
+          payload:
+            type: object
+            properties:
+              message:
+                type: string
+                description: 主要顯示驗證結果
+        example:
+          success: true
+          code: 200
+          s_message: ""
+          payload:
+            message: "驗證成功"
+    ValidateKmzResponse:
+        type: object
+        properties:
+          success:
+            type: boolean
+          code:
+            type: integer
+          s_message:
+            type: string
+          payload:
+            type: object
+            properties:
+              message:
+                type: string
+                description: 主要顯示驗證結果
+        example:
+          success: true
+          code: 200
+          s_message: ""
+          payload:
+            message: "驗證成功"
+    SchemaUriMatchResponse:
+        type: object
+        properties:
+          success:
+            type: boolean
+            description: API 請求是否成功
+          code:
+            type: integer
+            description: 狀態碼
+          s_message:
+            type: string
+            description: 系統訊息
+          payload:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: 資料標準的 UID
+              uri:
+                type: string
+                description: 資料標準的 URI
+              field:
+                type: string
+                description: 資料標準的欄位名稱
+              subject:
+                type: string
+                description: 資料標準的主題
+              category:
+                type: string
+                description: 資料標準的類別
+              name:
+                type: string
+                description: 該標準對應的名稱
+              match:
+                type: string
+                description: 可能的欄位名稱匹配
+        example:
+          success: true
+          code: 200
+          s_message: ""
+          payload:
+            uid: "18080002"
+            uri: "api/Commonality/Commonality/CommonData/Id"
+            field: "共通性"
+            subject: "共通性"
+            category: "共通資料"
+            name: "國民身分證統一編號"
+            match: "身分證字號、身分證統一編號、國民身分證、身分證"

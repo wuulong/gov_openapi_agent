@@ -1,0 +1,3092 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "電子發票開放資料Open API服務",
+    "description": "一、本平台提供涵蓋電子發票資料開放資料服務API，歡迎各產政學單位介接使用。 <br/>二、平台API呼叫預設回傳最多100筆資料回傳，使用limit(回傳筆數)參數最多傳入10,000筆，搭配offset參數從第幾筆開始回傳，可與limit使用達到分頁目的。",
+    "termsOfService": "",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://dataset.einvoice.nat.gov.tw/ods/portal/",
+      "description": ""
+    }
+  ],
+  "security": [
+    {
+      "oauth_auth": ["write:users", "read:users"]
+    }
+  ],
+
+  "tags": [
+    {
+      "name": "消費通路發票統計",
+      "description": ""
+    },
+    {
+      "name": "消費力統計",
+      "description": ""
+    },
+    {
+      "name": "愛心溫度計",
+      "description": ""
+    },
+    {
+      "name": "中獎落點統計",
+      "description": ""
+    },
+    {
+      "name": "發票中獎、兌領獎分析",
+      "description": ""
+    },
+    {
+      "name": "觀光景點消費熱度分析",
+      "description": ""
+    },
+    {
+      "name": "所得房價消費分析",
+      "description": ""
+    },
+    {
+      "name": "B2C電子發票年度開立及捐贈累計張數",
+      "description": ""
+    },
+    {
+      "name": "電子發票開立數量",
+      "description": ""
+    },
+    {
+      "name": "雲端發票開立數量",
+      "description": ""
+    },
+    {
+      "name": "雲端發票捐贈數量",
+      "description": ""
+    },
+    {
+      "name": "捐贈碼捐贈數量",
+      "description": ""
+    },
+    {
+      "name": "受捐贈機關或團體捐贈碼清單",
+      "description": ""
+    },
+    {
+      "name": "導入電子發票營業人清單",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/api/v1/ConsumpInvoiceStatic": {
+      "get": {
+        "tags": ["消費通路發票統計"],
+        "operationId": "ConsumpInvoiceStatic",
+        "summary": "[24826] 消費通路發票統計-資料集",
+        "parameters": [
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "縣市搜尋名稱",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsumpInvoiceStatic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConsumpCarrierByYear": {
+      "get": {
+        "tags": ["消費力統計"],
+        "operationId": "ConsumpCarrierByYear",
+        "summary": "[24827] 各分位年度載具數量-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsumpCarrierByYear"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConsumpCarrierByBusiCd": {
+      "get": {
+        "tags": ["消費力統計"],
+        "operationId": "ConsumpCarrierByBusiCd",
+        "summary": "[24830] 各分位行業載具數-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsumpCarrierByBusiCd"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConsumpCarrierByInvoice": {
+      "get": {
+        "tags": ["消費力統計"],
+        "operationId": "ConsumpCarrierByInvoice",
+        "summary": "[24831] 各分位載具消費張數金額-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "縣市搜尋名稱",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "carrierTypeNm",
+            "in": "query",
+            "description": "載具別",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["共通性載具", "會員卡載具", "非會員卡載具"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsumpCarrierByInvoice"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ConsumpCarrierByCity": {
+      "get": {
+        "tags": ["消費力統計"],
+        "operationId": "ConsumpCarrierByCity",
+        "summary": "[24832] 各分位縣市載具數-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "發票年度",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnCd",
+            "in": "query",
+            "description": "縣市代號",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "M",
+                "N",
+                "O",
+                "P",
+                "Q",
+                "T",
+                "U",
+                "V",
+                "W",
+                "X",
+                "Z"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsumpCarrierByCity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateScaleByBusiDonateCnt": {
+      "get": {
+        "tags": ["愛心溫度計"],
+        "operationId": "DonateScaleByBusiDonateCnt",
+        "summary": "[24833] 行業別電子發票捐贈統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "年",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataYm",
+            "in": "query",
+            "description": "年月",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateScaleByBusiDonateCnt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateScaleByBusiCd": {
+      "get": {
+        "tags": ["愛心溫度計"],
+        "operationId": "DonateScaleByBusiCd",
+        "summary": "[24834] 行業別電子發票開立統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateScaleByBusiCd"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateScaleByDonateDecile": {
+      "get": {
+        "tags": ["愛心溫度計"],
+        "operationId": "DonateScaleByDonateDecile",
+        "summary": "[24835] 受捐贈機關或團體十分位獲捐贈占比-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "縣市搜尋名稱",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateScaleByDonateDecile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateScaleByCityDonateCnt": {
+      "get": {
+        "tags": ["愛心溫度計"],
+        "operationId": "DonateScaleByCityDonateCnt",
+        "summary": "[24836] 縣市電子發票捐贈統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "縣市搜尋名稱",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateScaleByCityDonateCnt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateScaleByCityCnt": {
+      "get": {
+        "tags": ["愛心溫度計"],
+        "operationId": "DonateScaleByCityCnt",
+        "summary": "[24837] 縣市電子發票開立張數統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateScaleByCityCnt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/PrizeStaticByB2cCity": {
+      "get": {
+        "tags": ["中獎落點統計"],
+        "operationId": "PrizeStaticByB2cCity",
+        "summary": "[24838] B2C電子發票統計-依鄉鎮市區-資料集",
+        "parameters": [
+          {
+            "name": "dataMonth",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isPrint",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Y", "N"]
+            }
+          },
+          {
+            "name": "hsnCd",
+            "in": "query",
+            "description": "縣市代號",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "M",
+                "N",
+                "O",
+                "P",
+                "Q",
+                "T",
+                "U",
+                "V",
+                "W",
+                "X",
+                "Z"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrizeStaticByB2cCity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/PrizeStaticByBusiCd": {
+      "get": {
+        "tags": ["中獎落點統計"],
+        "operationId": "PrizeStaticByBusiCd",
+        "summary": "[24839] 中獎電子發票統計-依行業別-資料集",
+        "parameters": [
+          {
+            "name": "awardDateNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prizeNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "六獎",
+                "五獎",
+                "四獎",
+                "三獎",
+                "二獎",
+                "頭獎",
+                "特獎",
+                "千萬特獎",
+                "雲端發票五百元獎",
+                "雲端發票八百元獎",
+                "雲端發票兩千元獎",
+                "雲端發票百萬元獎"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrizeStaticByBusiCd"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/PrizeStaticByCity": {
+      "get": {
+        "tags": ["中獎落點統計"],
+        "operationId": "PrizeStaticByCity",
+        "summary": "[24840] 中獎電子發票統計-依鄉鎮市區-資料集",
+        "parameters": [
+          {
+            "name": "yearNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prizeNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "六獎",
+                "五獎",
+                "四獎",
+                "三獎",
+                "二獎",
+                "頭獎",
+                "特獎",
+                "千萬特獎",
+                "雲端發票五百元獎",
+                "雲端發票八百元獎",
+                "雲端發票兩千元獎",
+                "雲端發票百萬元獎"
+              ]
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "縣市搜尋名稱",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrizeStaticByCity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/PrizeAnalyzeByCarrier": {
+      "get": {
+        "tags": ["發票中獎、兌領獎分析"],
+        "operationId": "PrizeAnalyzeByCarrier",
+        "summary": "[28601] 電子發票中領獎-資料集",
+        "parameters": [
+          {
+            "name": "awardNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "A.特別獎-1000萬元",
+                "B.特獎-200萬元",
+                "C.頭獎-20萬元",
+                "D.二獎-4萬元",
+                "E.三獎-1萬元",
+                "F.雲端發票專屬獎-800元",
+                "F.四獎-4000元",
+                "G.五獎-1000元",
+                "H.六獎-200元",
+                "I.雲端發票專屬獎-100萬元",
+                "J.雲端發票專屬獎-2000元",
+                "K.雲端發票專屬獎-500元",
+                "L.雲端發票專屬獎-800元"
+              ]
+            }
+          },
+          {
+            "name": "awardDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrizeAnalyzeByCarrier"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/PrizeAnalyzeByReceipt": {
+      "get": {
+        "tags": ["發票中獎、兌領獎分析"],
+        "operationId": "PrizeAnalyzeByReceipt",
+        "summary": "[28602] 傳統紙本發票中領獎-資料集",
+        "parameters": [
+          {
+            "name": "awardNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "A.特別獎-1000萬元",
+                "B.特獎-200萬元",
+                "C.頭獎-20萬元",
+                "D.二獎-4萬元",
+                "E.三獎-1萬元",
+                "F.四獎-4000元",
+                "G.五獎-1000元",
+                "H.六獎-200元"
+              ]
+            }
+          },
+          {
+            "name": "awardDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrizeAnalyzeByReceipt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristSpotByCarrierIndicator": {
+      "get": {
+        "tags": ["觀光景點消費熱度分析"],
+        "operationId": "TouristSpotByCarrierIndicator",
+        "summary": "[36843] 電子發票消費熱度指標-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["零售業", "住宿業", "餐飲業"]
+            }
+          },
+          {
+            "name": "hitchartSource",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["營業稅", "電子發票"]
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "1.default排序 \n 2.以發票張數指標排序 \n 3.以銷售金額指標排序",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["1", "2", "3"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristSpotByCarrierIndicator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristSpotByYear": {
+      "get": {
+        "tags": ["觀光景點消費熱度分析"],
+        "operationId": "TouristSpotByYear",
+        "summary": "[36844] 電子發票消費熱度排名年統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["零售業", "住宿業", "餐飲業"]
+            }
+          },
+          {
+            "name": "hitchartSource",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["營業稅", "電子發票"]
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "1.村里間排名資料 2.村里間發票張數排名 3.村里間銷售額排名",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["1", "2", "3"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristSpotByYear"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/TouristSpotByDeviceCity": {
+      "get": {
+        "tags": ["觀光景點消費熱度分析"],
+        "operationId": "TouristSpotByDeviceCity",
+        "summary": "[36845] 電子發票載具客源地區統計-資料集",
+        "parameters": [
+          {
+            "name": "dataYear",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hsnNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "基隆市",
+                "臺北市",
+                "新北市",
+                "桃園市",
+                "新竹市",
+                "新竹縣",
+                "苗栗縣",
+                "臺中市",
+                "彰化縣",
+                "南投縣",
+                "雲林縣",
+                "嘉義市",
+                "嘉義縣",
+                "臺南市",
+                "高雄市",
+                "屏東縣",
+                "宜蘭縣",
+                "花蓮縣",
+                "臺東縣",
+                "澎湖縣",
+                "金門縣",
+                "連江縣"
+              ]
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["零售業", "住宿業", "餐飲業"]
+            }
+          },
+          {
+            "name": "deviceTownNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TouristSpotByDeviceCity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IncomeHousePrice": {
+      "get": {
+        "tags": ["所得房價消費分析"],
+        "operationId": "IncomeHousePrice",
+        "summary": "[36846] 全國電子發票B2C開立-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "住宿業",
+                "便利商店",
+                "百貨公司",
+                "綜合商品零售業",
+                "超級市場",
+                "零售式量販店",
+                "食品、飲料及菸草製品零售業",
+                "餐飲業"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IncomeHousePrice"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IncomeHousePriceByCity": {
+      "get": {
+        "tags": ["所得房價消費分析"],
+        "operationId": "IncomeHousePriceByCity",
+        "summary": "[36858] 縣市電子發票B2C開立-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "住宿業",
+                "便利商店",
+                "百貨公司",
+                "綜合商品零售業",
+                "超級市場",
+                "零售式量販店",
+                "食品、飲料及菸草製品零售業",
+                "餐飲業"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IncomeHousePriceByCity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/IncomeHousePriceByTown": {
+      "get": {
+        "tags": ["所得房價消費分析"],
+        "operationId": "IncomeHousePriceByTown",
+        "summary": "[36862] 鄉鎮市區電子發票B2C開立-資料集",
+        "parameters": [
+          {
+            "name": "invoiceYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "busiNm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "住宿業",
+                "便利商店",
+                "百貨公司",
+                "綜合商品零售業",
+                "超級市場",
+                "零售式量販店",
+                "食品、飲料及菸草製品零售業",
+                "餐飲業"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IncomeHousePriceByTown"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/B2CInvoiceStatic": {
+      "get": {
+        "tags": ["B2C電子發票年度開立及捐贈累計張數"],
+        "operationId": "B2CInvoiceStatic",
+        "summary": "B2C電子發票年度開立及捐贈累計張數-資料集",
+        "parameters": [
+          {
+            "name": "dataYm",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/B2CInvoiceStatic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvoiceStatic": {
+      "get": {
+        "tags": ["電子發票開立數量"],
+        "operationId": "InvoiceStatic",
+        "summary": "[9590] 電子發票開立數量",
+        "parameters": [
+          {
+            "name": "statDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceStatic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvoiceIndicator": {
+      "get": {
+        "tags": ["雲端發票開立數量"],
+        "operationId": "InvoiceIndicator",
+        "summary": "[9591] 雲端發票開立數量",
+        "parameters": [
+          {
+            "name": "statDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceIndicator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvocieDonateCnt": {
+      "get": {
+        "tags": ["雲端發票捐贈數量"],
+        "operationId": "InvocieDonateCnt",
+        "summary": "[9592] 雲端發票捐贈數量",
+        "parameters": [
+          {
+            "name": "statDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvocieDonateCnt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvoiceDonateByDonateCode": {
+      "get": {
+        "tags": ["捐贈碼捐贈數量"],
+        "operationId": "InvoiceDonateByDonateCode",
+        "summary": "[9593] 捐贈碼捐贈數量",
+        "parameters": [
+          {
+            "name": "statDate",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceDonateByDonateCode"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/DonateCodeList": {
+      "get": {
+        "tags": ["受捐贈機關或團體捐贈碼清單"],
+        "operationId": "DonateCodeList",
+        "summary": "[31868] 受捐贈機關或團體捐贈碼清單",
+        "parameters": [
+          {
+            "name": "donateBan",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DonateCodeList"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/InvoiceBusinessList": {
+      "get": {
+        "tags": ["導入電子發票營業人清單"],
+        "operationId": "InvoiceBusinessList",
+        "summary": "[31869] 導入電子發票營業人清單",
+        "parameters": [
+          {
+            "name": "busiBan",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "busiType",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["B2B", "B2C"]
+            }
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "回傳筆數",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Array",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceBusinessList"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "ConsumpInvoiceStatic": {
+        "description": "消費通路發票統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "invoiceYm": {
+            "type": "string",
+            "description": "發票年月 Ex:202201"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市 Ex:高雄市"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代號 Ex:E"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業別 Ex:零售業"
+          },
+          "carrierTypeNm": {
+            "type": "string",
+            "description": "載具類別 Ex:使用載具"
+          },
+          "invoiceCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票張數 Ex:100"
+          },
+          "invoiceCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票金額 Ex:100"
+          }
+        }
+      },
+      "ConsumpCarrierByYear": {
+        "description": "消費力統計-各分位年度載具數量-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "decilesRanking": {
+            "type": "string",
+            "description": "分位名次"
+          },
+          "invoiceYear": {
+            "type": "string",
+            "description": "發票年度"
+          },
+          "carrierCnt": {
+            "type": "string",
+            "description": "載具數 Ex:"
+          }
+        }
+      },
+      "ConsumpCarrierByBusiCd": {
+        "description": "消費力統計-各分位行業載具數-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "decilesRanking": {
+            "type": "string",
+            "description": "分位名次"
+          },
+          "invoiceYear": {
+            "type": "string",
+            "description": "發票年度"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "行業別代號"
+          },
+          "carrierCnt": {
+            "type": "string",
+            "description": "載具數"
+          }
+        }
+      },
+      "ConsumpCarrierByInvoice": {
+        "description": "消費力統計-各分位載具消費張數金額-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "decilesRanking": {
+            "type": "string",
+            "description": "分位名次"
+          },
+          "invoiceYear": {
+            "type": "string",
+            "description": "發票年度"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代號"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市別"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業別"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "行業別代號"
+          },
+          "carrierTypeNm": {
+            "type": "string",
+            "description": "載具別"
+          },
+          "avgCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "單筆消費金額平均"
+          },
+          "invoiceCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "消費金額"
+          },
+          "invoiceCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票張數"
+          }
+        }
+      },
+      "ConsumpCarrierByCity": {
+        "description": "消費力統計-各分位縣市載具數-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "decilesRanking": {
+            "type": "string",
+            "description": "分位名次 Ex:"
+          },
+          "dataYear": {
+            "type": "string",
+            "description": "發票年度 Ex:202201"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代號 Ex:E"
+          },
+          "carrierCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "載具數"
+          }
+        }
+      },
+      "DonateScaleByBusiDonateCnt": {
+        "description": "愛心溫度計-行業別電子發票捐贈統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年"
+          },
+          "dataYm": {
+            "type": "string",
+            "description": "年月"
+          },
+          "busi2cd": {
+            "type": "string",
+            "description": "行業別2碼編碼"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業別"
+          },
+          "invoiceDonateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "捐贈發票張數"
+          }
+        }
+      },
+      "DonateScaleByBusiCd": {
+        "description": "愛心溫度計-行業別電子發票開立統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYm": {
+            "type": "string",
+            "description": "年月"
+          },
+          "busi2cd": {
+            "type": "string",
+            "description": "行業別2碼編碼"
+          },
+          "busi2nm": {
+            "type": "string",
+            "description": "行業別2碼"
+          },
+          "invoiceCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "發票張數"
+          }
+        }
+      },
+      "DonateScaleByDonateDecile": {
+        "description": "愛心溫度計-受捐贈機關或團體十分位獲捐贈占比-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市編碼"
+          },
+          "decile": {
+            "type": "string",
+            "description": "十分位"
+          },
+          "donateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "獲捐贈發票張數"
+          }
+        }
+      },
+      "DonateScaleByCityDonateCnt": {
+        "description": "愛心溫度計-縣市電子發票捐贈統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年"
+          },
+          "dataYm": {
+            "type": "string",
+            "description": "年月"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市編碼"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          },
+          "isCarrier": {
+            "type": "string",
+            "description": "是否使用載具編碼"
+          },
+          "carrierTypeNm": {
+            "type": "integer",
+            "format": "int32",
+            "description": "載具類別"
+          },
+          "donateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "捐贈發票張數"
+          }
+        }
+      },
+      "DonateScaleByCityCnt": {
+        "description": "愛心溫度計-縣市電子發票開立張數統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYm": {
+            "type": "string",
+            "description": "年月"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代號 Ex:E"
+          },
+          "invoiceCnt": {
+            "type": "string",
+            "description": "發票張數"
+          }
+        }
+      },
+      "PrizeStaticByB2cCity": {
+        "description": "中獎落點統計-B2C電子發票統計_依鄉鎮市區-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataMonth": {
+            "type": "string",
+            "description": "雙數月"
+          },
+          "dataYear": {
+            "type": "string",
+            "description": "年"
+          },
+          "isPrint": {
+            "type": "string",
+            "description": "是否列印紙本"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市編碼"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區編碼"
+          },
+          "invoiceCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票開立張數"
+          }
+        }
+      },
+      "PrizeStaticByBusiCd": {
+        "description": "中獎落點統計-中獎電子發票統計_依行業別-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "awardDate": {
+            "type": "string",
+            "description": "開獎期別編碼"
+          },
+          "awardDateNm": {
+            "type": "string",
+            "description": "開講期別年月"
+          },
+          "yearNm": {
+            "type": "string",
+            "description": "年"
+          },
+          "prizeNm": {
+            "type": "string",
+            "description": "中獎獎項"
+          },
+          "prize": {
+            "type": "string",
+            "description": "中獎獎項編碼"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "行業別2碼編碼"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業別2碼"
+          },
+          "invoiceAwardTotalCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "中獎總獎金"
+          },
+          "invoiceAwardTotalAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "中獎電子發票張數"
+          },
+          "awardAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "獎項金額"
+          }
+        }
+      },
+      "PrizeStaticByCity": {
+        "description": "中獎落點統計-中獎電子發票統計_依鄉鎮市區-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "awardDate": {
+            "type": "string",
+            "description": "開獎期別編碼"
+          },
+          "yearNm": {
+            "type": "string",
+            "description": "年"
+          },
+          "awardDateNm": {
+            "type": "string",
+            "description": "開獎期別年月"
+          },
+          "prizeNm": {
+            "type": "string",
+            "description": "獎項編碼"
+          },
+          "prize": {
+            "type": "string",
+            "description": "獎項編碼"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市編碼"
+          },
+          "townNm": {
+            "type": "string",
+            "description": "鄉鎮市區"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區編碼"
+          },
+          "awardAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "獎別金額"
+          },
+          "invoiceAwardTotalCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票中獎張數"
+          },
+          "invoiceAwardTotalAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票中獎總金額"
+          }
+        }
+      },
+      "PrizeAnalyzeByCarrier": {
+        "description": "發票中獎、兌領獎分析-電子發票中領獎-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "awardNm": {
+            "type": "string",
+            "description": "領獎金額"
+          },
+          "awardDate": {
+            "type": "string",
+            "description": "領獎金額"
+          },
+          "receivedCnt": {
+            "type": "string",
+            "description": "領獎金額"
+          },
+          "receivedAmt": {
+            "type": "string",
+            "description": "領獎金額"
+          }
+        }
+      },
+      "PrizeAnalyzeByReceipt": {
+        "description": "發票中獎、兌領獎分析-傳統紙本發票中領獎-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "awardNm": {
+            "type": "string",
+            "description": "發票歸屬期別"
+          },
+          "awardDate": {
+            "type": "string",
+            "description": "發票歸屬期別"
+          },
+          "receivedCnt": {
+            "type": "string",
+            "description": "領獎張數"
+          },
+          "receivedAmt": {
+            "type": "string",
+            "description": "領獎金額"
+          }
+        }
+      },
+      "TouristSpotByCarrierIndicator": {
+        "description": "觀光景點消費熱度分析-電子發票消費熱度指標-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年度"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代碼"
+          },
+          "townNm": {
+            "type": "string",
+            "description": "鄉鎮市區"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區代碼"
+          },
+          "villNm": {
+            "type": "string",
+            "description": "村里"
+          },
+          "villCd": {
+            "type": "string",
+            "description": "村里代碼"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "主行業別"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "主行業別代碼"
+          },
+          "hitchartSource": {
+            "type": "string",
+            "description": "消費熱度計算來源"
+          },
+          "numberIndicator": {
+            "type": "integer",
+            "format": "int32",
+            "description": "張數指標"
+          },
+          "saleIndicator": {
+            "type": "integer",
+            "format": "int32",
+            "description": "銷售額指標"
+          }
+        }
+      },
+      "TouristSpotByYear": {
+        "description": "觀光景點消費熱度分析-電子發票消費熱度排名年統計-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年度"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代碼"
+          },
+          "townNm": {
+            "type": "string",
+            "description": "鄉鎮市區"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區代碼"
+          },
+          "villNm": {
+            "type": "string",
+            "description": "村里"
+          },
+          "villCd": {
+            "type": "string",
+            "description": "村里代碼"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "主行業別"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "主行業別代碼"
+          },
+          "hitchartSource": {
+            "type": "string",
+            "description": "消費熱度計算來源"
+          },
+          "humberIndicator": {
+            "type": "integer",
+            "format": "int32",
+            "description": "發票張數排名值"
+          },
+          "saleIndicator": {
+            "type": "integer",
+            "format": "int32",
+            "description": "銷售金額排名值"
+          }
+        }
+      },
+      "TouristSpotByDeviceCity": {
+        "description": "觀光景點消費熱度分析-電子發票載具客源地區統計參數說明",
+        "type": "object",
+        "properties": {
+          "dataYear": {
+            "type": "string",
+            "description": "年度"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "年度"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代碼"
+          },
+          "townNm": {
+            "type": "string",
+            "description": "鄉鎮市區"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區代碼"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "主行業別"
+          },
+          "busiCd": {
+            "type": "string",
+            "description": "主行業別代碼"
+          },
+          "deviceForeign": {
+            "type": "string",
+            "description": "外來生活圈"
+          },
+          "deviceDegree": {
+            "type": "string",
+            "description": "客源區域維度"
+          },
+          "deviceHsnNm": {
+            "type": "string",
+            "description": "客源縣市"
+          },
+          "deviceHsnCd": {
+            "type": "string",
+            "description": "客源縣市代碼"
+          },
+          "deviceTownNm": {
+            "type": "string",
+            "description": "客源鄉鎮市區"
+          },
+          "deviceTownCd": {
+            "type": "string",
+            "description": "客源鄉鎮市區代碼"
+          },
+          "invoiceCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "消費金額"
+          },
+          "carrierCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "載具人次"
+          }
+        }
+      },
+      "IncomeHousePrice": {
+        "description": "所得房價消費分析-全國電子發票B2C開立-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "invoiceYm": {
+            "type": "string",
+            "description": "發票年月"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業名稱"
+          },
+          "avgCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立張數"
+          },
+          "avgCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立金額"
+          },
+          "avgPerAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均客單價"
+          }
+        }
+      },
+      "IncomeHousePriceByCity": {
+        "description": "所得房價消費分析-縣市電子發票B2C開立資料集參數說明",
+        "type": "object",
+        "properties": {
+          "invoiceYm": {
+            "type": "string",
+            "description": "發票年月"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代碼"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市名稱"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業名稱"
+          },
+          "avgCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立張數"
+          },
+          "avgCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立金額"
+          },
+          "avgPerAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均客單價"
+          }
+        }
+      },
+      "IncomeHousePriceByTown": {
+        "description": "所得房價消費分析-鄉鎮市區電子發票B2C開立-資料集參數說明",
+        "type": "object",
+        "properties": {
+          "invoiceYm": {
+            "type": "string",
+            "description": "發票年月 Ex:202201"
+          },
+          "hsnCd": {
+            "type": "string",
+            "description": "縣市代碼"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市名稱"
+          },
+          "townNm": {
+            "type": "string",
+            "description": "鄉鎮市區代碼"
+          },
+          "townCd": {
+            "type": "string",
+            "description": "鄉鎮市區名稱"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "行業名稱"
+          },
+          "avgCreateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立張數"
+          },
+          "avgCreateAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均開立金額"
+          },
+          "avgPerAmt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "平均客單價"
+          }
+        }
+      },
+      "B2CInvoiceStatic": {
+        "description": "B2C電子發票年度開立及捐贈累計張數-資料集數說明",
+        "type": "object",
+        "properties": {
+          "dataYm": {
+            "type": "string",
+            "description": "年度"
+          },
+          "b2cAwardCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "B2C電子發票開立張數"
+          },
+          "b2cDonateCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "B2C電子發票捐贈張數"
+          }
+        }
+      },
+      "InvoiceStatic": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "statDate": {
+            "type": "string",
+            "description": "發票統計時間(年(西元)/月/日) Ex:2022/01/01"
+          },
+          "invCnt": {
+            "type": "string",
+            "format": "int32",
+            "description": "每日電子發票開立數量"
+          }
+        }
+      },
+      "InvoiceIndicator": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "statDate": {
+            "type": "string",
+            "description": "發票統計時間(年(西元)/月/日) Ex:2022/01/01"
+          },
+          "cloudInvCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "雲端發票使用數量"
+          }
+        }
+      },
+      "InvocieDonateCnt": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "statDate": {
+            "type": "string",
+            "title": "String",
+            "description": "發票統計時間(年(西元)/月/日) Ex:2022/01/01"
+          },
+          "donateInvCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "電子發票每日捐贈數量"
+          }
+        }
+      },
+      "InvoiceDonateByDonateCode": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "statDate": {
+            "type": "string",
+            "description": "發票統計時間(年(西元)/月/日) Ex:2022/01/01"
+          },
+          "npobanInvCnt": {
+            "type": "integer",
+            "format": "int32",
+            "description": "以捐贈碼每日索取電子發票之捐贈數量"
+          }
+        }
+      },
+      "DonateCodeList": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "format": "int32",
+            "description": "序號"
+          },
+          "donateNm": {
+            "type": "string",
+            "description": "受捐贈機關或團體名稱"
+          },
+          "donateCode": {
+            "type": "string",
+            "description": "捐贈碼捐贈數量"
+          },
+          "donateShortNm": {
+            "type": "string",
+            "description": "受捐贈機關或團體簡稱"
+          },
+          "donateBan": {
+            "type": "string",
+            "description": "受捐贈機關或團體統編"
+          },
+          "hsnNm": {
+            "type": "string",
+            "description": "縣市"
+          }
+        }
+      },
+      "InvoiceBusinessList": {
+        "description": "參數說明",
+        "type": "object",
+        "properties": {
+          "busiBan": {
+            "type": "string",
+            "description": "營業人統編"
+          },
+          "busiNm": {
+            "type": "string",
+            "description": "營業人名稱"
+          },
+          "busiType": {
+            "type": "string",
+            "description": "屬性"
+          },
+          "address": {
+            "type": "string",
+            "description": "地址"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1321 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "contact": {
+      "email": "edusports.service@gmail.com"
+    },
+    "description": "本平臺提供體適能指導員、體適能檢測員、山域嚮導等體育相關證照資料及運動統計服務API，歡迎各產政學單位介接使用。使用時有任何建議或需求，歡迎回饋寶貴意見。</br><a href= https://isports.sa.gov.tw/Index.aspx >本平台服務網址</a>",
+    "title": "i運動資訊平台 open data",
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://isports.sa.gov.tw/Api/Rest/V1/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Activity.svc",
+      "description": "體育活動查詢"
+    },
+    {
+      "name": "FitnessInstructorLicense.svc",
+      "description": "體適能指導員證照查詢"
+    },
+    {
+      "name": "LifeguardLicense.svc",
+      "description": "救生員證照查詢"
+    },
+    {
+      "name": "AlpinismGuideLicense.svc",
+      "description": "山域嚮導證照查詢"
+    },
+    {
+      "name": "PowerlessFlightLincense.svc",
+      "description": "無動力飛行運動專業人員證照查詢"
+    },
+    {
+      "name": "FitnessInstructorSituation.svc",
+      "description": "體適能指導員證照現況調查"
+    },
+    {
+      "name": "SportsSituation.svc",
+      "description": "運動現況調查"
+    },
+    {
+      "name": "SportEvtRecData.svc",
+      "description": "賽事決賽成績分項名次"
+    }
+  ],
+  "paths": {
+    "/Activity.svc/GetActivityList": {
+      "get": {
+        "tags": [
+          "Activity.svc"
+        ],
+        "summary": "取得體育活動清單",
+        "description": "取得平台刊登之體育活動清單",
+        "operationId": "activityList",
+        "parameters": [
+          {
+            "name": "county",
+            "in": "query",
+            "required": false,
+            "description": "縣市:\n  * `A` - 臺北市\n  * `B` - 臺中市\n  * `C` - 基隆市\n  * `D` - 臺南市\n  * `E` - 高雄市\n  * `F` - 新北市\n  * `G` - 宜蘭縣\n  * `H` - 桃園市\n  * `I` - 嘉義市\n  * `J` - 新竹縣\n  * `K` - 苗栗縣\n  * `M` - 南投縣\n  * `N` - 彰化縣\n  * `O` - 新竹市\n  * `P` - 雲林縣\n  * `Q` - 嘉義縣\n  * `T` - 屏東縣\n  * `U` - 花蓮縣\n  * `V` - 臺東縣\n  * `W` - 金門縣\n  * `X` - 澎湖縣\n  * `Z` - 連江縣\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "M",
+                "N",
+                "O",
+                "P",
+                "Q",
+                "T",
+                "U",
+                "V",
+                "W",
+                "X",
+                "Z"
+              ]
+            }
+          },
+          {
+            "name": "activityKind",
+            "in": "query",
+            "required": false,
+            "description": "活動類型:\n  * `1` - 體育賽事\n  * `2` - 系列活動\n  * `3` - 運動課程\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          },
+          {
+            "name": "activityDateBegin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "活動日期查詢起日(民國年)，預設當月起日 EX:1080101\n"
+          },
+          {
+            "name": "activityDateEnd",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "活動日期查詢訖日(民國年)，預設當月訖日 EX:1080131\n"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityList"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityList"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Activity.svc/GetActivityDetails": {
+      "get": {
+        "tags": [
+          "Activity.svc"
+        ],
+        "summary": "取得體育活動資訊",
+        "description": "取得平台刊登之體育活動資訊",
+        "operationId": "activityDetail",
+        "parameters": [
+          {
+            "name": "activityNo",
+            "in": "query",
+            "required": false,
+            "description": "活動編號\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityDetail"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityDetail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/FitnessInstructorLicense.svc/GetLicense": {
+      "get": {
+        "tags": [
+          "FitnessInstructorLicense.svc"
+        ],
+        "summary": "取得體適能指導員清單",
+        "description": "取得現行合格有效的體適能指導員名單",
+        "operationId": "fitnessInstructor",
+        "parameters": [
+          {
+            "name": "licenseLevel",
+            "in": "query",
+            "required": false,
+            "description": "證照級別:\n  * `B` - 中級\n  * `C` - 初級\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "B",
+                "C"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FitnessInstructorLicense"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FitnessInstructorLicense"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/LifeguardLicense.svc/GetLicense": {
+      "get": {
+        "tags": [
+          "LifeguardLicense.svc"
+        ],
+        "summary": "取得救生員清單",
+        "description": "取得現行合格有效的救生員名單",
+        "operationId": "lifeguard",
+        "parameters": [
+          {
+            "name": "licenseType",
+            "in": "query",
+            "required": false,
+            "description": "證照類別:\n  * `LG` - 救生員\n  * `OW` - 開放性水域救生員\n  * `SP` - 游泳池救生員",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "LG",
+                "OW",
+                "SP"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LifeguardLicense"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LifeguardLicense"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PowerlessFlightLincense.svc/GetLicense": {
+      "get": {
+        "tags": [
+          "PowerlessFlightLincense.svc"
+        ],
+        "summary": "取得無動力飛行運動專業人員",
+        "description": "取得現行合格有效的無動力飛行運動專業人員名單",
+        "operationId": "powerlessFlightLifeguard",
+        "parameters": [
+          {
+            "name": "licenseType",
+            "in": "query",
+            "required": false,
+            "description": "證照類別:\n  * `AI` - 助理指導員\n  * `IN` - 指導員\n  * `TP` - 載飛員",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AI",
+                "IN",
+                "TP"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PowerlessFlightLincense"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PowerlessFlightLincense"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AlpinismGuideLicense.svc/GetLicense": {
+      "get": {
+        "tags": [
+          "AlpinismGuideLicense.svc"
+        ],
+        "summary": "取得山域嚮導清單",
+        "description": "取得現行合格有效的山域嚮導名單",
+        "operationId": "alpinismGuide",
+        "parameters": [
+          {
+            "name": "alpinismGuideType",
+            "in": "query",
+            "required": true,
+            "description": "嚮導類別:\n  * `TG` - 登山嚮導\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TG"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlpinismGuideLicense"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlpinismGuideLicense"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/FitnessInstructorSituation.svc/GetLicenseSituation": {
+      "get": {
+        "tags": [
+          "FitnessInstructorSituation.svc"
+        ],
+        "summary": "取得體適能指導員考證現況",
+        "description": "取得體適能指導員考證現況",
+        "operationId": "fitnessInstructorSituation",
+        "parameters": [
+          {
+            "name": "licenseYear",
+            "in": "query",
+            "required": false,
+            "description": "證照年度(民國年)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "licenseLevel",
+            "in": "query",
+            "required": false,
+            "description": "證照級別:\n  * `B` - 中級\n  * `C` - 初級\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "B",
+                "C"
+              ]
+            }
+          },
+          {
+            "name": "groupType",
+            "in": "query",
+            "required": false,
+            "description": "群組類別:\n  * `age` - 年齡\n  * `city` - 縣市\n  * `sex` - 性別\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "age",
+                "city",
+                "sex"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FitnessInstructorSituation"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FitnessInstructorSituation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SportsSituation.svc/GetSportsSituation": {
+      "get": {
+        "tags": [
+          "SportsSituation.svc"
+        ],
+        "summary": "取得運動統計現況",
+        "description": "取得運動統計現況",
+        "operationId": "sportsSituation",
+        "parameters": [
+          {
+            "name": "analyzeYear",
+            "in": "query",
+            "required": false,
+            "description": "分析年度(民國年)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "analyzeTarget",
+            "in": "query",
+            "required": true,
+            "description": "分析標的:\n  * `01` - 有無運動比例\n  * `02` - 不同程度運動比例\n  * `03` - 規律運動比例\n  * `04` - 運動目的比例\n  * `05` - 每週運動次數\n  * `06` - 運動時間\n  * `07` - 運動強度\n  * `08` - 縣市政府、學校、社區舉辦運動活動頻率\n  * `09` - 接收縣市政府宣傳運動訊息頻率\n  * `10` - 運動訊息來源\n  * `11` - 公眾運動場所設施滿意度\n  * `12` - 住家附近運動場所充足度\n  * `13` - 民眾喜好運動項目\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13"
+              ]
+            }
+          },
+          {
+            "name": "statisticsItem",
+            "in": "query",
+            "required": false,
+            "description": "統計項目:\n  * `age` - 年齡\n  * `city` - 縣市\n  * `sex` - 性別\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "age",
+                "city",
+                "sex"
+              ]
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "排序欄位:\n  * `statisticsItem` - 統計項目(例:有運動、沒有運動)\n  * `analyzeItem` - 分析項目 (例:男、女)\n",
+            "schema": {
+              "type": "string",
+              "default": "statisticsItem",
+              "enum": [
+                "statisticsItem",
+                "analyzeItem"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SportsSituation"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SportsSituation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SportEvtRecData.svc/GetSportEvtRecData": {
+      "get": {
+        "tags": [
+          "SportEvtRecData.svc"
+        ],
+        "summary": "取得三大賽事決賽結果",
+        "description": "取得三大賽事決賽結果",
+        "operationId": "sportEvtRecData",
+        "parameters": [
+          {
+            "name": "evtYear",
+            "in": "query",
+            "required": true,
+            "description": "賽事年度(民國年)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "evtTpCd",
+            "in": "query",
+            "required": true,
+            "description": "賽事類別:\n  * `1` - 全民運動會\n  * `2` - 身心障礙國民運動會\n  * `3` - 全國原住民族運動會\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "required": false,
+            "description": "是否需要分頁",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "分頁筆數",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "description": "分頁頁碼",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SportEvtRecData"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SportEvtRecData"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "ActivityList": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "activityNo": {
+                  "type": "string",
+                  "description": "活動編號"
+                },
+                "activityKind": {
+                  "type": "string",
+                  "description": "活動類型"
+                },
+                "activityType": {
+                  "type": "string",
+                  "description": "活動類別"
+                },
+                "activityName": {
+                  "type": "string",
+                  "description": "活動名稱"
+                },
+                "activityCounty": {
+                  "type": "string",
+                  "description": "活動縣市"
+                },
+                "activityContents": {
+                  "type": "string",
+                  "description": "活動內容"
+                },
+                "activityDateBegin": {
+                  "type": "string",
+                  "description": "活動日期起日"
+                },
+                "activityDateEnd": {
+                  "type": "string",
+                  "description": "活動日期訖日"
+                },
+                "activityOrganizer": {
+                  "type": "string",
+                  "description": "活動主辦單位"
+                },
+                "activityContactName": {
+                  "type": "string",
+                  "description": "活動聯絡人姓名"
+                },
+                "activityContactMobileNo": {
+                  "type": "string",
+                  "description": "活動聯絡人手機號碼"
+                },
+                "activityContactTelNo": {
+                  "type": "string",
+                  "description": "活動聯絡人聯絡市話"
+                },
+                "activityParticipants": {
+                  "type": "string",
+                  "description": "活動參與對象"
+                },
+                "activityWebsite": {
+                  "type": "string",
+                  "description": "活動官網"
+                },
+                "activityCloseMark": {
+                  "description": "活動停辦註記:\n  * `Y` - 停辦\n  * `N` - 如期舉行\ntype: string\nenum:\n  - Y\n  - N\n"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ActivityDetail": {
+        "type": "object",
+        "properties": {
+          "activityNo": {
+            "type": "string",
+            "description": "活動編號"
+          },
+          "activityKind": {
+            "type": "string",
+            "description": "活動類型"
+          },
+          "activityType": {
+            "type": "string",
+            "description": "活動類別"
+          },
+          "activityName": {
+            "type": "string",
+            "description": "活動名稱"
+          },
+          "activityCounty": {
+            "type": "string",
+            "description": "活動縣市"
+          },
+          "activityContents": {
+            "type": "string",
+            "description": "活動內容"
+          },
+          "activityParticipants": {
+            "type": "string",
+            "description": "活動參與對像"
+          },
+          "activityWebsite": {
+            "type": "string",
+            "description": "活動官網"
+          },
+          "activityCloseMark": {
+            "type": "string",
+            "description": "活動停辦註記:\n  * `Y` - 停辦\n  * `N` - 如期舉行\ntype: string\nenum:\n  - Y\n  - N\n"
+          },
+          "activityDate": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "activityDateDescription": {
+                  "type": "string",
+                  "description": "活動日期說明"
+                },
+                "activityTimeDescription": {
+                  "type": "string",
+                  "description": "活動時間說明"
+                },
+                "activityAddress": {
+                  "type": "string",
+                  "description": "活動地址"
+                },
+                "activityLocationLng": {
+                  "type": "string",
+                  "description": "活動地點座標經度"
+                },
+                "activityLocationLat": {
+                  "type": "string",
+                  "description": "活動地點座標緯度"
+                }
+              }
+            }
+          },
+          "activityContact": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "activityOrganizer": {
+                  "type": "string",
+                  "description": "活動主辦人"
+                },
+                "activityContactName": {
+                  "type": "string",
+                  "description": "活動聯絡人姓名"
+                },
+                "activityContactMobileNo": {
+                  "type": "string",
+                  "description": "活動聯絡人手機號碼"
+                },
+                "activityContactTelNo": {
+                  "type": "string",
+                  "description": "活動聯絡人聯絡市話"
+                }
+              }
+            }
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          }
+        }
+      },
+      "FitnessInstructorLicense": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "licenseNo": {
+                  "type": "string",
+                  "description": "證照編號"
+                },
+                "licenseLevel": {
+                  "type": "string",
+                  "description": "證照級別"
+                },
+                "licenseValidityPeriod": {
+                  "type": "string",
+                  "description": "證照有效期限(民國年月日)"
+                },
+                "licenseHolderName": {
+                  "type": "string",
+                  "description": "證照持有人姓名"
+                }
+              }
+            }
+          }
+        }
+      },
+      "LifeguardLicense": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "licenseNo": {
+                  "type": "string",
+                  "description": "證照編號"
+                },
+                "licenseType": {
+                  "type": "string",
+                  "description": "證照類別"
+                },
+                "licenseValidityPeriod": {
+                  "type": "string",
+                  "description": "證照有效期限(民國年月日)"
+                },
+                "licenseHolderName": {
+                  "type": "string",
+                  "description": "證照持有人姓名"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PowerlessFlightLincense": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "licenseNo": {
+                  "type": "string",
+                  "description": "證照編號"
+                },
+                "licenseType": {
+                  "type": "string",
+                  "description": "證照類別"
+                },
+                "licenseValidityPeriod": {
+                  "type": "string",
+                  "description": "證照有效期限(民國年月日)"
+                },
+                "licenseHolderName": {
+                  "type": "string",
+                  "description": "證照持有人姓名"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AlpinismGuideLicense": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "licenseNo": {
+                  "type": "string",
+                  "description": "證照編號"
+                },
+                "licenseValidityPeriod": {
+                  "type": "string",
+                  "description": "證照有效期限(民國年月日)"
+                },
+                "licenseHolderName": {
+                  "type": "string",
+                  "description": "證照持有人姓名"
+                }
+              }
+            }
+          }
+        }
+      },
+      "FitnessInstructorSituation": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "全部資料筆數",
+            "format": "int64"
+          },
+          "totalLicenseAmount": {
+            "type": "integer",
+            "description": "全部發證筆數",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "year": {
+                  "type": "string",
+                  "description": "證照年度(民國年)"
+                },
+                "licenseLevel": {
+                  "type": "string",
+                  "description": "證照級別"
+                },
+                "groupType": {
+                  "type": "string",
+                  "description": "群組類別"
+                },
+                "licenseValidityPeriodAmount": {
+                  "type": "integer",
+                  "description": "證照至今有效數量"
+                },
+                "licenseExamAmount": {
+                  "type": "integer",
+                  "description": "證照考證人數"
+                },
+                "licenseAmount": {
+                  "type": "integer",
+                  "description": "證照考證合格人數"
+                }
+              }
+            }
+          }
+        }
+      },
+      "SportsSituation": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "全部資料筆數",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "analyzeYear": {
+                  "type": "string",
+                  "description": "分析年度(民國年)"
+                },
+                "measureUnit": {
+                  "type": "string",
+                  "description": "統計值單位"
+                },
+                "analyzeTarget": {
+                  "type": "string",
+                  "description": "分析標的"
+                },
+                "analyzeItem": {
+                  "type": "string",
+                  "description": "分析項目"
+                },
+                "statisticsItemSubject": {
+                  "type": "integer",
+                  "description": "統計項目主題"
+                },
+                "statisticsItem": {
+                  "type": "integer",
+                  "description": "統計項目"
+                },
+                "statisticsItemSamples": {
+                  "type": "integer",
+                  "description": "統計項目樣本數"
+                },
+                "statisticsItemValue": {
+                  "type": "number",
+                  "description": "統計值"
+                }
+              }
+            }
+          }
+        }
+      },
+      "SportEvtRecData": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "$ref": "#/components/schemas/errorCode"
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "全部資料筆數",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "evtNm": {
+                  "type": "string",
+                  "description": "賽事名稱)"
+                },
+                "evtKindTpNm": {
+                  "type": "string",
+                  "description": "賽事類別"
+                },
+                "evtCompGroupTpNm": {
+                  "type": "string",
+                  "description": "賽事種類"
+                },
+                "evtNo1HsnNm": {
+                  "type": "string",
+                  "description": "第一名縣市"
+                },
+                "evtNo2HsnNm": {
+                  "type": "string",
+                  "description": "第二名縣市"
+                },
+                "evtNo3HsnNm": {
+                  "type": "string",
+                  "description": "第三名縣市"
+                },
+                "evtNo1MenNm": {
+                  "type": "string",
+                  "description": "第一名選手"
+                },
+                "evtNo2MenNm": {
+                  "type": "string",
+                  "description": "第二名選手"
+                },
+                "evtNo3MenNm": {
+                  "type": "string",
+                  "description": "第三名選手"
+                }
+              }
+            }
+          }
+        }
+      },
+      "errorCode": {
+        "type": "string",
+        "description": "錯誤代碼:\n  * `0000` - 成功\n  * `9901` - 參數錯誤\n  * `9999` - 未知錯誤\n",
+        "enum": [
+          "0000",
+          "9901",
+          "9999"
+        ]
+      }
+    }
+  }
+}
