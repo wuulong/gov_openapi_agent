@@ -76,6 +76,33 @@ Agent 將整合以下類型的工具：
             process_tag: sports_data
         ```
 
+    *   **資料庫欄位與 YAML 設定對應關係：**
+        為了方便管理與動態生成配置，`agent_config.yaml` 中的 `api_platforms` 設定可以從資料庫（例如 `openapi_dept` 表格）中的資料轉換而來。以下是資料庫欄位與 YAML 設定的對應關係範例，以「臺灣物種出現紀錄資料API」為例：
+
+        **資料庫 (`openapi_dept`) 欄位：**
+        - `platform_name`: 臺灣物種出現紀錄資料API
+        - `platform_description`: 提供 JSON 格式的物種出現紀錄資料。
+        - `openapi_spec_url`: 待確認 (需查閱說明文件)
+        - `auth_method`: 待確認
+        - `meta_data`: {} (此欄位用於儲存額外或非直接對應的 YAML 資訊，以 JSON 格式儲存)
+
+        **對應的 YAML 設定範例：**
+        ```yaml
+        - id: taiwan_species_occurrence_api # 從 platform_name 轉換而來，或由 meta_data 提供
+          name: 臺灣物種出現紀錄資料API # 對應資料庫的 platform_name
+          description: 提供 JSON 格式的物種出現紀錄資料。 # 對應資料庫的 platform_description
+          spec_pathname: 臺灣物種出現紀錄資料API_openapi.json # 從 meta_data 或 openapi_spec_url 推斷
+          enable: false # 從 meta_data 提供，或預設為 false
+          authentication:
+            method: none # 對應資料庫的 auth_method，若為「待確認」則預設為 none
+          system_prompt: 你是一個臺灣物種出現紀錄資料API的專家。請根據使用者的自然語言查詢，利用提供的工具來獲取資料。 # 從 meta_data 提供，或根據 platform_name 生成
+          process_tag: taiwan_species_occurrence_api # 從 meta_data 提供，或根據 platform_name 生成
+        ```
+        **說明：**
+        - `id`、`spec_pathname`、`enable`、`system_prompt` 和 `process_tag` 等欄位，若資料庫中 `meta_data` 欄位有對應的 JSON 鍵值，則優先使用 `meta_data` 中的值。
+        - 若 `meta_data` 中無對應值，則會根據 `platform_name` 進行推斷（例如 `id` 和 `process_tag`），或使用預設值（例如 `enable: false`）。
+        - `authentication.method` 會直接對應 `auth_method` 欄位，若為「待確認」則預設為 `none`。
+
 *   **OpenAPI 規格文件目錄：**
     *   Agent 將監聽一個指定目錄（例如 `config/openapi_specs/`），所有政府開放資料的 OpenAPI `.yaml` 或 `.json` 文件都將放置於此。
     *   Agent 啟動時，會根據 `agent_config.yaml` 中 `enable_platform` 列表和 `api_platforms` 的配置，從此目錄中載入對應的 OpenAPI 規格文件。
