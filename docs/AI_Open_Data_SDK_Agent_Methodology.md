@@ -40,7 +40,7 @@
 
 1.  **推動狀態 (Promotion Status):**
     *   **說明：** 該開放資料平台或 API 的推動進度或狀態。
-    *   **值域：** 「發想 (Ideation)」、「找到規格 (Spec Found)」、「規格可用 (Spec Usable)」、「單位代理雛形 (Unit Agent Prototype)」、「單位試運行 (Unit Pilot Run)」、「完成 (Completed)」
+    *   **值域：** 「發想 (Ideation)」、「找到規格 (Spec Found)」、「規格可用 (Spec Usable)」、「認證可用 (Auth pass)」、「單位代理雛形 (Unit Agent Prototype)」、「單位試運行 (Unit Pilot Run)」、「完成 (Completed)」
     *   **範例：** 「發想」
 
 2.  **開放資料平台名稱 (Open Data Platform Name):**

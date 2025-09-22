@@ -26,13 +26,14 @@ pip install google-adk python-dotenv pyyaml
 ### 配置
 
 #### `agent_config.yaml`
-此檔案位於 `my_samples/gov_openapi_agent/config/agent_config.yaml`，用於定義 Agent 啟用的平台及其詳細配置。
+此檔案位於 `config/agent_config.yaml`，用於定義 Agent 啟用的平台及其詳細配置。
 
 **範例結構：**
 ```yaml
 enable_platform: # 要啟用的平台 ID 列表
   - moenv_platform
-  # - isports_platform # 範例：啟用 i運動資訊平台
+  - tdx_tranportdata # 範例：啟用交通部運輸資料流通服務平台
+  - moea_wra_water_data_platform # 範例：啟用經濟部水利署水利資料開放平台
 
 api_platforms:
   - id: moenv_platform # 此平台的唯一 ID
@@ -48,17 +49,27 @@ api_platforms:
       當使用者詢問環境相關問題時，請利用環境部提供的工具來查詢資料。
       例如：空氣品質、酸雨監測、水質監測等。
     process_tag: environment_data # 處理標籤，用於分類或內部邏輯
-  # - id: isports_platform
-  #   name: i運動資訊平台
-  #   description: 提供體育活動、體適能證照等資訊。
-  #   spec_pathname: i運動資訊平台_openapi.json
-  #   enable: false
-  #   authentication:
-  #     method: none # 假設此範例不需要 API Key
-  #   system_prompt: |
-  #     你是一個i運動資訊平台的專家。
-  #     當使用者詢問體育活動或證照相關問題時，請利用i運動資訊平台提供的工具來查詢資料。
-  #   process_tag: sports_data
+  - id: tdx_tranportdata
+    name: 交通部運輸資料流通服務平台
+    description: 提供交通部運輸資料流通服務平台 相關的開放資料，例如公共運輸、觀光、氣象等。
+    spec_pathname: 交通部運輸資料流通服務平台_openapi.json
+    enable: false
+    authentication:
+      method: oauth2_client_credentials
+      client_id_env_var: TDX_CLIENT_ID
+      client_secret_env_var: TDX_CLIENT_SECRET
+      token_url_env_var: TDX_TOKEN_URL
+    system_prompt: 你是一個交通部運輸資料流通服務平台的專家。請根據使用者的自然語言查詢，利用提供的工具來獲取資料。
+    process_tag: tdx_tranportdata
+  - id: moea_wra_water_data_platform
+    name: 經濟部水利署水利資料開放平台
+    description: 提供經濟部水利署水利資料開放平台 相關的開放資料。
+    spec_pathname: 經濟部水利署水利資料開放平台_openapi.json
+    enable: false
+    authentication:
+      method: none
+    system_prompt: 你是一個 經濟部水利署水利資料開放平台 的專家。請利用提供的工具來查詢相關資料。
+    process_tag: moea_wra_water_data_platform
 ```
 
 #### `.env` 檔案
@@ -75,18 +86,23 @@ GEMINI_API_KEY=your_gemini_api_key
 # 命名規則為 {SPEC_ID}_KEY
 環境部環境資料開放平臺_KEY=your_moenv_api_key
 I運動資訊平台_KEY=your_isports_api_key
+
+# TDX 運輸資料流通服務平台 OAuth2 Client Credentials
+TDX_CLIENT_ID=your_tdx_client_id
+TDX_CLIENT_SECRET=your_tdx_client_secret
+TDX_TOKEN_URL=https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token
 # ... 其他平台的 API Key
 ```
-**請務必將 `your_gemini_api_key` 和 `your_moenv_api_key` 等替換為您實際的 API Key。**
+**請務必將 `your_gemini_api_key`、`your_moenv_api_key`、`your_tdx_client_id`、`your_tdx_client_secret` 等替換為您實際的 API Key 或憑證。**
 
 #### `openapi_specs/` 目錄
-此目錄位於 `my_samples/gov_openapi_agent/config/openapi_specs/`，用於存放所有政府開放資料的 OpenAPI 規格文件（`.yaml` 或 `.json` 格式）。`agent_config.yaml` 中的 `spec_pathname` 應指向此目錄下的檔案。
+此目錄位於 `config/openapi_specs/`，用於存放所有政府開放資料的 OpenAPI 規格文件（`.yaml` 或 `.json` 格式）。`agent_config.yaml` 中的 `spec_pathname` 應指向此目錄下的檔案。
 
 ## 使用方式
 在完成上述配置後，您可以在專案根目錄下執行 `main.py` 來啟動 Agent：
 
 ```bash
-python my_samples/gov_openapi_agent/main.py
+python main.py
 ```
 
 Agent 啟動後將進入互動模式，您可以開始輸入查詢。
@@ -114,15 +130,17 @@ Agent 啟動後將進入互動模式，您可以開始輸入查詢。
 在專案根目錄下執行以下命令：
 
 ```bash
-python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py <要檢查的目錄路徑>
+python validate_openapi/validate_openapi.py <要檢查的目錄路徑>
 ```
 
 **範例：**
 *   驗證 `openapi_specs/` 目錄下的所有規格文件：
     ```bash
-    python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py my_samples/gov_openapi_agent/config/openapi_specs/
+    python validate_openapi/validate_openapi.py config/openapi_specs/
     ```
 *   驗證 `my_samples/gov_openapi_agent/validate_openapi/specs/` 目錄下的所有規格文件：
     ```bash
-    python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py my_samples/gov_openapi_agent/validate_openapi/specs/
+    python validate_openapi/validate_openapi.py validate_openapi/specs/
+    ```
+idate_openapi/specs/
     ```
