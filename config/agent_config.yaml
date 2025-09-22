@@ -1,11 +1,13 @@
 enable_platform:
+  - tdx_tranportdata
   - moenv_platform
+  - moea_wra_water_data_platform
 
 api_platforms:
   - id: moenv_platform
     name: 環境部環境資料開放平臺
     description: 提供環境部相關的開放資料，例如空氣品質、酸雨監測等。
-    spec_pathname: config/openapi_specs/環境部環境資料開放平臺_openapi.yaml
+    spec_pathname: 環境部環境資料開放平臺_openapi.yaml
     enable: true
     authentication:
       method: api_key
@@ -14,84 +16,116 @@ api_platforms:
       你是一個環境部開放資料的專家。
       當使用者詢問環境相關問題時，請利用環境部提供的工具來查詢資料。
       例如：空氣品質、酸雨監測、水質監測等。
-    process_tag: environment_data
-  - id: 交通部運輸研究運輸技術研究中心
-    name: 交通部運輸研究運輸技術研究中心
-    description: 提供交通部運輸研究運輸技術研究中心 相關的開放資料。
-    spec_pathname: config/openapi_specs/交通部運輸研究運輸技術研究中心_openapi.yaml
-    enable: false
+    process_tag: moenv_platform
+    demo_prompt:
+      - 請給我空氣品質預報資料。
+#      - 查詢酸雨監測值。
+  - id: tdx_tranportdata
+    name: 交通部運輸資料流通服務平台
+    description: 提供交通部運輸資料流通服務平台 相關的開放資料，例如公共運輸、觀光、氣象等。
+    spec_pathname: 交通部運輸資料流通服務平台_openapi.json
+    enable: true
     authentication:
-      method: api_key
-      key_env_var: 交通部運輸研究運輸技術研究中心_KEY
-    system_prompt: 你是一個 交通部運輸研究運輸技術研究中心 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 交通部運輸研究運輸技術研究中心
-  - id: 金管會金融統計資料v2
+      method: oauth2_client_credentials
+      client_id_env_var: TDX_CLIENT_ID
+      client_secret_env_var: TDX_CLIENT_SECRET
+      token_url_env_var: TDX_TOKEN_URL
+    system_prompt: 你是一個交通部運輸資料流通服務平台的專家。請根據使用者的自然語言查詢，利用提供的工具來獲取資料。
+    process_tag: tdx_tranportdata
+    demo_prompt:
+      - 新竹市這個位置附近 500 公尺，有什麼公車站牌： 24.802493983188135, 120.97847672693594
+#      - 查詢台北市的公車路線。
+#      - 查詢台灣高鐵的時刻表。
+  - id: fsc_financial_stats_v2
     name: 金管會金融統計資料V2
     description: 提供金管會金融統計資料V2 相關的開放資料。
-    spec_pathname: config/openapi_specs/金管會金融統計資料v2_openapi.json
+    spec_pathname: 金管會金融統計資料v2_openapi.json
     enable: false
     authentication:
       method: api_key
       key_env_var: 金管會金融統計資料V2_KEY
     system_prompt: 你是一個 金管會金融統計資料V2 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 金管會金融統計資料v2
-  - id: 客家委員會開放資料平台
+    process_tag: fsc_financial_stats_v2
+    demo_prompt:
+      - 查詢金管會金融統計資料V2。
+      - 請提供最新的金融統計數據。
+  - id: hakka_council_open_data_platform
     name: 客家委員會開放資料平台
     description: 提供客家委員會開放資料平台 相關的開放資料。
-    spec_pathname: config/openapi_specs/客家委員會開放資料平台_openapi.json
+    spec_pathname: 客家委員會開放資料平台_openapi.json
     enable: false
     authentication:
       method: api_key
       key_env_var: 客家委員會開放資料平台_KEY
     system_prompt: 你是一個 客家委員會開放資料平台 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 客家委員會開放資料平台
-  - id: 政府資料標準平臺
+    process_tag: hakka_council_open_data_platform
+    demo_prompt:
+      - 查詢客家委員會開放資料平台的資料。
+      - 客家委員會開放資料平台有哪些資料集？
+  - id: gov_data_standard_platform
     name: 政府資料標準平臺
     description: 提供政府資料標準平臺 相關的開放資料。
-    spec_pathname: config/openapi_specs/政府資料標準平臺_openapi.yaml
+    spec_pathname: 政府資料標準平臺_openapi.yaml
     enable: false
     authentication:
       method: api_key
       key_env_var: 政府資料標準平臺_KEY
     system_prompt: 你是一個 政府資料標準平臺 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 政府資料標準平臺
-  - id: 財政部財政資訊中心政府資料開放
+    process_tag: gov_data_standard_platform
+    demo_prompt:
+      - 查詢政府資料標準平臺的資料。
+      - 政府資料標準平臺的最新標準是什麼？
+  - id: mof_fic_gov_open_data
     name: 財政部財政資訊中心政府資料開放
     description: 提供財政部財政資訊中心政府資料開放 相關的開放資料。
-    spec_pathname: config/openapi_specs/財政部財政資訊中心政府資料開放_openapi.json
+    spec_pathname: 財政部財政資訊中心政府資料開放_openapi.json
     enable: false
     authentication:
       method: api_key
       key_env_var: 財政部財政資訊中心政府資料開放_KEY
     system_prompt: 你是一個 財政部財政資訊中心政府資料開放 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 財政部財政資訊中心政府資料開放
-  - id: 財政部電子發票整合服務平台
+    process_tag: mof_fic_gov_open_data
+    demo_prompt:
+      - 查詢財政部財政資訊中心政府資料開放的資料。
+      - 財政部財政資訊中心有哪些開放資料？
+  - id: mof_einvoice_platform
     name: 財政部電子發票整合服務平台
     description: 提供財政部電子發票整合服務平台 相關的開放資料。
-    spec_pathname: config/openapi_specs/財政部電子發票整合服務平台_openapi.json
+    spec_pathname: 財政部電子發票整合服務平台_openapi.json
     enable: false
     authentication:
       method: api_key
       key_env_var: 財政部電子發票整合服務平台_KEY
     system_prompt: 你是一個 財政部電子發票整合服務平台 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 財政部電子發票整合服務平台
-  - id: 經濟部水利署水利資料開放平台
+    process_tag: mof_einvoice_platform
+    demo_prompt:
+      - 查詢財政部電子發票整合服務平台的資料。
+      - 電子發票整合服務平台有哪些功能？
+  - id: moea_wra_water_data_platform
     name: 經濟部水利署水利資料開放平台
     description: 提供經濟部水利署水利資料開放平台 相關的開放資料。
-    spec_pathname: config/openapi_specs/經濟部水利署水利資料開放平台_openapi.json
-    enable: false
+    spec_pathname: 經濟部水利署水利資料開放平台_openapi.json
+    enable: true
     authentication:
-      method: api_key
-      key_env_var: 經濟部水利署水利資料開放平台_KEY
+      method: none
     system_prompt: 你是一個 經濟部水利署水利資料開放平台 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: 經濟部水利署水利資料開放平台
-  - id: i運動資訊平台
+    process_tag: moea_wra_water_data_platform
+    demo_prompt:
+#      - 查詢經濟部水利署水利資料開放平台的資料。
+#      - 水利署水利資料開放平台提供哪些水利數據？
+      - 有哪些水位站
+      - 水庫的每日營運資料
+      - 寶二水庫今日營運狀況
+  - id: isports_info_platform
     name: I運動資訊平台
     description: 提供I運動資訊平台 相關的開放資料。
-    spec_pathname: config/openapi_specs/i運動資訊平台_openapi.json
-    enable: false
+    spec_pathname: i運動資訊平台_openapi.json
+    enable: true
     authentication:
       method: api_key
       key_env_var: I運動資訊平台_KEY
     system_prompt: 你是一個 I運動資訊平台 的專家。請利用提供的工具來查詢相關資料。
-    process_tag: i運動資訊平台
+    process_tag: isports_info_platform
+    demo_prompt:
+      - 查詢i運動資訊平台的體育活動清單。
+      - i運動資訊平台有哪些運動賽事資訊？

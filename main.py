@@ -6,6 +6,7 @@ from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
 from datetime import datetime
+import yaml # Added yaml import
 
 # Import the agent from agent.py
 from agent import GovOpenApiAgent # Changed import
@@ -58,20 +59,43 @@ DEBUG_MODE = False # Set to True to run demonstration prompts, False for interac
 # --- 新增遙測日誌開關 ---
 ENABLE_TELEMETRY_LOGGING = os.getenv("ENABLE_ADK_TELEMETRY", "True").lower() == "true" # 設定為 True 啟用遙測日誌，False 關閉
 print(f"ENABLE_TELEMETRY_LOGGING 的實際值: {ENABLE_TELEMETRY_LOGGING}")
-# --- Demonstration Prompts (Traditional Chinese) ---
-DEMO_PROMPTS = [
-    "請給我空氣品質預報資料。",
-    "查詢全國細懸浮微粒手動監測資料。",
-    "幫我找一下環境部職員官等性別統計資料。",
-    "有哪些關於環境教育的活動數量？",
-    "請查詢酸雨監測值（歷史資料）。",
-    "請給我i運動資訊平台的體育活動清單。", # Added a more general prompt
-]
 
-# --- Main execution function ---
 async def main():
     # Load environment variables from .env file
     load_dotenv()
+
+    # Load agent_config.yaml
+    config_path = os.path.join(os.path.dirname(__file__), "config", "agent_config.yaml")
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            agent_config = yaml.safe_load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Error: agent_config.yaml not found at {config_path}")
+    except yaml.YAMLError as e:
+        raise ValueError(f"Error parsing agent_config.yaml: {e}")
+
+    # Dynamically generate DEMO_PROMPTS
+    DEMO_PROMPTS = []
+    enabled_platform_ids = agent_config.get("enable_platform", [])
+    api_platforms = agent_config.get("api_platforms", [])
+
+    for platform_config in api_platforms:
+        platform_id = platform_config.get("id")
+        if platform_id in enabled_platform_ids:
+            demo_prompts_for_platform = platform_config.get("demo_prompt")
+            if demo_prompts_for_platform:
+                DEMO_PROMPTS.extend(demo_prompts_for_platform)
+
+    if not DEMO_PROMPTS:
+        logger.warning("No demo prompts found for enabled platforms. Using default prompts.")
+        DEMO_PROMPTS = [
+            "請給我空氣品質預報資料。",
+            "查詢全國細懸浮微粒手動監測資料。",
+            "幫我找一下環境部職員官等性別統計資料。",
+            "有哪些關於環境教育的活動數量？",
+            "請查詢酸雨監測值（歷史資料）。",
+            "請給我i運動資訊平台的體育活動清單。",
+        ]
 
     # --- Agent and Runner Setup ---
     agent = GovOpenApiAgent() # Changed agent instantiation
@@ -110,12 +134,13 @@ async def main():
             print(f"\n--- 演示 {i+1}/{len(DEMO_PROMPTS)} ---")
             print(f"您: {prompt}")
             await process_user_input(runner, USER_ID, SESSION_ID, prompt, session_service)
+            await asyncio.sleep(1) # Add 1-second delay
         print("\n--- 除錯模式：演示完成 ---")
     else:
         print("\n--- 政府開放資料 OpenAPI 代理程式已就緒 (互動模式) ---") # Changed welcome message
         print("輸入您的查詢。輸入 'exit' 退出。")
-        print("---------------------------------------------------
-")
+        print("---------------------------------------------------"
+)
 
         while True:
             user_input = input("您: ")
@@ -163,7 +188,7 @@ async def process_user_input(runner: Runner, user_id: str, session_id: str, user
     root_logger = logging.getLogger()
     if root_logger.handlers and isinstance(root_logger.handlers[0], logging.FileHandler):
         root_logger.handlers[0].flush()
-        print("已刷新日誌緩衝區。")
+        #print("已刷新日誌緩衝區。")
 
     # Print current session state for debugging
     current_session = await session_service.get_session(

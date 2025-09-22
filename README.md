@@ -103,4 +103,26 @@ Agent 啟動後將進入互動模式，您可以開始輸入查詢。
 5.  **工具調用：** LLM 根據其指令和可用的工具，判斷是否需要調用特定的 OpenAPI 工具來回答查詢。
 6.  **結果回傳：** OpenAPI 工具執行 API 呼叫並返回結果，LLM 將結果整理成自然語言回應給使用者。
 
----
+## OpenAPI 規格驗證工具 (`validate_openapi.py`)
+此工具用於驗證 `openapi_specs/` 目錄下的 OpenAPI 規格文件是否符合規範。這有助於確保 Agent 能夠正確解析和使用這些規格。
+
+### 用途
+*   檢查 OpenAPI YAML/JSON 檔案的語法和結構是否正確。
+*   識別潛在的驗證錯誤，確保規格文件的品質。
+
+### 用法
+在專案根目錄下執行以下命令：
+
+```bash
+python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py <要檢查的目錄路徑>
+```
+
+**範例：**
+*   驗證 `openapi_specs/` 目錄下的所有規格文件：
+    ```bash
+    python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py my_samples/gov_openapi_agent/config/openapi_specs/
+    ```
+*   驗證 `my_samples/gov_openapi_agent/validate_openapi/specs/` 目錄下的所有規格文件：
+    ```bash
+    python my_samples/gov_openapi_agent/validate_openapi/validate_openapi.py my_samples/gov_openapi_agent/validate_openapi/specs/
+    ```
