@@ -1,0 +1,58 @@
+# 政府開放資料測試平台 API (Gov Open Data Platform API)
+
+## 簡介
+此專案是一個基於 FastAPI 框架開發的 API 伺服器，旨在作為 `GovOpenApiAgent` 的測試平台。它模擬了政府開放資料平台的行為，提供了一組 API 端點，用於查詢政府開放資料目錄。資料來源為本地的 SQLite 資料庫 (`gov_opendata_platform.db`)。
+
+## 主要特色
+*   **FastAPI 框架:** 使用現代、快速 (高效能) 的 Python Web 框架。
+*   **SQLite 資料庫:** 資料儲存於 `gov_opendata_platform.db`，提供持久化和查詢能力。
+*   **自動生成 OpenAPI 規格:** FastAPI 自動生成符合 OpenAPI 3.0.x 規範的 API 文件，包含互動式 Swagger UI。
+*   **模擬政府開放資料查詢:** 提供資料列表、搜尋、單一資料詳情、類別和提供機關列表等功能。
+
+## 設定
+
+### 前置條件
+*   Python 3.9+
+*   pip (Python 套件管理器)
+
+### 安裝
+1.  導航到 `gov_opendata_platform` 目錄：
+    ```bash
+    cd gov_opendata_platform
+    ```
+2.  安裝必要的 Python 套件：
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### 資料庫
+*   本專案預期在 `gov_opendata_platform/` 目錄下存在一個名為 `gov_opendata_platform.db` 的 SQLite 資料庫檔案。
+*   資料庫中應包含一個名為 `open_data_catalog` 的資料表，其 schema 應與 `docs/GovOpenDataPlatform_spec.md` 中 `OpenDataItem` 的描述一致。
+*   此資料庫應已預先載入政府開放資料目錄的相關數據。
+
+## API 端點
+
+以下是本伺服器提供的主要 API 端點：
+
+*   `GET /opendata`: 取得所有開放資料列表，支援分頁和排序。
+*   `GET /opendata/search`: 根據關鍵字、提供機關、服務分類等條件搜尋開放資料。
+*   `GET /opendata/{item_id}`: 取得指定 `item_id` 的單一開放資料詳情。
+*   `GET /opendata/categories`: 取得所有開放資料的服務分類列表。
+*   `GET /opendata/departments`: 取得所有開放資料的提供機關列表。
+
+## 運行伺服器
+
+1.  確保您已在 `gov_opendata_platform` 目錄下。
+2.  執行以下命令啟動伺服器：
+    ```bash
+    uvicorn main:app --reload --port 8000
+    ```
+    伺服器將在 `http://localhost:8000` 運行。
+
+## 訪問 API 文件
+
+伺服器運行後，您可以透過以下網址訪問 API 文件：
+
+*   **Swagger UI (互動式文件):** `http://localhost:8000/docs`
+*   **ReDoc UI:** `http://localhost:8000/redoc`
+*   **OpenAPI JSON 規格文件:** `http://localhost:8000/openapi.json`

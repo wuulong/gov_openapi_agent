@@ -1,7 +1,5 @@
 enable_platform:
-  - tdx_tranportdata
-  - moenv_platform
-  - moea_wra_water_data_platform
+  - gov_opendata_platform_api
 
 api_platforms:
   - id: moenv_platform
@@ -10,7 +8,7 @@ api_platforms:
     spec_pathname: 環境部環境資料開放平臺_openapi.yaml
     enable: true
     authentication:
-      method: api_key
+      method: api_key 
       key_env_var: 環境部環境資料開放平臺_KEY
     system_prompt: |
       你是一個環境部開放資料的專家。
@@ -42,7 +40,7 @@ api_platforms:
     spec_pathname: 金管會金融統計資料v2_openapi.json
     enable: false
     authentication:
-      method: api_key
+      method: api_key #TBD
       key_env_var: 金管會金融統計資料V2_KEY
     system_prompt: 你是一個 金管會金融統計資料V2 的專家。請利用提供的工具來查詢相關資料。
     process_tag: fsc_financial_stats_v2
@@ -55,7 +53,7 @@ api_platforms:
     spec_pathname: 客家委員會開放資料平台_openapi.json
     enable: false
     authentication:
-      method: api_key
+      method: api_key #TBD
       key_env_var: 客家委員會開放資料平台_KEY
     system_prompt: 你是一個 客家委員會開放資料平台 的專家。請利用提供的工具來查詢相關資料。
     process_tag: hakka_council_open_data_platform
@@ -68,7 +66,7 @@ api_platforms:
     spec_pathname: 政府資料標準平臺_openapi.yaml
     enable: false
     authentication:
-      method: api_key
+      method: api_key #TBD
       key_env_var: 政府資料標準平臺_KEY
     system_prompt: 你是一個 政府資料標準平臺 的專家。請利用提供的工具來查詢相關資料。
     process_tag: gov_data_standard_platform
@@ -81,7 +79,7 @@ api_platforms:
     spec_pathname: 財政部財政資訊中心政府資料開放_openapi.json
     enable: false
     authentication:
-      method: api_key
+      method: api_key #TBD
       key_env_var: 財政部財政資訊中心政府資料開放_KEY
     system_prompt: 你是一個 財政部財政資訊中心政府資料開放 的專家。請利用提供的工具來查詢相關資料。
     process_tag: mof_fic_gov_open_data
@@ -94,7 +92,7 @@ api_platforms:
     spec_pathname: 財政部電子發票整合服務平台_openapi.json
     enable: false
     authentication:
-      method: api_key
+      method: api_key #TBD
       key_env_var: 財政部電子發票整合服務平台_KEY
     system_prompt: 你是一個 財政部電子發票整合服務平台 的專家。請利用提供的工具來查詢相關資料。
     process_tag: mof_einvoice_platform
@@ -122,10 +120,24 @@ api_platforms:
     spec_pathname: i運動資訊平台_openapi.json
     enable: true
     authentication:
-      method: api_key
+      method: api_key 
       key_env_var: I運動資訊平台_KEY
     system_prompt: 你是一個 I運動資訊平台 的專家。請利用提供的工具來查詢相關資料。
     process_tag: isports_info_platform
     demo_prompt:
       - 查詢i運動資訊平台的體育活動清單。
       - i運動資訊平台有哪些運動賽事資訊？
+  - id: gov_opendata_platform_api
+    name: 政府開放資料測試平台
+    description: 提供用於測試 Agent 的政府開放資料模擬 API。
+    spec_pathname: 政府開放資料測試平台_openapi.json # 指向 FastAPI 伺服器生成的 OpenAPI Spec
+    enable: true
+    authentication:
+      method: none # 測試平台目前無需認證
+    system_prompt: 你是一個政府開放資料測試平台的專家。請利用提供的工具來查詢相關資料。
+    process_tag: gov_opendata_platform
+    demo_prompt:
+      - 查詢所有開放資料。
+      - 搜尋關於交通的開放資料。
+      - 列出所有資料類別。
+      - 查詢資料集識別碼為 '41568' 的資料詳情。
