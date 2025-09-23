@@ -1,3 +1,22 @@
+wuulong@wrl90-210 /V/D/g/gov_openapi_agent (main)> python main.py                                                                                                                    (m2504) 
+ENABLE_TELEMETRY_LOGGING 的實際值: True                                                                                                                                                      
+2025-09-22 19:21:27,000 - INFO - Platform '環境部環境資料開放平臺' (ID: moenv_platform) is not enabled or missing spec_pathname. Skipping.                                                   
+2025-09-22 19:21:27,000 - INFO - Platform '交通部運輸資料流通服務平台' (ID: tdx_tranportdata) is not enabled or missing spec_pathname. Skipping.                                             
+2025-09-22 19:21:27,000 - INFO - Platform '金管會金融統計資料V2' (ID: fsc_financial_stats_v2) is not enabled or missing spec_pathname. Skipping.                                             
+2025-09-22 19:21:27,000 - INFO - Platform '客家委員會開放資料平台' (ID: hakka_council_open_data_platform) is not enabled or missing spec_pathname. Skipping.                                 
+2025-09-22 19:21:27,000 - INFO - Platform '政府資料標準平臺' (ID: gov_data_standard_platform) is not enabled or missing spec_pathname. Skipping.                                             
+2025-09-22 19:21:27,000 - INFO - Platform '財政部財政資訊中心政府資料開放' (ID: mof_fic_gov_open_data) is not enabled or missing spec_pathname. Skipping.                                    
+2025-09-22 19:21:27,000 - INFO - Platform '財政部電子發票整合服務平台' (ID: mof_einvoice_platform) is not enabled or missing spec_pathname. Skipping.                                        
+2025-09-22 19:21:27,000 - INFO - Platform '經濟部水利署水利資料開放平台' (ID: moea_wra_water_data_platform) is not enabled or missing spec_pathname. Skipping.                               
+2025-09-22 19:21:27,000 - INFO - Platform 'I運動資訊平台' (ID: isports_info_platform) is not enabled or missing spec_pathname. Skipping.                                                     
+2025-09-22 19:21:27,000 - INFO - Loading OpenAPI spec for platform: 政府開放資料測試平台                                                                                                     
+2025-09-22 19:21:27,003 - INFO - Parsed tool: get_all_opendata_opendata_get                                                                                                                  
+2025-09-22 19:21:27,004 - INFO - Parsed tool: search_opendata_opendata_search_get                                                                                                            
+2025-09-22 19:21:27,004 - INFO - Parsed tool: get_opendata_categories_opendata_categories_get                                                                                                
+2025-09-22 19:21:27,004 - INFO - Parsed tool: get_opendata_departments_opendata_departments_get                                                                                              
+2025-09-22 19:21:27,004 - INFO - Parsed tool: get_opendata_item_opendata_item_id_get                                                                                                         
+2025-09-22 19:21:27,004 - INFO - Agent and Runner initialized.                             
+
 您: 查詢資料集識別碼為 '41568' 的資料詳情
 2025-09-22 19:21:30,627 - INFO - Sending out request, model: gemini-2.5-flash-lite, backend: GoogleLLMVariant.GEMINI_API, stream: False
 2025-09-22 19:21:30,627 - INFO - AFC is enabled with max remote calls: 10.
