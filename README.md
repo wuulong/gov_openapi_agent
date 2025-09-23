@@ -366,3 +366,9 @@ Q::好的
 
 - result demo: [geminicli-mcp-sse_demo1.md](results/geminicli-mcp-sse_demo1.md)
 
+- 自定義命令，方便指定要下給 agent : [openapi-agent.toml](.gemini/commands/openapi-agent.toml)
+
+
+## 檔案型開放資料可以回答的 task
+- 問之前建議先請 AI 讀一次
+- task: [file_based_open_data_method.md](tasks/file_based_open_data_method.md)
