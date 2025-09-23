@@ -278,7 +278,7 @@ python validate_openapi/validate_openapi.py config/openapi_specs/
 
 ```
 
-* 驗證 `my_samples/gov_openapi_agent/validate_openapi/specs/` 目錄下的所有規格文件：
+* 驗證 `my_samples/gov_openapi_agent/validate_openapi/specs/` 目錄下(工作中)的所有規格文件：
 
 ```bash
 
@@ -286,7 +286,7 @@ python validate_openapi/validate_openapi.py validate_openapi/specs/
 
 ```
 
-idate_openapi/specs/
+
 
 
 ## 測試哪些開放 API 平台
