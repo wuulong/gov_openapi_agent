@@ -141,3 +141,19 @@ api_platforms:
       - 有哪些關於交通的開放資料。
       - 列出所有資料類別。
       - 查詢資料集識別碼為 '41568' 的資料詳情。
+
+
+  - id: moa_data_platform
+    name: 農業部資料開放平台
+    description: 提供多種農業相關資料的 API 介面，例如施肥用藥、農業氣象、交易行情、生產追溯等資訊。
+    spec_pathname: 農業部資料開放平台_openapi.json
+    enable: false
+    authentication:
+      method: none # TBD
+    system_prompt: 你是一個農業部資料開放平台的專家。請利用提供的工具來查詢相關資料。
+    process_tag: moa_data_platform
+    demo_prompt:
+      - 查詢農業部資料開放平台的施肥用藥資訊。
+      - 查詢農業部資料開放平台的農業氣象資料。
+      - 查詢農業部資料開放平台的交易行情。
+      - 查詢農業部資料開放平台的生產追溯資訊。
