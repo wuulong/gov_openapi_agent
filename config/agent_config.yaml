@@ -1,5 +1,5 @@
 enable_platform:
-  - moea_wra_water_data_platform
+  - moenv_platform
 
 api_platforms:
   - id: moenv_platform

@@ -7,6 +7,7 @@ from google.adk.agents import LlmAgent
 from google.adk.models.lite_llm import LiteLlm # Keep LiteLlm for now, but model will be fixed to gemini-2.5-flash
 from google.adk.tools.openapi_tool.openapi_spec_parser.openapi_toolset import OpenAPIToolset
 from google.adk.auth.auth_credential import AuthCredential, AuthCredentialTypes, OAuth2Auth, HttpAuth, HttpCredentials # Added HttpAuth, HttpCredentials
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

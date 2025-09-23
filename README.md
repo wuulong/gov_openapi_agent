@@ -342,3 +342,27 @@ OK 政府開放資料測試平台
   - cd gov_opendata_platform && uvicorn main:app --reload --port 8000
   - 文件： http://localhost:8000/docs
   - spec 下載： http://localhost:8000/openapi.json
+
+
+
+## MCP server
+- python agent_mcp_server.py --transport sse --port 8000
+
+## MCP client test
+- 在 gemini-cli 中測試
+- gemini-cli .gemini/settings.json
+```
+  "mcpServers": {
+    "gov-openapi-agent-mcp":{
+      "url":"http://127.0.0.1:8000/sse"
+    },
+  }
+```
+- sample prompts: （配套的 agent_config.yaml, enable_platform:moenv_platform）
+Q::去使用 gov-openapi-agent-mcp Mcp 的 process_user_prompt：有哪些資源回收相關的 api
+Q::關於 回收量、回收率 的有哪些
+Q::我想知道關於電池的回收量
+Q::好的
+
+- result demo: [geminicli-mcp-sse_demo1.md](results/geminicli-mcp-sse_demo1.md)
+
