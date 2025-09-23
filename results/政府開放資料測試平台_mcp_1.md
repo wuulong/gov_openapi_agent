@@ -298,3 +298,149 @@ A::您好！這個 API Server 提供以下幾種查詢方式：
         *   **`item_id` (必要)**：請提供您想查詢的單一開放資料的 ID。
 
 您可以根據您的需求選擇適合的查詢方式。
+M::
+Q::請下載 水庫水情 CSV 格式資料，閱讀後回答「寶二水庫的水位是多少」
+A::```tool_code
+print(default_api.web_fetch(args={
+  "prompt": "下載 https://opendata.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530F 的內容"
+}))
+```
+M::
+Q::
+M::
+Q::請使用 wget
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "description": "下載水庫水情CSV格式資料到暫存檔案",
+  "command": "wget -O tmp/reservoir_water_conditions.csv 'https://opendata.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530F'"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "command": "mkdir -p tmp",
+  "description": "建立暫存資料夾"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "description": "下載水庫水情CSV格式資料到暫存檔案",
+  "command": "wget -O tmp/reservoir_water_conditions.csv 'https://opendata.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530F'"
+}))
+```
+M::
+Q::
+M::
+Q::wget 要假裝成使用者的方式去下載
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "description": "下載水庫水情CSV格式資料到暫存檔案，並模擬瀏覽器行為",
+  "command": "wget --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36\" -O tmp/reservoir_water_conditions.csv 'https://opendata.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530F'"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.read_file(args={
+  "absolute_path": "/Volumes/D2024/github/gov_openapi_agent/tmp/reservoir_water_conditions.csv"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.process_user_prompt(args={
+  "prompt": "寶二水庫的 ReservoirIdentifier 是多少？"
+}))
+```
+M::
+Q::
+A::寶二水庫的水位是 155.16。
+
+**備註：** 由於資料中沒有直接的「寶二水庫」名稱，此結果是根據 `ReservoirIdentifier` 為 `10205` 的最新水情資料推斷而來。
+M::
+Q::當使用者針對檔案型開放資料，要先去查資料及是哪一個，然後取得下載點，然後使用這裡的方法去下載，下載後讀取之後再回答使用者的問題，請將這個方法寫下來
+A::M::當使用者針對檔案型開放資料，要先去查資料及是哪一個，然後取得下載點，然後使用這裡的方法去下載，下載後讀取之後再回答使用者的問題，請將這個方法寫下來
+Q::請將這個方法寫下來
+A::好的，處理檔案型開放資料並回答使用者問題的方法步驟如下：
+
+1.  **理解使用者需求並識別資料集**：
+    *   仔細閱讀使用者的問題，判斷他們需要哪種類型的開放資料。
+    *   使用 `process_user_prompt` 函數，以自然語言查詢相關資料集，例如：「/openapi-agent [關鍵字] 相關資料」。
+    *   從 `process_user_prompt` 的回覆中，識別出最符合使用者需求的資料集名稱和描述。
+
+2.  **取得資料集的下載點**：
+    *   一旦識別出資料集，再次使用 `process_user_prompt` 函數，詢問該資料集的下載點，例如：「[資料集名稱] 的 [檔案格式] 下載點」。
+    *   從回覆中獲取所需的檔案格式（例如 CSV, JSON, XML）的下載 URL。
+
+3.  **下載資料檔案**：
+    *   如果 `web_fetch` 工具因故無法使用，則使用 `run_shell_command` 搭配 `wget` 指令來下載檔案。
+    *   為了避免被網站阻擋，建議在 `wget` 指令中加入 `--user-agent` 參數，模擬瀏覽器行為。
+    *   先使用 `mkdir -p tmp` 建立一個暫存資料夾（如果不存在），然後將檔案下載到該資料夾，例如：
+        ```bash
+        mkdir -p tmp
+        wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" -O tmp/[檔案名稱].[副檔名] '[下載URL]'
+        ```
+    *   確保下載成功，檢查 `run_shell_command` 的輸出。
+
+4.  **讀取並解析下載的檔案**：
+    *   使用 `read_file` 工具讀取下載到暫存資料夾的檔案內容，例如：
+        ```python
+        read_file(absolute_path = "/Volumes/D2024/github/gov_openapi_agent/tmp/[檔案名稱].[副檔名]")
+        ```
+    *   根據檔案格式（例如 CSV, JSON），解析檔案內容。對於 CSV 檔案，需要識別標頭行和資料行，並根據列名提取所需資訊。
+
+5.  **從資料中提取答案並回覆使用者**：
+    *   根據使用者的原始問題，從解析後的資料中找出相關的資訊。
+    *   如果資料中沒有直接的名稱對應，但有相關的識別碼，則需要根據上下文進行推斷，並在回覆中說明推斷的依據。
+    *   將提取到的答案以清晰簡潔的方式回覆給使用者。
+
+這個流程確保了在處理檔案型開放資料時，能夠有效地獲取、處理並回答使用者的問題。
+M::
+Q::請存到 tasks
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "description": "建立 tasks 資料夾",
+  "command": "mkdir -p tasks"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.write_file(args={
+  "content": "M::當使用者針對檔案型開放資料，要先去查資料及是哪一個，然後取得下載點，然後使用這裡的方法去下載，下載後讀取之後再回答使用者的問題，請將這個方法寫下來\nQ::請將這個方法寫下來\nA::好的，處理檔案型開放資料並回答使用者問題的方法步驟如下：\n\n1.  **理解使用者需求並識別資料集**：\n    *   仔細閱讀使用者的問題，判斷他們需要哪種類型的開放資料。\n    *   使用 `process_user_prompt` 函數，以自然語言查詢相關資料集，例如：「/openapi-agent [關鍵字] 相關資料」。\n    *   從 `process_user_prompt` 的回覆中，識別出最符合使用者需求的資料集名稱和描述。\n\n2.  **取得資料集的下載點**：\n    *   一旦識別出資料集，再次使用 `process_user_prompt` 函數，詢問該資料集的下載點，例如：「[資料集名稱] 的 [檔案格式] 下載點」。\n    *   從回覆中獲取所需的檔案格式（例如 CSV, JSON, XML）的下載 URL。\n\n3.  **下載資料檔案**：\n    *   如果 `web_fetch` 工具因故無法使用，則使用 `run_shell_command` 搭配 `wget` 指令來下載檔案。\n    *   為了避免被網站阻擋，建議在 `wget` 指令中加入 `--user-agent` 參數，模擬瀏覽器行為。\n    *   先使用 `mkdir -p tmp` 建立一個暫存資料夾（如果不存在），然後將檔案下載到該資料夾，例如：\n        ```bash\n        mkdir -p tmp\n        wget --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36\" -O tmp/[檔案名稱].[副檔名] '[下載URL]'\n        ```\n    *   確保下載成功，檢查 `run_shell_command` 的輸出。\n\n4.  **讀取並解析下載的檔案**：\n    *   使用 `read_file` 工具讀取下載到暫存資料夾的檔案內容，例如：\n        ```python\n        read_file(absolute_path = \"/Volumes/D2024/github/gov_openapi_agent/tmp/[檔案名稱].[副檔名]\")\n        ```\n    *   根據檔案格式（例如 CSV, JSON），解析檔案內容。對於 CSV 檔案，需要識別標頭行和資料行，並根據列名提取所需資訊。\n\n5.  **從資料中提取答案並回覆使用者**：\n    *   根據使用者的原始問題，從解析後的資料中找出相關的資訊。\n    *   如果資料中沒有直接的名稱對應，但有相關的識別碼，則需要根據上下文進行推斷，並在回覆中說明推斷的依據。\n    *   將提取到的答案以清晰簡潔的方式回覆給使用者。",
+  "file_path": "/Volumes/D2024/github/gov_openapi_agent/tasks/file_based_open_data_method.md"
+}))
+```
+M::
+Q::
+A::M::當使用者針對檔案型開放資料，要先去查資料及是哪一個，然後取得下載點，然後使用這裡的方法去下載，下載後讀取之後再回答使用者的問題，請將這個方法寫下來
+Q::請存到 tasks
+A::好的，處理檔案型開放資料並回答使用者問題的方法已儲存至 `tasks/file_based_open_data_method.md`。
+M::
+Q::在這檔案型開放資料有，請問頭前溪的河川代碼是
+A::```tool_code
+print(default_api.process_user_prompt(args={
+  "prompt": "河川代碼相關資料"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.run_shell_command(args={
+  "description": "下載河川代碼CSV格式資料到暫存檔案",
+  "command": "wget --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36\" -O tmp/river_codes.csv 'https://opendata.wra.gov.tw/Service/OpenData.aspx?format=csv&id=336F84F7-7CFF-4084-9698-813DD1A916FE'"
+}))
+```
+M::
+Q::
+A::```tool_code
+print(default_api.read_file(args={
+  "absolute_path": "/Volumes/D2024/github/gov_openapi_agent/tmp/river_codes.csv"
+}))
+```
+M::
+Q::
+A::頭前溪的河川代碼是 **130000**。
