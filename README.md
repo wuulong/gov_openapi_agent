@@ -339,14 +339,14 @@ OK 政府開放資料測試平台
 ## gov_opendata_platform
 - [README.md](gov_opendata_platform/README.md)
   - swagger, openapi 介面查詢開放資料清單
-  - cd gov_opendata_platform && uvicorn main:app --reload --port 8000
-  - 文件： http://localhost:8000/docs
-  - spec 下載： http://localhost:8000/openapi.json
+  - cd gov_opendata_platform && uvicorn main:app --reload --port 8800
+  - 文件： http://localhost:8800/docs
+  - spec 下載： http://localhost:8800/openapi.json
 
 
 
 ## MCP server
-- python agent_mcp_server.py --transport sse --port 8000
+- python agent_mcp_server.py --transport sse --port 8800
 
 ## MCP client test
 - 在 gemini-cli 中測試
@@ -354,7 +354,7 @@ OK 政府開放資料測試平台
 ```
   "mcpServers": {
     "gov-openapi-agent-mcp":{
-      "url":"http://127.0.0.1:8000/sse"
+      "url":"http://127.0.0.1:8800/sse"
     },
   }
 ```

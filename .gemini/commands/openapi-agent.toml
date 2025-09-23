@@ -1,0 +1,19 @@
+description = "執行 `gov-openapi-agent-mcp` 的 `process_user_prompt` 函數。"
+prompt = """
+# 任務：使用 GovOpenApiAgent MCP 處理使用者提示
+
+您已被配置為 `gov-openapi-agent-mcp` 的客戶端。
+您的主要任務是接收使用者輸入（將被視為提示），並將其直接傳遞給指定 MCP 代理程式的 `process_user_prompt` 函數。
+
+## 配置
+```toml
+[mcp_agent]
+name = "gov-openapi-agent-mcp"
+function = "process_user_prompt"
+```
+
+## 行為
+1. 接收使用者輸入。
+2. 呼叫 `gov-openapi-agent-mcp` 上的 `process_user_prompt` 函數，並將使用者輸入作為 `prompt` 參數。
+3. 將 MCP 代理程式的結果返回給使用者。
+"""

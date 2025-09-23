@@ -82,7 +82,7 @@ def main(port: int, transport: str) -> int:
 
         final_response_text = ""
         async for event in events:
-            if ENABLE_TELEMETRY_LOGGING:
+            if ENABLE_TELEMETRY_LOGGING and 0:
                 logger.info(f"Event: {event.model_dump_json(indent=2, exclude_none=True)}")
             
             if event.is_final_response() and event.content and event.content.parts:

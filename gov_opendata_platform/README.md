@@ -45,14 +45,14 @@
 1.  確保您已在 `gov_opendata_platform` 目錄下。
 2.  執行以下命令啟動伺服器：
     ```bash
-    uvicorn main:app --reload --port 8000
+    uvicorn main:app --reload --port 8801
     ```
-    伺服器將在 `http://localhost:8000` 運行。
+    伺服器將在 `http://localhost:8801` 運行。
 
 ## 訪問 API 文件
 
 伺服器運行後，您可以透過以下網址訪問 API 文件：
 
-*   **Swagger UI (互動式文件):** `http://localhost:8000/docs`
-*   **ReDoc UI:** `http://localhost:8000/redoc`
-*   **OpenAPI JSON 規格文件:** `http://localhost:8000/openapi.json`
+*   **Swagger UI (互動式文件):** `http://localhost:8801/docs`
+*   **ReDoc UI:** `http://localhost:8801/redoc`
+*   **OpenAPI JSON 規格文件:** `http://localhost:8801/openapi.json`
