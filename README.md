@@ -8,6 +8,8 @@
 
 - 投影片： [開放 API ADK Agents](https://docs.google.com/presentation/d/1IuZxyZdrvC5dd5BoXDOuZFJXCPFoxErUvg5u5bWNKOM/edit?usp=sharing)
 
+## 緣起
+- 既然做了一個環境部的開放資料 API ADK Agent, 那似乎弄更多的政府開放資料平台一起進來，好像也不是個夢
 
   
 
@@ -290,9 +292,21 @@ python validate_openapi/validate_openapi.py validate_openapi/specs/
 ```
 
 
+## 開放資料 API 清單
+
+- `data/mgr.db`: 儲存 `openapi_dept` 表，此表使用 agentic 環境建構與維護。
+- 相關文件：
+  - `AI_Open_Data_SDK_Agent_Goal.md`
+  - `AI_Open_Data_SDK_Agent_Checklist.md`
+  - `AI_Open_Data_SDK_Agent_Methodology.md`
+- 功能：
+  - 匯出某筆資料成為 YAML 設定。
+  - 將 YAML 設定同步回資料庫。
+- 包含 `opendata_export1756114029.csv`。
 
 
 ## 測試哪些開放 API 平台
+
 - 預設： API spec load 進來可以，但平台可能需要 Key, 還沒有 key, 所以無法測試
 - OK: 有放入 Key 測試過
 - 
@@ -321,3 +335,9 @@ OK 政府開放資料測試平台
 - [經濟部水利署水利資料開放平台_demo_1.md](results/經濟部水利署水利資料開放平台_demo_1.md)
 
 
+## gov_opendata_platform
+- [README.md](gov_opendata_platform/README.md)
+  - swagger, openapi 介面查詢開放資料清單
+  - cd gov_opendata_platform && uvicorn main:app --reload --port 8000
+  - 文件： http://localhost:8000/docs
+  - spec 下載： http://localhost:8000/openapi.json
