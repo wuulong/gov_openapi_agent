@@ -6,6 +6,9 @@
 
 `GovOpenApiAgent` 是一個基於 Google Agent Development Kit (ADK) 開發的智能代理程式，旨在簡化台灣政府開放資料 API 的使用。透過自然語言，使用者可以查詢並獲取政府各部會提供的開放資料，無需了解複雜的 API 規格和程式碼。
 
+- 投影片： [開放 API ADK Agents](https://docs.google.com/presentation/d/1IuZxyZdrvC5dd5BoXDOuZFJXCPFoxErUvg5u5bWNKOM/edit?usp=sharing)
+
+
   
 
 ## 主要特色
@@ -316,4 +319,5 @@ OK 政府開放資料測試平台
 - [客家委員會開放資料平台_demo_1.md](results/客家委員會開放資料平台_demo_1.md)
 - [交通部運輸資料流通服務平台_demo_1.md](results/交通部運輸資料流通服務平台_demo_1.md)
 - [經濟部水利署水利資料開放平台_demo_1.md](results/經濟部水利署水利資料開放平台_demo_1.md)
--
+
+
