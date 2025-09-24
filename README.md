@@ -418,12 +418,15 @@ graph TD
         A[使用者] --> B(CLI)
         A --> C(Web)
         A --> D(MCP)
+        A --> K(ADK web/api_server)
     end
 
     subgraph 代理程式層
+        
         B --> E(gov_openapi_agent)
         C --> E
         D --> E
+        K --> E
     end
 
     subgraph 開放資料平台
