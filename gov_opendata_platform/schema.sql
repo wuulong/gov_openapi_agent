@@ -1,0 +1,40 @@
+CREATE TABLE open_data_catalog (
+    資料集識別碼 TEXT,
+    資料集名稱 TEXT,
+    資料提供屬性 TEXT,
+    服務分類 TEXT,
+    品質檢測 TEXT,
+    檔案格式 TEXT,
+    資料下載網址 TEXT,
+    編碼格式 TEXT,
+    資資料集上架方式 TEXT,
+    資料集描述 TEXT,
+    主要欄位說明 TEXT,
+    提供機關 TEXT,
+    更新頻率 TEXT,
+    授權方式 TEXT,
+    相關網址 TEXT,
+    計費方式 TEXT,
+    提供機關聯絡人姓名 TEXT,
+    提供機關聯絡人電話 TEXT,
+    上架日期 TEXT,
+    詮釋資料更新時間 TEXT,
+    備註 TEXT,
+    資料量 TEXT
+);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE openapi_dept (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    promotion_status TEXT,
+    platform_name TEXT NOT NULL,
+    department_unit TEXT NOT NULL,
+    is_central_unit INTEGER,
+    platform_description TEXT,
+    website_link TEXT,
+    openapi_spec_url TEXT,
+    api_endpoint TEXT,
+    auth_method TEXT,
+    access_notes TEXT,
+    meta_data TEXT,
+    notes TEXT
+);

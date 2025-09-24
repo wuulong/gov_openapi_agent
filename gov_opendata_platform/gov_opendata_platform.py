@@ -3,6 +3,7 @@ from fastapi import FastAPI, Query, HTTPException
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 # --- Configuration ---
 DATABASE_FILE = "gov_opendata_platform.db"
@@ -44,12 +45,39 @@ class OpenDataListResponse(BaseModel):
     items: List[OpenDataItem]
     total: int
 
+class OpenApiDeptItem(BaseModel):
+    id: int
+    promotion_status: Optional[str]
+    platform_name: str
+    department_unit: str
+    is_central_unit: Optional[int]
+    platform_description: Optional[str]
+    website_link: Optional[str]
+    openapi_spec_url: Optional[str]
+    api_endpoint: Optional[str]
+    auth_method: Optional[str]
+    access_notes: Optional[str]
+    meta_data: Optional[str]
+    notes: Optional[str]
+
+class OpenApiDeptListResponse(BaseModel):
+    items: List[OpenApiDeptItem]
+    total: int
+
 # --- FastAPI App Initialization ---
 app = FastAPI(
     title="政府開放資料測試平台 API",
     description="用於與 GovOpenApiAgent 進行對測的政府開放資料測試平台 API。",
     version="1.0.0",
     servers=[{"url": "http://localhost:8801", "description": "Local Development Server"}]
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 # --- Database Connection Management ---
@@ -71,6 +99,10 @@ def row_to_opendata_item(row: sqlite3.Row) -> OpenDataItem:
     # Create a dictionary from the row to pass to Pydantic model
     data = {key: row[key] for key in row.keys()}
     return OpenDataItem(**data)
+
+def row_to_openapi_dept_item(row: sqlite3.Row) -> OpenApiDeptItem:
+    data = {key: row[key] for key in row.keys()}
+    return OpenApiDeptItem(**data)
 
 # --- API Endpoints ---
 
@@ -215,5 +247,59 @@ async def get_opendata_item(item_id: str):
         raise HTTPException(status_code=404, detail="Open data item not found")
     return row_to_opendata_item(row)
 
+@app.get("/openapi_depts", response_model=OpenApiDeptListResponse, summary="取得所有 OpenAPI 部門資料列表")
+async def get_all_openapi_depts(
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+    sort_by: Optional[str] = Query(None, description="排序欄位 (例如：platform_name, department_unit)"),
+    order: str = Query("asc", regex="^(asc|desc)$", description="排序順序 (asc 或 desc)"),
+):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    where_clauses = []
+    params = []
+
+    order_by_clause = ""
+    if sort_by:
+        sort_column_map = {
+            "id": "id",
+            "promotion_status": "promotion_status",
+            "platform_name": "platform_name",
+            "department_unit": "department_unit",
+            "is_central_unit": "is_central_unit",
+            "website_link": "website_link"
+        }
+        db_sort_by = sort_column_map.get(sort_by)
+        if not db_sort_by:
+            raise HTTPException(status_code=400, detail=f"Invalid sort_by column: {sort_by}. Allowed: {', '.join(sort_column_map.keys())}")
+        order_by_clause = f"ORDER BY \"{db_sort_by}\" {order.upper()}"
+
+    count_query = "SELECT COUNT(*) FROM openapi_dept"
+    if where_clauses:
+        count_query += " WHERE " + " AND ".join(where_clauses)
+    cursor.execute(count_query, params)
+    total = cursor.fetchone()[0]
+
+    query_sql = f"SELECT * FROM openapi_dept {order_by_clause} LIMIT ? OFFSET ?"
+    params.extend([limit, offset])
+    cursor.execute(query_sql, params)
+    items = [row_to_openapi_dept_item(row) for row in cursor.fetchall()]
+
+    conn.close()
+    return OpenApiDeptListResponse(items=items, total=total)
+
+@app.get("/openapi_depts/{dept_id}", response_model=OpenApiDeptItem, summary="取得單一 OpenAPI 部門詳情")
+async def get_openapi_dept_item(dept_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM openapi_dept WHERE id = ?", (dept_id,))
+    row = cursor.fetchone()
+    conn.close()
+
+    if row is None:
+        raise HTTPException(status_code=404, detail="OpenAPI department item not found")
+    return row_to_openapi_dept_item(row)
+
 # To run the server:
-# uvicorn gov_opendata_platform:app --reload --port 8000
+# uvicorn gov_opendata_platform:app --reload --port 8801  

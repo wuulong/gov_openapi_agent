@@ -30,6 +30,51 @@
 *   資料庫中應包含一個名為 `open_data_catalog` 的資料表，其 schema 應與 `docs/GovOpenDataPlatform_spec.md` 中 `OpenDataItem` 的描述一致。
 *   此資料庫應已預先載入政府開放資料目錄的相關數據。
 
+```
+CREATE TABLE open_data_catalog (
+    資料集識別碼 TEXT,
+    資料集名稱 TEXT,
+    資料提供屬性 TEXT,
+    服務分類 TEXT,
+    品質檢測 TEXT,
+    檔案格式 TEXT,
+    資料下載網址 TEXT,
+    編碼格式 TEXT,
+    資資料集上架方式 TEXT,
+    資料集描述 TEXT,
+    主要欄位說明 TEXT,
+    提供機關 TEXT,
+    更新頻率 TEXT,
+    授權方式 TEXT,
+    相關網址 TEXT,
+    計費方式 TEXT,
+    提供機關聯絡人姓名 TEXT,
+    提供機關聯絡人電話 TEXT,
+    上架日期 TEXT,
+    詮釋資料更新時間 TEXT,
+    備註 TEXT,
+    資料量 TEXT
+);
+
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE openapi_dept (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    promotion_status TEXT,
+    platform_name TEXT NOT NULL,
+    department_unit TEXT NOT NULL,
+    is_central_unit INTEGER,
+    platform_description TEXT,
+    website_link TEXT,
+    openapi_spec_url TEXT,
+    api_endpoint TEXT,
+    auth_method TEXT,
+    access_notes TEXT,
+    meta_data TEXT,
+    notes TEXT
+);
+
+```
+
 ## API 端點
 
 以下是本伺服器提供的主要 API 端點：
@@ -39,13 +84,15 @@
 *   `GET /opendata/{item_id}`: 取得指定 `item_id` 的單一開放資料詳情。
 *   `GET /opendata/categories`: 取得所有開放資料的服務分類列表。
 *   `GET /opendata/departments`: 取得所有開放資料的提供機關列表。
+*   `GET /openapi_depts`: 取得所有 OpenAPI 部門資料列表，支援分頁和排序。
+*   `GET /openapi_depts/{dept_id}`: 取得指定 `dept_id` 的單一 OpenAPI 部門詳情。
 
 ## 運行伺服器
 
 1.  確保您已在 `gov_opendata_platform` 目錄下。
 2.  執行以下命令啟動伺服器：
     ```bash
-    uvicorn main:app --reload --port 8801
+    uvicorn gov_opendata_platform:app --reload --port 8801
     ```
     伺服器將在 `http://localhost:8801` 運行。
 
