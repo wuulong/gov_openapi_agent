@@ -409,3 +409,30 @@ Q::好的
 ## 檔案型開放資料可以回答的 task
 - 問之前建議先請 AI 讀一次
 - task: [file_based_open_data_method.md](tasks/file_based_open_data_method.md)
+
+
+## 使用架構
+```mermaid
+graph TD
+    subgraph 使用者介面
+        A[使用者] --> B(CLI)
+        A --> C(Web)
+        A --> D(MCP)
+    end
+
+    subgraph 代理程式層
+        B --> E(gov_openapi_agent)
+        C --> E
+        D --> E
+    end
+
+    subgraph 開放資料平台
+        E --> F{環境部環境資料開放平臺,交通部運輸資料流通服務平台,金管會金融統計資料V2,客家委員會開放資料平台,政府資料標準平臺,財政部財政資訊中心政府資料開放,財政部電子發票整合服務平台,經濟部水利署水利資料開放平台,I運動資訊平台}
+        E --> I[資料集清單平台 gov_opendata_platform]
+        
+
+    end
+
+    I -- 包含 --> J[資料集清單]
+```
+
