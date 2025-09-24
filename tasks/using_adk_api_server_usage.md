@@ -8,14 +8,14 @@
 **使用工具：** `read_file` (最初)，然後由於截斷問題，改用 `run_shell_command` 搭配 `cat` 來獲取完整內容。
 **指令範例：**
 ```bash
-cat /Users/wuulong/github/bmad-pa/specs/api_server_openapi.json
+cat api_server_openapi.json
 ```
 
 **動作：** 從 OpenAPI 規範中列出所有可用的 API 路徑。
 **使用工具：** `run_shell_command` 搭配 `jq`。
 **指令範例：**
 ```bash
-cat /Users/wuulong/github/bmad-pa/specs/api_server_openapi.json | jq '.paths | keys[]'
+cat api_server_openapi.json | jq '.paths | keys[]'
 ```
 
 ### 2. 與 API 互動
