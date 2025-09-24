@@ -49,7 +49,7 @@ app = FastAPI(
     title="政府開放資料測試平台 API",
     description="用於與 GovOpenApiAgent 進行對測的政府開放資料測試平台 API。",
     version="1.0.0",
-    servers=[{"url": "http://localhost:8000", "description": "Local Development Server"}]
+    servers=[{"url": "http://localhost:8801", "description": "Local Development Server"}]
 )
 
 # --- Database Connection Management ---
@@ -216,4 +216,4 @@ async def get_opendata_item(item_id: str):
     return row_to_opendata_item(row)
 
 # To run the server:
-# uvicorn main:app --reload --port 8000
+# uvicorn gov_opendata_platform:app --reload --port 8000

@@ -230,6 +230,43 @@ Agent 啟動後將進入互動模式，您可以開始輸入查詢。
 
   
 
+### Web API (web.py)
+
+`web.py` 提供了一個基於 FastAPI 的 Web 介面，讓您可以透過 HTTP 請求與 `GovOpenApiAgent` 互動。
+
+**運行方式：**
+
+在專案根目錄下執行以下命令來啟動 Web 服務：
+
+```bash
+uvicorn web:app --reload --port 8802
+```
+
+服務啟動後，您可以在瀏覽器中訪問以下網址來查看 API 文件 (Swagger UI)：
+
+*   **API 文件：** `http://localhost:8802/docs`
+*   **API 規格：** `http://localhost:8802/openapi.json`
+
+**如何使用 `/query` 端點：**
+
+您可以向 `http://localhost:8802/query` 發送 POST 請求，並在請求體中包含一個 JSON 對象，其中包含 `prompt` 字段。
+
+**範例 (使用 `curl`)：**
+
+```bash
+curl -X POST "http://localhost:8802/query" \
+-H "Content-Type: application/json" \
+-d '{ "prompt": "請給我空氣品質預報資料。" }'
+```
+
+**範例回應：**
+
+```json
+{
+  "response": "Agent 處理後的結果..."
+}
+```
+
 ## Agent 架構 (高層次)
 
 1. **初始化：** Agent 啟動時，首先載入 `.env` 檔案中的環境變數，然後讀取 `agent_config.yaml`。
@@ -339,9 +376,9 @@ OK 政府開放資料測試平台
 ## gov_opendata_platform
 - [README.md](gov_opendata_platform/README.md)
   - swagger, openapi 介面查詢開放資料清單
-  - cd gov_opendata_platform && uvicorn main:app --reload --port 8800
-  - 文件： http://localhost:8800/docs
-  - spec 下載： http://localhost:8800/openapi.json
+  - cd gov_opendata_platform && uvicorn gov_opendata_platform:app --reload --port 8801
+  - 文件： http://localhost:8801/docs
+  - spec 下載： http://localhost:8801/openapi.json
 
 
 
