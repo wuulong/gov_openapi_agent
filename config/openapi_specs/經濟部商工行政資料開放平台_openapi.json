@@ -1,0 +1,1454 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "商工行政資料開放平臺 data.gcis.nat.gov.tw",
+    "description": "<div class=\"info_description markdown\">一、申請流程說明</div><p> 1.可於上排選單的「資料目錄」內點選 「公司登記介接」或「商業登記介接」查看，或下載經濟部商業發展署開放資料清單(僅含API)比對各項API，挑選出適合介接使用者之API項目。<br> 2.為確保平臺服務品質與維持系統效能，使用系統介接API之單位或個人請填寫使用告知書。<br> 3.填寫完告知書，請向計畫維運團隊遞件。聯絡信箱為：opendata.gcis@gmail.com。<br> 4.本平臺在收到告知信件確認資料無誤後(*註一)，會進行介接設定並發信通知告知者該介接設定已完成。<br>"
+  },
+  "host": "data.gcis.nat.gov.tw",
+  "basePath": "/od/data/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/F0E8FB8D-E2FD-472E-886C-91C673641F31": {
+      "get": {
+        "summary": "公司登記資本額查詢",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Company_Status eq 0[1-9]|1[0-9]|2[0-9]|3[0-3] and Capital_Stock_Amount eq [A-G]{1}<br>說明:Company_Status(公司狀態代碼);Capital_Stock_Amount(公司資本額範圍代碼)",
+            "type": "string",
+            "pattern": "Company_Status eq 0[1-9]|1[0-9]|2[0-9]|3[0-3] and Capital_Stock_Amount eq [A-G]{1}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供「統一編號」與「公司名稱」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Capital_Stock_Amount": {
+                    "type": "string"
+                  },
+                  "Paid_In_Capital_Amount": {
+                    "type": "string"
+                  },
+                  "Responsible_Name": {
+                    "type": "string"
+                  },
+                  "Company_Location": {
+                    "type": "string"
+                  },
+                  "Register_Organization_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Setup_Date": {
+                    "type": "string"
+                  },
+                  "Change_Of_Approval_Data": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "22099131",
+                  "Company_Status_Desc": "核准設立",
+                  "Company_Name": "台灣積體電路製造股份有限公司",
+                  "Capital_Stock_Amount": "270500000000",
+                  "Paid_In_Capital_Amount": "259303804580",
+                  "Responsible_Name": "張O謀",
+                  "Company_Location": "新竹市力行六路8號",
+                  "Register_Organization_Desc": "科技部新竹科學工業園區管理局",
+                  "Company_Setup_Date": "0760221",
+                  "Change_Of_Approval_Data": "1070306"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/FCB90AB1-E382-45CE-8D4F-394861851E28": {
+      "get": {
+        "summary": "公司行號營業項目代碼表",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Item eq [A-Z]{1}[0-9]{6}<br>說明:Business_Item(營業項目代碼);",
+            "type": "string",
+            "pattern": "Business_Item eq [A-Z]{1}[0-9]{6}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:公司行號營業項目代碼表檢索系統",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Category": {
+                    "type": "string"
+                  },
+                  "Category_Name": {
+                    "type": "string"
+                  },
+                  "Classes": {
+                    "type": "string"
+                  },
+                  "Classes_Name": {
+                    "type": "string"
+                  },
+                  "Subcategory": {
+                    "type": "string"
+                  },
+                  "Subcategories_Name": {
+                    "type": "string"
+                  },
+                  "Business_Item": {
+                    "type": "string"
+                  },
+                  "Business_Item_Desc": {
+                    "type": "string"
+                  },
+                  "Business_Item_Content": {
+                    "type": "string"
+                  },
+                  "Dgbas": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Category": "I",
+                  "Category_Name": "專業、科學及技術服務業",
+                  "Classes": "I1",
+                  "Classes_Name": "顧問服務業",
+                  "Subcategory": "I101",
+                  "Subcategories_Name": "技術顧問業",
+                  "Business_Item": "I101070",
+                  "Business_Item_Desc": "農、林、漁、畜牧顧問業",
+                  "Business_Item_Content": "從事農藝、園藝、林業及林業工程、漁撈、水產養殖及畜牧等技術事項之規劃、設計、監造（含施工簽證）、研究、分析、試驗、評價、鑑定、檢驗、計畫管理及其相關技術性服務。",
+                  "Dgbas": "7609\t未分類其他專業、科學及技術服務業"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/5F64D864-61CB-4D0D-8AD9-492047CC1EA6": {
+      "get": {
+        "summary": "公司登記基本資料-應用一",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq [0-9]{8}<br>說明:Business_Accounting_NO:公司登記之下的公司統一編號。",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:公司公示資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Capital_Stock_Amount": {
+                    "type": "string"
+                  },
+                  "Paid_In_Capital_Amount": {
+                    "type": "string"
+                  },
+                  "Responsible_Name": {
+                    "type": "string"
+                  },
+                  "Company_Location": {
+                    "type": "string"
+                  },
+                  "Register_Organization_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Setup_Date": {
+                    "type": "string"
+                  },
+                  "Change_Of_Approval_Data": {
+                    "type": "string"
+                  },
+                  "Revoke_App_Date": {
+                    "type": "string"
+                  },
+                  "Case_Status": {
+                    "type": "string"
+                  },
+                  "Case_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Sus_App_Date": {
+                    "type": "string"
+                  },
+                  "Sus_Beg_Date": {
+                    "type": "string"
+                  },
+                  "Sus_End_Date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "20828393",
+                  "Company_Status_Desc": "核准設立",
+                  "Company_Name": "宏碁股份有限公司",
+                  "Capital_Stock_Amount": 40000000000,
+                  "Paid_In_Capital_Amount": 30749338280,
+                  "Responsible_Name": "陳O聖",
+                  "Company_Location": "臺北市松山區民福里復興北路369號7樓之5",
+                  "Register_Organization_Desc": "經濟部商業發展署",
+                  "Company_Setup_Date": "0680718",
+                  "Change_Of_Approval_Data": "1080702",
+                  "Revoke_App_Date": "",
+                  "Case_Status": "",
+                  "Case_Status_Desc": "",
+                  "Sus_App_Date": "",
+                  "Sus_Beg_Date": "",
+                  "Sus_End_Date": ""
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/F05D1060-7D57-4763-BDCE-0DAF5975AFE0": {
+      "get": {
+        "summary": "公司登記基本資料-應用二",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq [0-9]{8}<br>說明:Business_Accounting_NO:公司登記之下的公司統一編號。",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:公司公示資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Company_Status": {
+                    "type": "string"
+                  },
+                  "Company_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Change_Of_Approval_Data": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "20828393",
+                  "Company_Name": "宏碁股份有限公司",
+                  "Company_Status": "01",
+                  "Company_Status_Desc": "核准設立",
+                  "Change_Of_Approval_Data": "1080702"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/236EE382-4942-41A9-BD03-CA0709025E7C": {
+      "get": {
+        "summary": "公司登記基本資料-應用三",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq [0-9]{8}<br>說明:Business_Accounting_NO:公司登記之下的公司統一編號。",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:公司公示資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Company_Status": {
+                    "type": "string"
+                  },
+                  "Company_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Setup_Date": {
+                    "type": "string"
+                  },
+                  "Cmp_Business": {
+                    "type": "object"
+                  },
+                  "Business_Seq_NO": {
+                    "type": "string"
+                  },
+                  "Business_Item": {
+                    "type": "string"
+                  }
+                  ,
+                  "Business_Item_Desc": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "20828393",
+                  "Company_Name": "宏碁股份有限公司",
+                  "Company_Status": "01",
+                  "Company_Status_Desc": "核准設立",
+                  "Company_Setup_Date": "0680718",
+                  "Cmp_Business": [
+                    {
+                      "Business_Seq_NO": "0001",
+                      "Business_Item": "F113050",
+                      "Business_Item_Desc": "電腦及事務性機器設備批發業"
+                    }
+                 ]
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/7E6AFA72-AD6A-46D3-8681-ED77951D912D": {
+      "get": {
+        "summary": "商業登記基本資料-應用一",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:President_No eq [0-9]{8} and Agency eq [0-9]{9}[A-Z]<br>說明:President_No:商業登記之下的商業統一編號Agency:商業登記_申登機關代碼<a herf='https://data.gcis.nat.gov.tw/resources/doc/datacode.odt'>帶碼表</a>。",
+            "type": "string",
+            "pattern": "President_No eq [0-9]{8} and Agency eq [0-9]{9}[A-Z]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源：商業登記資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "President_No": {
+                    "type": "string"
+                  },
+                  "Business_Name": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Business_Register_Funds": {
+                    "type": "string"
+                  },
+                  "Business_Organization_Type": {
+                    "type": "string"
+                  },
+                  "Business_Organization_Type_Desc": {
+                    "type": "string"
+                  },
+                  "Agency": {
+                    "type": "string"
+                  },
+                  "Agency_Desc": {
+                    "type": "string"
+                  },
+                  "Business_Address": {
+                    "type": "string"
+                  },
+                  "Business_Setup_Approve_Date": {
+                    "type": "string"
+                  },
+                  "Business_Last_Change_Date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "President_No": "26459190",
+                  "Business_Name": "鼎勝冷榨油行",
+                  "Business_Current_Status": "核准設立",
+                  "Business_Current_Status_Desc": "核准設立",
+                  "Business_Register_Funds": 968000,
+                  "Responsible_Name": "朱O勝",
+                  "Business_Organization_Type": "06",
+                  "Business_Organization_Type_Desc": "獨資",
+                  "Agency":"376610000A",
+                  "Agency_Desc":"臺南市政府",
+                  "Business_Address": "臺南市安平區華平里怡平路485號1樓",
+                  "Business_Setup_Approve_Date": "1001012",
+                  "Business_Last_Change_Date": "1010507"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/F570BC9A-DA4C-4813-8087-FB9CE95F9D38": {
+      "get": {
+        "summary": "商業登記基本資料-應用二",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:President_No eq [0-9]{8} and Agency eq [0-9]{9}[A-Z]<br>說明:President_No:商業登記之下的商業統一編號Agency:商業登記_申登機關代碼<a herf='https://data.gcis.nat.gov.tw/resources/doc/datacode.odt'>帶碼表</a>。",
+            "type": "string",
+            "pattern": "President_No eq [0-9]{8} and Agency eq [0-9]{9}[A-Z]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:商業登記資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "President_No": {
+                    "type": "string"
+                  },
+                  "Business_Name": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Agency": {
+                    "type": "string"
+                  },
+                  "Agency_Desc": {
+                    "type": "string"
+                  },
+                  "Business_Setup_Approve_Date": {
+                    "type": "string"
+                  },
+                  "Business_Item_Old": {
+                    "type": "object"
+                  },
+                  "Business_Seq_No": {
+                    "type": "string"
+                  },
+                  "Business_Item": {
+                    "type": "string"
+                  }
+                  ,
+                  "Business_Item_Desc": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "President_No": "26459190",
+                  "Business_Name": "鼎勝冷榨油行",
+                  "Business_Current_Status": "01",
+                  "Business_Current_Status_Desc": "核准設立",
+                  "Agency": "376610000A",
+                  "Agency_Desc": "臺南市政府",
+                  "Business_Setup_Approve_Date": "1001012",
+                  "Cmp_Business": [
+                    {
+                      "Business_Seq_NO": "0001",
+                      "Business_Item": "F113050",
+                      "Business_Item_Desc": "電腦及事務性機器設備批發業"
+                    }
+                 ]
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+        "/4E5F7653-1B91-4DDC-99D5-468530FAE396": {
+      "get": {
+        "summary": "公司登記董監事資料集",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq [0-9]{8}<br>說明:Business_Accounting_NO:公司登記之下的公司統一編號。",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供公司登記董監事資料集",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Person_Position_Name": {
+                    "type": "string"
+                  },
+                  "Person_Name": {
+                    "type": "string"
+                  },
+                  "Juristic_Person_Name": {
+                    "type": "string"
+                  },
+                  "Person_Shareholding": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Person_Position_Name": "董事長",
+                  "Person_Name": "陳O聖",
+                  "Juristic_Person_Name": "",
+                  "Person_Shareholding": 2633480
+                },
+                {
+                  "Person_Position_Name": "董事",
+                  "Person_Name": "施O榮",
+                  "Juristic_Person_Name": "",
+                  "Person_Shareholding": 49662395
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/4347A009-6489-4F19-AC79-78F366BE7976": {
+      "get": {
+        "summary": "公司資料異動查詢",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Change_Of_Approval_Data eq [0-9]{7}<br>說明:Change_Of_Approval_Data(最後核准變更日期):民國年月日(共7碼);不足7碼請補零。",
+            "type": "string",
+            "pattern": "Change_Of_Approval_Data eq [0-9]{7}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供「統一編號」與「公司名稱」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "07730426",
+                  "Company_Name": "協展興業股份有限公司"
+                },
+                {
+                  "Business_Accounting_NO": "12606284",
+                  "Company_Name": "弘胤環保工程有限公司"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/4B61A0F1-458C-43F9-93F3-9FD6DA5E1B08": {
+      "get": {
+        "summary": "公司負責人資料查詢",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Responsible_Name eq [^\\\\s+$]<br>說明:Responsible_Name(公司登記之下公司的負責人姓名)",
+            "type": "string",
+            "pattern": "Responsible_Name eq [^\\\\s+$]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供「統一編號」與「公司名稱」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "24314277",
+                  "Company_Name": "遠傳眼鏡有限公司"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/FDB8D2C8-573D-4276-BFA4-8D3925ABE1CB": {
+      "get": {
+        "summary": "統編查分公司資料",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq [A-Za-z0-9]{8}<br>說明:Business_Accounting_NO(公司登記之下公司統一編號)",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [A-Za-z0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供「分公司」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Manager_Name": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Status": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Name": {
+                    "type": "string"
+                  },
+                  "Branch_Office_Location": {
+                    "type": "string"
+                  },
+                  "BR_ESTAB_DATE": {
+                    "type": "string"
+                  },
+                  "CHG_APP_DATE": {
+                    "type": "string"
+                  },
+                  "Revoke_App_Date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "24314277",
+                  "Branch_Office_Business_Accounting_NO": "22956458",
+                  "Branch_Office_Manager_Name": "侯O遠",
+                  "Branch_Office_Status": "01",
+                  "Branch_Office_Status_Desc": "核准設立",
+                  "Branch_Office_Name": "新竹分公司",
+                  "Branch_Office_Location": "新竹市民族路139號3樓",
+                  "BR_ESTAB_DATE": "0770627",
+                  "CHG_APP_DATE": "1050603",
+                  "Revoke_App_Date": "       "
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/6BBA2268-1367-4B42-9CCA-BC17499EBE8C": {
+      "get": {
+        "summary": "公司登記關鍵字查詢",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Company_Name like [^\\\\s+$] and Company_Status eq 0[1-9]|1[0-9]|2[0-9]|3[0-3]<br>說明:Company_Name(公司名稱);Company_Status(公司狀態代碼);",
+            "type": "string",
+            "pattern": "Company_Name like [^\\\\s]+ and Company_Status eq 0[1-9]|1[0-9]|2[0-9]|3[0-3]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供近似「公司」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Capital_Stock_Amount": {
+                    "type": "string"
+                  },
+                  "Paid_In_Capital_Amount": {
+                    "type": "string"
+                  },
+                  "Responsible_Name": {
+                    "type": "string"
+                  },
+                  "Company_Location": {
+                    "type": "string"
+                  },
+                  "Register_Organization_Desc": {
+                    "type": "string"
+                  },
+                  "Company_Setup_Date": {
+                    "type": "string"
+                  },
+                  "Change_Of_Approval_Data": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "22099131",
+                  "Company_Status_Desc": "核准設立",
+                  "Company_Name": "台灣積體電路製造股份有限公司",
+                  "Capital_Stock_Amount": "270500000000",
+                  "Paid_In_Capital_Amount": "259303804580",
+                  "Responsible_Name": "張O謀",
+                  "Company_Location": "新竹市力行六路8號",
+                  "Register_Organization_Desc": "科技部新竹科學工業園區管理局",
+                  "Company_Setup_Date": "0760221",
+                  "Change_Of_Approval_Data": "1070306"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/C8782705-DA48-4897-8537-9F7B0FC463EF": {
+      "get": {
+        "summary": "營業項目代碼( F 零售、批發及餐飲業 )查公司",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Item eq F[0-9]{6}<br>說明:Business_Item(營業項目代碼(F大類));",
+            "type": "string",
+            "pattern": "Business_Item eq F[0-9]{6}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "提供擁有指定的F開頭細項營業項目代碼「公司」清單",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Business_Accounting_NO": {
+                    "type": "string"
+                  },
+                  "Company_Name": {
+                    "type": "string"
+                  },
+                  "Company_Location": {
+                    "type": "string"
+                  },
+                  "Capital_Stock_Amount": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Business_Accounting_NO": "00670198",
+                  "Company_Name": "允明企業有限公司",
+                  "Company_Location": "基隆市仁愛區忠三路99號6樓之6、7",
+                  "Capital_Stock_Amount": 3000000
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/673F0FC0-B3A7-429F-9041-E9866836B66D": {
+      "get": {
+        "summary": "統編查是否為公司、分公司及商業",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:NO eq [0-9]{8}<br>說明:NO:欲認證的統一編號。",
+            "type": "string",
+            "pattern": "NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "確認該統一編號是否為公司或商業或分公司統一編號",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "exist": {
+                    "type": "string"
+                  },
+                  "TYPE": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "Year": "113",
+                  "exist": "Y",
+                  "TYPE": "公司"
+                },
+                {
+                  "Year": "113",
+                  "exist": "N",
+                  "TYPE": "分公司"
+                },
+                {
+                  "Year": "113",
+                  "exist": "N",
+                  "TYPE": "商業"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/426D5542-5F05-43EB-83F9-F1300F14E1F1": {
+      "get": {
+        "summary": "商業登記基本資料-應用三",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:President_No eq [0-9]{8}<br>說明:President_No :商業登記之下的商業統一編號。",
+            "type": "string",
+            "pattern": "President_No eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "資料來源:商業公示資料",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "President_No": {
+                    "type": "string"
+                  },
+                  "Business_Name": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status": {
+                    "type": "string"
+                  },
+                  "Business_Current_Status_Desc": {
+                    "type": "string"
+                  },
+                  "Agency": {
+                    "type": "string"
+                  },
+                  "Agency_Desc": {
+                    "type": "string"
+                  },
+                  "Business_Address": {
+                    "type": "string"
+                  },
+                  "Business_Item_Old": {
+                    "type": "object"
+                  },
+                  "Business_Seq_NO": {
+                    "type": "string"
+                  },
+                  "Business_Item": {
+                    "type": "string"
+                  }
+                  ,
+                  "Business_Item_Desc": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "President_No": "15725713",
+                  "Business_Name": "鴻燿商品行",
+                  "Business_Current_Status": "01",
+                  "Business_Current_Status_Desc": "核准設立",
+                  "Agency": "376610000A",
+                  "Agency_Desc": "臺南市政府",
+                  "Business_Address": "臺南市安南區長安里公學路2段55號1樓",
+                  "Business_Item_Old": [
+                    {
+                      "Business_Seq_No": "1",
+                      "Business_Item": "F207030",
+                      "Business_Item_Desc": "清潔用品零售業"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/9D17AE0D-09B5-4732-A8F4-81ADED04B679": {
+      "get": {
+        "summary": "統編查公司名稱",
+        "parameters": [
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "從第n筆開始條列。請填入阿拉伯數字，預設為0，下限為0，上限為500000。",
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "每次可撈取筆數。請填入阿拉伯數字，預設為50，下限為1，上限為1000。",
+            "type": "string"
+          },
+          {
+            "name": "$format",
+            "in": "query",
+            "required": true,
+            "description": "指定來源格式",
+            "type": "string",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": true,
+            "description": "過濾<br>公式:Business_Accounting_NO eq F[0-9]{6}<br>說明:Business_Item(營業項目代碼(F大類));",
+            "type": "string",
+            "pattern": "Business_Accounting_NO eq [0-9]{8}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查詢公司名稱",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Company_Name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example":[
+                { 
+                  "Business_Accounting_NO": "20828393",
+                  "Company_Name": "宏碁股份有限公司"
+                }
+              ]
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  }
+}

@@ -1,8 +1,11 @@
 enable_platform:
-  - gov_opendata_platform_api
+  - moea_wra_water_data_platform # 預設因無需認證，可使用
+#  - cwa_opendata_platform
 
+# 能載入時，預設 enable 為 true
 api_platforms:
   - id: moenv_platform
+# STATUS: 可認證後使用，規格有修
     name: 環境部環境資料開放平臺
     description: 提供環境部相關的開放資料，例如空氣品質、酸雨監測等。
     spec_pathname: 環境部環境資料開放平臺_openapi.yaml
@@ -19,6 +22,7 @@ api_platforms:
       - 請給我空氣品質預報資料。
 #      - 查詢酸雨監測值。
   - id: tdx_tranportdata
+# STATUS: 可認證後使用,規格不用修
     name: 交通部運輸資料流通服務平台
     description: 提供交通部運輸資料流通服務平台 相關的開放資料，例如公共運輸、觀光、氣象等。
     spec_pathname: 交通部運輸資料流通服務平台_openapi.json
@@ -35,10 +39,11 @@ api_platforms:
 #      - 查詢台北市的公車路線。
 #      - 查詢台灣高鐵的時刻表。
   - id: fsc_financial_stats_v2
+# STATUS: 可載入,規格不用修
     name: 金管會金融統計資料V2
     description: 提供金管會金融統計資料V2 相關的開放資料。
     spec_pathname: 金管會金融統計資料v2_openapi.json
-    enable: false
+    enable: true
     authentication:
       method: api_key #TBD
       key_env_var: 金管會金融統計資料V2_KEY
@@ -48,10 +53,11 @@ api_platforms:
       - 查詢金管會金融統計資料V2。
       - 請提供最新的金融統計數據。
   - id: hakka_council_open_data_platform
+# STATUS: 可載入,規格不用修
     name: 客家委員會開放資料平台
     description: 提供客家委員會開放資料平台 相關的開放資料。
     spec_pathname: 客家委員會開放資料平台_openapi.json
-    enable: false
+    enable: true
     authentication:
       method: api_key #TBD
       key_env_var: 客家委員會開放資料平台_KEY
@@ -61,10 +67,11 @@ api_platforms:
       - 查詢客家委員會開放資料平台的資料。
       - 客家委員會開放資料平台有哪些資料集？
   - id: gov_data_standard_platform
+# STATUS: 可載入,規格不用修
     name: 政府資料標準平臺
     description: 提供政府資料標準平臺 相關的開放資料。
     spec_pathname: 政府資料標準平臺_openapi.yaml
-    enable: false
+    enable: true
     authentication:
       method: api_key #TBD
       key_env_var: 政府資料標準平臺_KEY
@@ -74,6 +81,7 @@ api_platforms:
       - 查詢政府資料標準平臺的資料。
       - 政府資料標準平臺的最新標準是什麼？
   - id: mof_fic_gov_open_data
+# STATUS: 無法載入,Swagger 2.0 不兼容性，建議將規範轉換為 OpenAPI 3.x
     name: 財政部財政資訊中心政府資料開放
     description: 提供財政部財政資訊中心政府資料開放 相關的開放資料。
     spec_pathname: 財政部財政資訊中心政府資料開放_openapi.json
@@ -87,10 +95,11 @@ api_platforms:
       - 查詢財政部財政資訊中心政府資料開放的資料。
       - 財政部財政資訊中心有哪些開放資料？
   - id: mof_einvoice_platform
+# STATUS: 可載入,規格不用修
     name: 財政部電子發票整合服務平台
     description: 提供財政部電子發票整合服務平台 相關的開放資料。
     spec_pathname: 財政部電子發票整合服務平台_openapi.json
-    enable: false
+    enable: true
     authentication:
       method: api_key #TBD
       key_env_var: 財政部電子發票整合服務平台_KEY
@@ -100,6 +109,7 @@ api_platforms:
       - 查詢財政部電子發票整合服務平台的資料。
       - 電子發票整合服務平台有哪些功能？
   - id: moea_wra_water_data_platform
+# STATUS: 無需認證，可使用，規格不需更改
     name: 經濟部水利署水利資料開放平台
     description: 提供經濟部水利署水利資料開放平台 相關的開放資料。
     spec_pathname: 經濟部水利署水利資料開放平台_openapi.json
@@ -115,6 +125,7 @@ api_platforms:
       - 水庫的每日營運資料
       - 寶二水庫今日營運狀況
   - id: isports_info_platform
+# STATUS: 無需認證，可使用，規格不需更改
     name: I運動資訊平台
     description: 提供I運動資訊平台 相關的開放資料。
     spec_pathname: i運動資訊平台_openapi.json
@@ -128,6 +139,7 @@ api_platforms:
       - 查詢i運動資訊平台的體育活動清單。
       - i運動資訊平台有哪些運動賽事資訊？
   - id: gov_opendata_platform_api
+# STATUS: 無需認證，可使用，規格不需更改
     name: 政府開放資料測試平台
     description: 提供用於測試 Agent 的政府開放資料模擬 API。
     spec_pathname: 政府開放資料測試平台_openapi.json # 指向 FastAPI 伺服器生成的 OpenAPI Spec
@@ -144,6 +156,7 @@ api_platforms:
 
 
   - id: moa_data_platform
+# STATUS: 載入前 debug
     name: 農業部資料開放平台
     description: 提供多種農業相關資料的 API 介面，例如施肥用藥、農業氣象、交易行情、生產追溯等資訊。
     spec_pathname: 農業部資料開放平台_openapi.json
@@ -157,3 +170,17 @@ api_platforms:
       - 查詢農業部資料開放平台的農業氣象資料。
       - 查詢農業部資料開放平台的交易行情。
       - 查詢農業部資料開放平台的生產追溯資訊。
+  - id: cwa_opendata_platform
+# STATUS: 載入前 debug
+    name: 中央氣象署開放資料平台
+    description: 提供資料擷取 API 服務，並有 Swagger UI 介面，可查看 API 定義、測試 API 呼叫並產生查詢 URL。
+    spec_pathname: swagger.json
+    enable: false
+    authentication:
+      method: api_key
+      key_env_var: 中央氣象署開放資料平台_KEY
+    system_prompt: 你是一個中央氣象署開放資料平台的專家。請利用提供的工具來查詢相關資料。
+    process_tag: cwa_opendata_platform
+    demo_prompt:
+      - 查詢天氣預報。
+      - 查詢地震資訊。

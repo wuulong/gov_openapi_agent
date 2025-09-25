@@ -445,3 +445,6 @@ graph TD
 - [表單填寫](https://forms.gle/iH8udVFuoWJTLH8M7)
 - [目前回覆結果](https://docs.google.com/spreadsheets/d/1U0qxwtgvfrKAIfP29INJJb8Z5f5LAHxbRPD_VGi263s/edit?resourcekey=&gid=1756001883#gid=1756001883)
 
+
+## spec issues
+- [openapi_spec_Issues](docs/openapi_spec_Issues.md)

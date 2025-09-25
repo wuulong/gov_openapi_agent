@@ -1,0 +1,5187 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "本介面提供新竹市政府共通網站管理平台之市政新聞、一般公告、活動訊息、常見問答系統OpenAPI資訊對接服務。",
+    "version" : "v1-oas3",
+    "title" : "Hsinchu_City_Government_Web_OpenAPI",
+    "termsOfService" : "https://http://webopenapi.hccg.gov.tw/openapi.yaml"
+  },
+  "tags" : [ {
+    "name" : "市政新聞",
+    "description" : "Municipal News"
+  }, {
+    "name" : "一般公告",
+    "description" : "Announcement"
+  }, {
+    "name" : "常見問答分類",
+    "description" : "FAQ Class"
+  }, {
+    "name" : "多網接收設定",
+    "description" : "Publish Config"
+  }, {
+    "name" : "市政新聞分類",
+    "description" : "Municipal News Class"
+  }, {
+    "name" : "活動訊息",
+    "description" : "Activity"
+  }, {
+    "name" : "常見問答",
+    "description" : "FAQ"
+  }, {
+    "name" : "1999分類",
+    "description" : "FAQ 1999 Class"
+  }, {
+    "name" : "活動訊息分類",
+    "description" : "Activity Class"
+  }, {
+    "name" : "多網接收審核",
+    "description" : "Examine"
+  }, {
+    "name" : "詮釋資料",
+    "description" : "Metatag Class"
+  }, {
+    "name" : "一般公告分類",
+    "description" : "Announcement Class"
+  }, {
+    "name" : "站台清單",
+    "description" : "Web Site Unit"
+  }, {
+    "name" : "單位清單",
+    "description" : "Department"
+  } ],
+  "paths" : {
+    "/v1/Activity" : {
+      "get" : {
+        "tags" : [ "活動訊息" ],
+        "summary" : "取得活動訊息資料",
+        "description" : "取得活動訊息資料",
+        "operationId" : "listActivityUsingGET",
+        "parameters" : [ {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subject",
+          "in" : "query",
+          "description" : "主旨(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "startdate",
+          "in" : "query",
+          "description" : "發布日期(起)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enddate",
+          "in" : "query",
+          "description" : "發布日期(迄)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "activitysdate",
+          "in" : "query",
+          "description" : "活動日期(起)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "activityedate",
+          "in" : "query",
+          "description" : "活動日期(迄)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ActivityList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ActivityList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "活動訊息" ],
+        "summary" : "新增一筆活動訊息資料",
+        "description" : "新增一筆活動訊息資料",
+        "operationId" : "createActivityUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ActivityWrite"
+        }
+      }
+    },
+    "/v1/Activity/{serno}" : {
+      "get" : {
+        "tags" : [ "活動訊息" ],
+        "summary" : "取得指定活動訊息資料",
+        "description" : "取得指定活動訊息資料",
+        "operationId" : "getActivityUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "活動訊息" ],
+        "summary" : "修改指定活動訊息資料",
+        "description" : "修改指定活動訊息資料",
+        "operationId" : "updateActivityUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ActivityWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "活動訊息" ],
+        "summary" : "刪除指定活動訊息資料",
+        "description" : "刪除指定活動訊息資料",
+        "operationId" : "deleteActivityUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/ActivityClass" : {
+      "get" : {
+        "tags" : [ "活動訊息分類" ],
+        "summary" : "取得活動訊息分類資料",
+        "description" : "取得活動訊息分類資料",
+        "operationId" : "listActivityClassUsingGET",
+        "parameters" : [ {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ActivityClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ActivityClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "活動訊息分類" ],
+        "summary" : "新增一筆活動訊息分類資料",
+        "description" : "新增一筆活動訊息分類資料",
+        "operationId" : "createActivityClassUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ActivityClassWrite"
+        }
+      }
+    },
+    "/v1/ActivityClass/{serno}" : {
+      "get" : {
+        "tags" : [ "活動訊息分類" ],
+        "summary" : "取得指定活動訊息分類資料",
+        "description" : "取得指定活動訊息分類資料",
+        "operationId" : "getActivityClassUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityClassList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityClassList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "活動訊息分類" ],
+        "summary" : "修改指定活動訊息分類資料",
+        "description" : "修改指定活動訊息分類資料",
+        "operationId" : "updateActivityClassUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ActivityClassWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "活動訊息分類" ],
+        "summary" : "刪除指定活動訊息分類資料",
+        "description" : "刪除指定活動訊息分類資料",
+        "operationId" : "deleteActivityClassUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActivityClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Administrator" : {
+      "get" : {
+        "tags" : [ "詮釋資料" ],
+        "summary" : "取得詮釋資料的施政分類",
+        "description" : "取得詮釋資料的施政分類",
+        "operationId" : "listAdministratorClassUsingGET",
+        "parameters" : [ {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Bulletin" : {
+      "get" : {
+        "tags" : [ "一般公告" ],
+        "summary" : "取得一般公告資料",
+        "description" : "取得一般公告資料",
+        "operationId" : "listAnnouncementUsingGET",
+        "parameters" : [ {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subject",
+          "in" : "query",
+          "description" : "主旨(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "startdate",
+          "in" : "query",
+          "description" : "發布日期(起)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enddate",
+          "in" : "query",
+          "description" : "發布日期(迄)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnnouncementList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnnouncementList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "一般公告" ],
+        "summary" : "新增一筆一般公告資料",
+        "description" : "新增一筆一般公告資料",
+        "operationId" : "createAnnouncementUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/AnnouncementWrite"
+        }
+      }
+    },
+    "/v1/Bulletin/{serno}" : {
+      "get" : {
+        "tags" : [ "一般公告" ],
+        "summary" : "取得指定一般公告資料",
+        "description" : "取得指定一般公告資料",
+        "operationId" : "getAnnouncementUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "一般公告" ],
+        "summary" : "修改指定一般公告資料",
+        "description" : "修改指定一般公告資料",
+        "operationId" : "updateAnnouncementUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/AnnouncementWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "一般公告" ],
+        "summary" : "刪除指定一般公告資料",
+        "description" : "刪除指定一般公告資料",
+        "operationId" : "deleteAnnouncementUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/BulletinClass" : {
+      "get" : {
+        "tags" : [ "一般公告分類" ],
+        "summary" : "取得一般公告分類資料",
+        "description" : "取得一般公告分類資料",
+        "operationId" : "listAnnouncementClassUsingGET",
+        "parameters" : [ {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnnouncementClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnnouncementClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "一般公告分類" ],
+        "summary" : "新增一筆一般公告分類資料",
+        "description" : "新增一筆一般公告分類資料",
+        "operationId" : "createAnnouncementClassUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/AnnouncementClassWrite"
+        }
+      }
+    },
+    "/v1/BulletinClass/{serno}" : {
+      "get" : {
+        "tags" : [ "一般公告分類" ],
+        "summary" : "取得指定一般公告分類資料",
+        "description" : "取得指定一般公告分類資料",
+        "operationId" : "getAnnouncementClassUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementClassList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementClassList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "一般公告分類" ],
+        "summary" : "修改指定一般公告分類資料",
+        "description" : "修改指定一般公告分類資料",
+        "operationId" : "updateAnnouncementClassUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/AnnouncementClassWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "一般公告分類" ],
+        "summary" : "刪除指定一般公告分類資料",
+        "description" : "刪除指定一般公告分類資料",
+        "operationId" : "deleteAnnouncementClassUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AnnouncementClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Class1999" : {
+      "get" : {
+        "tags" : [ "1999分類" ],
+        "summary" : "取得1999分類資料",
+        "description" : "取得1999分類資料",
+        "operationId" : "list1999ClassUsingGET",
+        "parameters" : [ {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Class1999List"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Class1999List"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "1999分類" ],
+        "summary" : "新增一筆1999分類資料",
+        "description" : "新增一筆1999分類資料",
+        "operationId" : "create1999ClassUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Class1999Write"
+        }
+      }
+    },
+    "/v1/Class1999/{serno}" : {
+      "get" : {
+        "tags" : [ "1999分類" ],
+        "summary" : "取得指定1999分類資料",
+        "description" : "取得指定1999分類資料",
+        "operationId" : "get1999ClassUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Class1999List"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Class1999List"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "1999分類" ],
+        "summary" : "修改指定1999分類資料",
+        "description" : "修改指定1999分類資料",
+        "operationId" : "update1999ClassUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Class1999Write"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Class1999Write"
+        }
+      },
+      "delete" : {
+        "tags" : [ "1999分類" ],
+        "summary" : "刪除指定1999分類資料",
+        "description" : "刪除指定1999分類資料",
+        "operationId" : "delete1999ClassUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Class1999Write"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Examine" : {
+      "get" : {
+        "tags" : [ "多網接收審核" ],
+        "summary" : "取得多網審核資料",
+        "description" : "取得多網審核資料",
+        "operationId" : "listExamineUsingGET",
+        "parameters" : [ {
+          "name" : "aplistdn",
+          "in" : "query",
+          "description" : "功能代碼",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websiteexam",
+          "in" : "query",
+          "description" : "審核狀態(0：待審核,Y：通過,N：不通過)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ExamineList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ExamineList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "多網接收審核" ],
+        "summary" : "修改多網審核資料",
+        "description" : "修改多網審核資料",
+        "operationId" : "updateExamineUsingPUT",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ExamineWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ExamineWrite"
+              }
+            }
+          },
+          "description" : "examinewrite",
+          "required" : true
+        }
+      }
+    },
+    "/v1/FAQ" : {
+      "get" : {
+        "tags" : [ "常見問答" ],
+        "summary" : "取得常見問答資料",
+        "description" : "取得常見問答資料",
+        "operationId" : "listFAQUsingGET",
+        "parameters" : [ {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subject",
+          "in" : "query",
+          "description" : "主旨(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "startdate",
+          "in" : "query",
+          "description" : "發布日期(起)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enddate",
+          "in" : "query",
+          "description" : "發布日期(迄)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "class1999",
+          "in" : "query",
+          "description" : "1999主題網分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FAQList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FAQList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "常見問答" ],
+        "summary" : "新增一筆常見問答資料",
+        "description" : "新增一筆常見問答資料",
+        "operationId" : "createFAQUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/FAQWrite"
+        }
+      }
+    },
+    "/v1/FAQ/{serno}" : {
+      "get" : {
+        "tags" : [ "常見問答" ],
+        "summary" : "取得指定常見問答資料",
+        "description" : "取得指定常見問答資料",
+        "operationId" : "getFAQUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "常見問答" ],
+        "summary" : "修改指定常見問答資料",
+        "description" : "修改指定常見問答資料",
+        "operationId" : "updateFAQUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/FAQWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "常見問答" ],
+        "summary" : "刪除指定常見問答資料",
+        "description" : "刪除指定常見問答資料",
+        "operationId" : "deleteFAQUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/FAQClass" : {
+      "get" : {
+        "tags" : [ "常見問答分類" ],
+        "summary" : "取得常見問答分類資料",
+        "description" : "取得常見問答分類資料",
+        "operationId" : "listFAQClassUsingGET",
+        "parameters" : [ {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FAQClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FAQClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "常見問答分類" ],
+        "summary" : "新增一筆常見問答分類資料",
+        "description" : "新增一筆常見問答分類資料",
+        "operationId" : "createFAQClassUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/FAQClassWrite"
+        }
+      }
+    },
+    "/v1/FAQClass/{serno}" : {
+      "get" : {
+        "tags" : [ "常見問答分類" ],
+        "summary" : "取得指定常見問答分類資料",
+        "description" : "取得指定常見問答分類資料",
+        "operationId" : "getFAQClassUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQClassList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQClassList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "常見問答分類" ],
+        "summary" : "修改指定常見問答分類資料",
+        "description" : "修改指定常見問答分類資料",
+        "operationId" : "updateFAQClassUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/FAQClassWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "常見問答分類" ],
+        "summary" : "刪除指定常見問答分類資料",
+        "description" : "刪除指定常見問答分類資料",
+        "operationId" : "deleteFAQClassUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FAQClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/News" : {
+      "get" : {
+        "tags" : [ "市政新聞" ],
+        "summary" : "取得市政新聞資料",
+        "description" : "取得市政新聞資料",
+        "operationId" : "listMunicipalNewsUsingGET",
+        "parameters" : [ {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subject",
+          "in" : "query",
+          "description" : "標題(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "startdate",
+          "in" : "query",
+          "description" : "發布日期(起)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enddate",
+          "in" : "query",
+          "description" : "發布日期(迄)；格式：yyyy-MM-dd",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MunicipalNewsList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MunicipalNewsList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "市政新聞" ],
+        "summary" : "新增一筆市政新聞資料",
+        "description" : "新增一筆市政新聞資料",
+        "operationId" : "createMunicipalNewsUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/MunicipalNewsWrite"
+        }
+      }
+    },
+    "/v1/News/{serno}" : {
+      "get" : {
+        "tags" : [ "市政新聞" ],
+        "summary" : "取得指定市政新聞資料",
+        "description" : "取得指定市政新聞資料",
+        "operationId" : "getMunicipalNewsUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "市政新聞" ],
+        "summary" : "修改指定市政新聞資料",
+        "description" : "修改指定市政新聞資料",
+        "operationId" : "updateMunicipalNewsUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/MunicipalNewsWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "市政新聞" ],
+        "summary" : "刪除指定市政新聞資料",
+        "description" : "刪除指定市政新聞資料",
+        "operationId" : "deleteMunicipalNewsUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/NewsClass" : {
+      "get" : {
+        "tags" : [ "市政新聞分類" ],
+        "summary" : "取得市政新聞分類資料",
+        "description" : "取得市政新聞分類資料",
+        "operationId" : "listMunicipalNewsClassUsingGET",
+        "parameters" : [ {
+          "name" : "mserno",
+          "in" : "query",
+          "description" : "分類序號",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "languagetype",
+          "in" : "query",
+          "description" : "語系(中文：chinese；英文：english)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MunicipalNewsClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MunicipalNewsClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "市政新聞分類" ],
+        "summary" : "新增一筆市政新聞分類資料",
+        "description" : "新增一筆市政新聞分類資料",
+        "operationId" : "createMunicipalNewsClassUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/MunicipalNewsClassWrite"
+        }
+      }
+    },
+    "/v1/NewsClass/{serno}" : {
+      "get" : {
+        "tags" : [ "市政新聞分類" ],
+        "summary" : "取得指定市政新聞分類資料",
+        "description" : "取得指定市政新聞分類資料",
+        "operationId" : "getMunicipalNewsClassUsingGET",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "資料序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsClassList"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsClassList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "put" : {
+        "tags" : [ "市政新聞分類" ],
+        "summary" : "修改指定市政新聞分類資料",
+        "description" : "修改指定市政新聞分類資料",
+        "operationId" : "updateMunicipalNewsClassUsingPUT",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/MunicipalNewsClassWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "市政新聞分類" ],
+        "summary" : "刪除指定市政新聞分類資料",
+        "description" : "刪除指定市政新聞分類資料",
+        "operationId" : "deleteMunicipalNewsClassUsingDELETE",
+        "parameters" : [ {
+          "name" : "serno",
+          "in" : "path",
+          "description" : "分類序號",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsClassWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Receive" : {
+      "get" : {
+        "tags" : [ "多網接收設定" ],
+        "summary" : "取得多網接收設定資料",
+        "description" : "取得多網接收設定資料",
+        "operationId" : "listPublishConfigUsingGET",
+        "parameters" : [ {
+          "name" : "aplistdn",
+          "in" : "query",
+          "description" : "功能代碼",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pubwebsitedn",
+          "in" : "query",
+          "description" : "接收站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆(最多100筆)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PublishConfigList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PublishConfigList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      },
+      "post" : {
+        "tags" : [ "多網接收設定" ],
+        "summary" : "新增一筆多網接收設定資料",
+        "description" : "新增一筆多網接收設定資料",
+        "operationId" : "createPublishConfigUsingPOST",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/PublishConfigWrite"
+        }
+      },
+      "put" : {
+        "tags" : [ "多網接收設定" ],
+        "summary" : "修改指定多網接收設定資料",
+        "description" : "修改指定多網接收設定資料",
+        "operationId" : "updatePublishConfigUsingPUT",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublishConfigWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false,
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/PublishConfigWrite"
+        }
+      },
+      "delete" : {
+        "tags" : [ "多網接收設定" ],
+        "summary" : "刪除指定多網接收設定資料",
+        "description" : "刪除指定多網接收設定資料",
+        "operationId" : "deleteMunicipalNewsUsingDELETE_1",
+        "parameters" : [ {
+          "name" : "aplistdn",
+          "in" : "query",
+          "description" : "功能代碼",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "站台DN值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "header",
+          "description" : "apiKey值",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MunicipalNewsWrite"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Subject" : {
+      "get" : {
+        "tags" : [ "詮釋資料" ],
+        "summary" : "取得詮釋資料的主題分類",
+        "description" : "取得詮釋資料的主題分類",
+        "operationId" : "listSubjectClassUsingGET",
+        "parameters" : [ {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/Unit" : {
+      "get" : {
+        "tags" : [ "單位清單" ],
+        "summary" : "取得單位資料",
+        "description" : "取得單位資料",
+        "operationId" : "listDepartmentUsingGET",
+        "parameters" : [ {
+          "name" : "pubunitdn",
+          "in" : "query",
+          "description" : "發布單位DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/DepartmentList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/DepartmentList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/WebSite" : {
+      "get" : {
+        "tags" : [ "站台清單" ],
+        "summary" : "取得站台資料",
+        "description" : "取得站台資料",
+        "operationId" : "listWebSiteUnitUsingGET",
+        "parameters" : [ {
+          "name" : "websitedn",
+          "in" : "query",
+          "description" : "使用站台DN值",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/WebSiteUnitList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/WebSiteUnitList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/v1/service" : {
+      "get" : {
+        "tags" : [ "詮釋資料" ],
+        "summary" : "取得詮釋資料的服務分類",
+        "description" : "取得詮釋資料的服務分類",
+        "operationId" : "listServiceClassUsingGET",
+        "parameters" : [ {
+          "name" : "classname",
+          "in" : "query",
+          "description" : "分類名稱(關鍵字)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "top",
+          "in" : "query",
+          "description" : "取前幾筆",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MetatagClassList"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "參數驗證失敗，請求無效"
+          },
+          "404" : {
+            "description" : "查無資料或您所要求的資源不存在"
+          },
+          "500" : {
+            "description" : "伺服器發生錯誤"
+          }
+        },
+        "deprecated" : false
+      }
+    }
+  },
+  "servers" : [ {
+    "url" : "//webopenapi.hccg.gov.tw/"
+  } ],
+  "components" : {
+    "requestBodies" : {
+      "ActivityWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ActivityWrite"
+            }
+          }
+        },
+        "description" : "activitywrite",
+        "required" : true
+      },
+      "AnnouncementWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AnnouncementWrite"
+            }
+          }
+        },
+        "description" : "announcementwrite",
+        "required" : true
+      },
+      "MunicipalNewsClassWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/MunicipalNewsClassWrite"
+            }
+          }
+        },
+        "description" : "municipalnewsclasswrite",
+        "required" : true
+      },
+      "ActivityClassWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ActivityClassWrite"
+            }
+          }
+        },
+        "description" : "activityclasswrite",
+        "required" : true
+      },
+      "AnnouncementClassWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AnnouncementClassWrite"
+            }
+          }
+        },
+        "description" : "announcementclasswrite",
+        "required" : true
+      },
+      "Class1999Write" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Class1999Write"
+            }
+          }
+        },
+        "description" : "class1999write",
+        "required" : true
+      },
+      "FAQWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/FAQWrite"
+            }
+          }
+        },
+        "description" : "faqwrite",
+        "required" : true
+      },
+      "FAQClassWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/FAQClassWrite"
+            }
+          }
+        },
+        "description" : "faqclasswrite",
+        "required" : true
+      },
+      "MunicipalNewsWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/MunicipalNewsWrite"
+            }
+          }
+        },
+        "description" : "municipalnewswrite",
+        "required" : true
+      },
+      "PublishConfigWrite" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/PublishConfigWrite"
+            }
+          }
+        },
+        "description" : "publishconfigwrite",
+        "required" : true
+      }
+    },
+    "schemas" : {
+      "ActivityClassList" : {
+        "type" : "object",
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "使用站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "使用站台名稱"
+          }
+        }
+      },
+      "ActivityClassWrite" : {
+        "type" : "object",
+        "required" : [ "classname", "createname", "createuid", "languagetype", "postname", "postuid" ],
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱，不可超過15個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          }
+        }
+      },
+      "ActivityList" : {
+        "type" : "object",
+        "properties" : {
+          "activitydateremark" : {
+            "type" : "string",
+            "description" : "活動時間備註"
+          },
+          "activityedate" : {
+            "type" : "string",
+            "description" : "活動時間迄"
+          },
+          "activityplace" : {
+            "type" : "string",
+            "description" : "活動地點"
+          },
+          "activitysdate" : {
+            "type" : "string",
+            "description" : "活動時間起"
+          },
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告"
+          },
+          "detailcontent" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "filedatalist" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataList"
+            }
+          },
+          "hostunit" : {
+            "type" : "string",
+            "description" : "主辦單位"
+          },
+          "invite" : {
+            "type" : "string",
+            "description" : "邀請對象"
+          },
+          "jointunit" : {
+            "type" : "string",
+            "description" : "協辦單位"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話"
+          },
+          "mapdatalist" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataList"
+            }
+          },
+          "posterdatalist" : {
+            "type" : "array",
+            "description" : "發布站台",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataList"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "點閱率"
+          },
+          "resourcedatalist" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataList"
+            }
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "序號"
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)"
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "活動名稱"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報"
+          }
+        }
+      },
+      "ActivityWrite" : {
+        "type" : "object",
+        "required" : [ "activityedate", "activityplace", "activitysdate", "administationclass", "administationid", "createname", "createuid", "languagetype", "metakeyword", "posterdate", "postname", "postuid", "serviceclass", "serviceid", "startusing", "subject", "subjectclass", "subjectid", "voice" ],
+        "properties" : {
+          "activitydateremark" : {
+            "type" : "string",
+            "description" : "活動時間備註，不可超過100個字元"
+          },
+          "activityedate" : {
+            "type" : "string",
+            "description" : "活動時間(迄)，格式：yyyy-MM-dd HH:mm"
+          },
+          "activityplace" : {
+            "type" : "string",
+            "description" : "活動地點，不可超過100個字元"
+          },
+          "activitysdate" : {
+            "type" : "string",
+            "description" : "活動時間(起)，格式：yyyy-MM-dd HH:mm"
+          },
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期，格式：yyyy-MM-dd"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告，不可超過100個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "detailcontent" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "filedatawrite" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataWrite"
+            }
+          },
+          "hostunit" : {
+            "type" : "string",
+            "description" : "主辦單位，不可超過500個字元"
+          },
+          "invite" : {
+            "type" : "string",
+            "description" : "邀請對象，不可超過100個字元"
+          },
+          "jointunit" : {
+            "type" : "string",
+            "description" : "協辦單位，不可超過500個字元"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱，不可超過60個字元"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼，不可超過50個字元"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人，不可超過20個字元"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話，不可超過50個字元"
+          },
+          "mapdatawrite" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataWrite"
+            }
+          },
+          "metakeyword" : {
+            "type" : "string",
+            "description" : "關鍵字，不可超過200個字元"
+          },
+          "posterdatawrite" : {
+            "type" : "array",
+            "description" : "發布站台(至少需一筆資料)",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataWrite"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期，格式：yyyy-MM-dd"
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          },
+          "resourcedatawrite" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataWrite"
+            }
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)",
+            "enum" : [ "1", "0" ]
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "活動名稱，不可超過100個字元"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報，不可超過500個字元"
+          }
+        }
+      },
+      "AnnouncementClassList" : {
+        "type" : "object",
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "使用站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "使用站台名稱"
+          }
+        }
+      },
+      "AnnouncementClassWrite" : {
+        "type" : "object",
+        "required" : [ "classname", "createname", "createuid", "languagetype", "postname", "postuid" ],
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱，不可超過15個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          }
+        }
+      },
+      "AnnouncementList" : {
+        "type" : "object",
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "announcementdate" : {
+            "type" : "string",
+            "description" : "公告日期"
+          },
+          "basis" : {
+            "type" : "string",
+            "description" : "依據"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告"
+          },
+          "detailcontent" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "filedatalist" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataList"
+            }
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話"
+          },
+          "mapdatalist" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataList"
+            }
+          },
+          "posterdatalist" : {
+            "type" : "array",
+            "description" : "發布站台",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataList"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期"
+          },
+          "posterid" : {
+            "type" : "string",
+            "description" : "發文字號"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "點閱率"
+          },
+          "resourcedatalist" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataList"
+            }
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "序號"
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)"
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "主旨"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報"
+          }
+        }
+      },
+      "AnnouncementWrite" : {
+        "type" : "object",
+        "required" : [ "administationclass", "administationid", "createname", "createuid", "languagetype", "metakeyword", "posterdate", "postname", "postuid", "serviceclass", "serviceid", "startusing", "subject", "subjectclass", "subjectid", "voice" ],
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "announcementdate" : {
+            "type" : "string",
+            "description" : "公告日期，格式：yyyy-MM-dd"
+          },
+          "basis" : {
+            "type" : "string",
+            "description" : "依據，不可超過1000個字元"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期，格式：yyyy-MM-dd"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告，不可超過100個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "detailcontent" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "filedatawrite" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataWrite"
+            }
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱，不可超過60個字元"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼，不可超過50個字元"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人，不可超過20個字元"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話，不可超過50個字元"
+          },
+          "mapdatawrite" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataWrite"
+            }
+          },
+          "metakeyword" : {
+            "type" : "string",
+            "description" : "關鍵字，不可超過200個字元"
+          },
+          "posterdatawrite" : {
+            "type" : "array",
+            "description" : "發布站台(至少需一筆資料)",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataWrite"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期，格式：yyyy-MM-dd"
+          },
+          "posterid" : {
+            "type" : "string",
+            "description" : "發文字號，不可超過200個字元"
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          },
+          "resourcedatawrite" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataWrite"
+            }
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)",
+            "enum" : [ "1", "0" ]
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "主旨，不可超過100個字元"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報，不可超過500個字元"
+          }
+        }
+      },
+      "Class1999List" : {
+        "type" : "object",
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "使用站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "使用站台名稱"
+          }
+        }
+      },
+      "Class1999Write" : {
+        "type" : "object",
+        "required" : [ "classname", "createname", "createuid", "languagetype", "postname", "postuid" ],
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱，不可超過15個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          }
+        }
+      },
+      "DepartmentList" : {
+        "type" : "object",
+        "properties" : {
+          "chinesetitle" : {
+            "type" : "string",
+            "description" : "單位中文名稱"
+          },
+          "englishtitle" : {
+            "type" : "string",
+            "description" : "單位英文名稱"
+          },
+          "unitdn" : {
+            "type" : "string",
+            "description" : "單位DN值"
+          }
+        }
+      },
+      "ExamineList" : {
+        "type" : "object",
+        "properties" : {
+          "aplistdn" : {
+            "type" : "string",
+            "description" : "功能代碼"
+          },
+          "aplistname" : {
+            "type" : "string",
+            "description" : "功能名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "排序"
+          },
+          "detailno" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "發布站台序號"
+          },
+          "examineexplain" : {
+            "type" : "string",
+            "description" : "審核說明"
+          },
+          "istop" : {
+            "type" : "string",
+            "description" : "是否置頂"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號"
+          },
+          "topdate" : {
+            "type" : "string",
+            "description" : "置頂截止日期"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "站台DN值"
+          },
+          "websiteexam" : {
+            "type" : "string",
+            "description" : "審核狀態"
+          },
+          "websiteexamdate" : {
+            "type" : "string",
+            "description" : "審核日期"
+          },
+          "websiteexamname" : {
+            "type" : "string",
+            "description" : "審核人員"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "站台名稱"
+          }
+        }
+      },
+      "ExamineWrite" : {
+        "type" : "object",
+        "required" : [ "aplistdn", "detailno", "istop", "serno", "websiteexam", "websiteexamdate", "websiteexamname" ],
+        "properties" : {
+          "aplistdn" : {
+            "type" : "string",
+            "description" : "功能代碼"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "民眾端排序"
+          },
+          "detailno" : {
+            "type" : "string",
+            "description" : "站台序號"
+          },
+          "examineexplain" : {
+            "type" : "string",
+            "description" : "審核說明"
+          },
+          "istop" : {
+            "type" : "string",
+            "description" : "是否置頂(Y：是,N：否)",
+            "enum" : [ "Y", "N" ]
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號，不可超過12個字元"
+          },
+          "topdate" : {
+            "type" : "string",
+            "description" : "置頂截止日期，格式：yyyy-MM-dd"
+          },
+          "websiteexam" : {
+            "type" : "string",
+            "description" : "審核狀態(Y：通過,N：不通過)",
+            "enum" : [ "Y", "N" ]
+          },
+          "websiteexamdate" : {
+            "type" : "string",
+            "description" : "審核日期，格式：yyyy-MM-dd"
+          },
+          "websiteexamname" : {
+            "type" : "string",
+            "description" : "審核人員，不可超過20個字元"
+          }
+        }
+      },
+      "FAQClassList" : {
+        "type" : "object",
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "使用站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "使用站台名稱"
+          }
+        }
+      },
+      "FAQClassWrite" : {
+        "type" : "object",
+        "required" : [ "classname", "createname", "createuid", "languagetype", "postname", "postuid" ],
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱，不可超過15個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          }
+        }
+      },
+      "FAQList" : {
+        "type" : "object",
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "answer" : {
+            "type" : "string"
+          },
+          "class1999" : {
+            "type" : "string",
+            "description" : "1999主題網分類"
+          },
+          "classname1999" : {
+            "type" : "string",
+            "description" : "1999主題網分類名稱"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告"
+          },
+          "filedatalist" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataList"
+            }
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "mapdatalist" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataList"
+            }
+          },
+          "posterdatalist" : {
+            "type" : "array",
+            "description" : "發布站台",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataList"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "點閱率"
+          },
+          "resourcedatalist" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataList"
+            }
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "序號"
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)"
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "問題"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          }
+        }
+      },
+      "FAQWrite" : {
+        "type" : "object",
+        "required" : [ "administationclass", "administationid", "createname", "createuid", "languagetype", "posterdate", "postname", "postuid", "serviceclass", "serviceid", "startusing", "subject", "subjectclass", "subjectid" ],
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "answer" : {
+            "type" : "string",
+            "description" : "解答"
+          },
+          "class1999" : {
+            "type" : "string",
+            "description" : "1999主題網分類序號"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期，格式：yyyy-MM-dd"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告，不可超過100個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "filedatawrite" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataWrite"
+            }
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "mapdatawrite" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataWrite"
+            }
+          },
+          "posterdatawrite" : {
+            "type" : "array",
+            "description" : "發布站台(至少需一筆資料)",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataWrite"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期，格式：yyyy-MM-dd"
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          },
+          "resourcedatawrite" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataWrite"
+            }
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)",
+            "enum" : [ "1", "0" ]
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "問題，不可超過100個字元"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          }
+        }
+      },
+      "FileDataList" : {
+        "type" : "object",
+        "properties" : {
+          "clientfile" : {
+            "type" : "string",
+            "description" : "上傳原始檔案名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "民眾端排序"
+          },
+          "detailno" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "相關附件序號"
+          },
+          "downloadodfpath" : {
+            "type" : "string",
+            "description" : "下載ODF檔案路徑(包含檔案名稱)"
+          },
+          "downloadpath" : {
+            "type" : "string",
+            "description" : "下載檔案路徑(包含檔案名稱)"
+          },
+          "downloadpdfpath" : {
+            "type" : "string",
+            "description" : "下載PDF檔案路徑(包含檔案名稱)"
+          },
+          "expfile" : {
+            "type" : "string",
+            "description" : "檔案說明"
+          },
+          "filesize" : {
+            "type" : "string",
+            "description" : "檔案大小"
+          },
+          "flag" : {
+            "type" : "string",
+            "description" : "檔案/圖片；doc：檔案,pic：圖片"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "下載次數"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號"
+          },
+          "serverfile" : {
+            "type" : "string",
+            "description" : "下載檔案名稱"
+          }
+        }
+      },
+      "FileDataWrite" : {
+        "type" : "object",
+        "properties" : {
+          "clientfile" : {
+            "type" : "string",
+            "description" : "上傳原始檔案名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "民眾端排序"
+          },
+          "downloadodfpath" : {
+            "type" : "string",
+            "description" : "下載ODF檔案路徑(包含檔案名稱)"
+          },
+          "downloadpath" : {
+            "type" : "string",
+            "description" : "下載檔案路徑(需包含檔案名稱)"
+          },
+          "downloadpdfpath" : {
+            "type" : "string",
+            "description" : "下載PDF檔案路徑(需包含檔案名稱)"
+          },
+          "expfile" : {
+            "type" : "string",
+            "description" : "檔案說明"
+          },
+          "flag" : {
+            "type" : "string",
+            "description" : "檔案/圖片；doc：檔案,pic：圖片"
+          }
+        }
+      },
+      "MapDataList" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string",
+            "description" : "地址"
+          },
+          "area" : {
+            "type" : "string",
+            "description" : "郵遞區號"
+          },
+          "cityname" : {
+            "type" : "string",
+            "description" : "縣市名稱"
+          },
+          "detailno" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "地圖序號"
+          },
+          "lat" : {
+            "type" : "string",
+            "description" : "經度"
+          },
+          "lng" : {
+            "type" : "string",
+            "description" : "緯度"
+          },
+          "location" : {
+            "type" : "string",
+            "description" : "地名"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號"
+          },
+          "townsname" : {
+            "type" : "string",
+            "description" : "鄉鎮名稱"
+          }
+        }
+      },
+      "MapDataWrite" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string",
+            "description" : "地址"
+          },
+          "area" : {
+            "type" : "string",
+            "description" : "郵遞區號"
+          },
+          "cityname" : {
+            "type" : "string",
+            "description" : "縣市名稱"
+          },
+          "lat" : {
+            "type" : "string",
+            "description" : "經度"
+          },
+          "lng" : {
+            "type" : "string",
+            "description" : "緯度"
+          },
+          "location" : {
+            "type" : "string",
+            "description" : "地名"
+          },
+          "townsname" : {
+            "type" : "string",
+            "description" : "鄉鎮名稱"
+          }
+        }
+      },
+      "MetatagClassList" : {
+        "type" : "object",
+        "properties" : {
+          "chinesename" : {
+            "type" : "string",
+            "description" : "分類中文名稱"
+          },
+          "englishname" : {
+            "type" : "string",
+            "description" : "分類英文名稱"
+          },
+          "metatagid" : {
+            "type" : "string",
+            "description" : "分類ID"
+          }
+        }
+      },
+      "MunicipalNewsClassList" : {
+        "type" : "object",
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "使用站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "使用站台名稱"
+          }
+        }
+      },
+      "MunicipalNewsClassWrite" : {
+        "type" : "object",
+        "required" : [ "classname", "createname", "createuid", "languagetype", "postname", "postuid" ],
+        "properties" : {
+          "classname" : {
+            "type" : "string",
+            "description" : "分類名稱，不可超過15個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分類排序"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          }
+        }
+      },
+      "MunicipalNewsList" : {
+        "type" : "object",
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期"
+          },
+          "content" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告"
+          },
+          "filedatalist" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataList"
+            }
+          },
+          "ispublic" : {
+            "type" : "string",
+            "description" : "是否發布至議會定期會公告專區(Y：是,N：否)"
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)"
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話"
+          },
+          "mapdatalist" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataList"
+            }
+          },
+          "posterdatalist" : {
+            "type" : "array",
+            "description" : "發布站台",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataList"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期"
+          },
+          "pubunitdn" : {
+            "type" : "string",
+            "description" : "發布單位DN值"
+          },
+          "pubunitname" : {
+            "type" : "string",
+            "description" : "發布單位名稱"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "點閱率"
+          },
+          "resourcedatalist" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataList"
+            }
+          },
+          "secsubject" : {
+            "type" : "string",
+            "description" : "副標題"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "序號"
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)"
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "標題"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "videoiframe" : {
+            "type" : "string",
+            "description" : "影音嵌入碼"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報"
+          }
+        }
+      },
+      "MunicipalNewsWrite" : {
+        "type" : "object",
+        "required" : [ "administationclass", "administationid", "createname", "createuid", "ispublic", "languagetype", "metakeyword", "posterdate", "postname", "postuid", "serviceclass", "serviceid", "startusing", "subject", "subjectclass", "subjectid", "voice" ],
+        "properties" : {
+          "administationclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類"
+          },
+          "administationid" : {
+            "type" : "string",
+            "description" : "詮釋資料-施政分類ID"
+          },
+          "closedate" : {
+            "type" : "string",
+            "description" : "截止日期，格式：yyyy-MM-dd"
+          },
+          "content" : {
+            "type" : "string",
+            "description" : "詳細內容"
+          },
+          "copyright" : {
+            "type" : "string",
+            "description" : "版權宣告，不可超過100個字元"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "filedatawrite" : {
+            "type" : "array",
+            "description" : "相關附件",
+            "items" : {
+              "$ref" : "#/components/schemas/FileDataWrite"
+            }
+          },
+          "ispublic" : {
+            "type" : "string",
+            "description" : "是否發布至議會定期會公告專區(Y：是,N：否)",
+            "enum" : [ "N", "Y" ]
+          },
+          "languagetype" : {
+            "type" : "string",
+            "description" : "語系(chinese：中文,english：英文)",
+            "enum" : [ "chinese", "english" ]
+          },
+          "liaisonemail" : {
+            "type" : "string",
+            "description" : "電子信箱，不可超過60個字元"
+          },
+          "liaisonfax" : {
+            "type" : "string",
+            "description" : "傳真號碼，不可超過50個字元"
+          },
+          "liaisonper" : {
+            "type" : "string",
+            "description" : "聯絡人，不可超過20個字元"
+          },
+          "liaisontel" : {
+            "type" : "string",
+            "description" : "聯絡電話，不可超過50個字元"
+          },
+          "mapdatawrite" : {
+            "type" : "array",
+            "description" : "相關地圖",
+            "items" : {
+              "$ref" : "#/components/schemas/MapDataWrite"
+            }
+          },
+          "metakeyword" : {
+            "type" : "string",
+            "description" : "關鍵字，不可超過200個字元"
+          },
+          "posterdatawrite" : {
+            "type" : "array",
+            "description" : "發布站台(至少需一筆資料)",
+            "items" : {
+              "$ref" : "#/components/schemas/PosterDataWrite"
+            }
+          },
+          "posterdate" : {
+            "type" : "string",
+            "description" : "發布日期，格式：yyyy-MM-dd"
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          },
+          "resourcedatawrite" : {
+            "type" : "array",
+            "description" : "相關連結",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceDataWrite"
+            }
+          },
+          "secsubject" : {
+            "type" : "string",
+            "description" : "副標題，不可超過100個字元"
+          },
+          "serviceclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類"
+          },
+          "serviceid" : {
+            "type" : "string",
+            "description" : "詮釋資料-服務分類ID"
+          },
+          "startusing" : {
+            "type" : "string",
+            "description" : "啟用(1：永久有效,0：截止日期)",
+            "enum" : [ "1", "0" ]
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "標題，不可超過100個字元"
+          },
+          "subjectclass" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類"
+          },
+          "subjectid" : {
+            "type" : "string",
+            "description" : "詮釋資料-主題分類ID"
+          },
+          "videoiframe" : {
+            "type" : "string",
+            "description" : "影音嵌入碼"
+          },
+          "voice" : {
+            "type" : "string",
+            "description" : "語音播報，不可超過500個字元"
+          }
+        }
+      },
+      "PosterDataList" : {
+        "type" : "object",
+        "properties" : {
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "排序"
+          },
+          "detailno" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "發布站台序號"
+          },
+          "examineemail" : {
+            "type" : "string",
+            "description" : "是否接收審核通知(1：是,0：否)"
+          },
+          "examineexplain" : {
+            "type" : "string",
+            "description" : "審核說明"
+          },
+          "istop" : {
+            "type" : "string",
+            "description" : "是否置頂"
+          },
+          "mserno" : {
+            "type" : "string",
+            "description" : "市政新聞分類序號"
+          },
+          "msernoname" : {
+            "type" : "string",
+            "description" : "市政新聞分類名稱"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號"
+          },
+          "topdate" : {
+            "type" : "string",
+            "description" : "置頂截止日期"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "站台DN值"
+          },
+          "websiteexam" : {
+            "type" : "string",
+            "description" : "審核狀態"
+          },
+          "websiteexamdate" : {
+            "type" : "string",
+            "description" : "審核日期"
+          },
+          "websiteexamname" : {
+            "type" : "string",
+            "description" : "審核人員"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "站台名稱"
+          }
+        }
+      },
+      "PosterDataWrite" : {
+        "type" : "object",
+        "properties" : {
+          "mserno" : {
+            "type" : "string",
+            "description" : "市政新聞分類序號"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "站台DN值"
+          }
+        }
+      },
+      "PublishConfigList" : {
+        "type" : "object",
+        "properties" : {
+          "aplistdn" : {
+            "type" : "string",
+            "description" : "功能代碼"
+          },
+          "aplistname" : {
+            "type" : "string",
+            "description" : "功能名稱"
+          },
+          "isexamine" : {
+            "type" : "string",
+            "description" : "是否需要審核"
+          },
+          "pubwebsitedn" : {
+            "type" : "string",
+            "description" : "接收站台DN值"
+          },
+          "pubwebsitename" : {
+            "type" : "string",
+            "description" : "接收站台名稱"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "站台名稱"
+          }
+        }
+      },
+      "PublishConfigWrite" : {
+        "type" : "object",
+        "required" : [ "aplistdn", "createname", "createuid", "isexamine", "postname", "postuid", "websitedn" ],
+        "properties" : {
+          "aplistdn" : {
+            "type" : "string",
+            "description" : "功能代碼"
+          },
+          "createname" : {
+            "type" : "string",
+            "description" : "建立者姓名，不可超過20個字元"
+          },
+          "createuid" : {
+            "type" : "string",
+            "description" : "建立者帳號，不可超過20個字元"
+          },
+          "isexamine" : {
+            "type" : "string",
+            "description" : "是否需要審核(Y：需審核,N：不需審核)",
+            "enum" : [ "Y", "N" ]
+          },
+          "postname" : {
+            "type" : "string",
+            "description" : "更新者姓名，不可超過20個字元"
+          },
+          "postuid" : {
+            "type" : "string",
+            "description" : "更新者帳號，不可超過20個字元"
+          },
+          "websitedn" : {
+            "type" : "string",
+            "description" : "站台DN值"
+          }
+        }
+      },
+      "ResourceDataList" : {
+        "type" : "object",
+        "properties" : {
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "民眾端排序"
+          },
+          "detailno" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "相關連結序號"
+          },
+          "readnumber" : {
+            "type" : "string",
+            "description" : "連結次數"
+          },
+          "relatename" : {
+            "type" : "string",
+            "description" : "連結網站名稱"
+          },
+          "relateurl" : {
+            "type" : "string",
+            "description" : "連結網址"
+          },
+          "serno" : {
+            "type" : "string",
+            "description" : "資料序號"
+          },
+          "target" : {
+            "type" : "string",
+            "description" : "是否另開視窗(Y：是,N：否)"
+          }
+        }
+      },
+      "ResourceDataWrite" : {
+        "type" : "object",
+        "properties" : {
+          "datasort" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "民眾端排序"
+          },
+          "relatename" : {
+            "type" : "string",
+            "description" : "連結網站名稱"
+          },
+          "relateurl" : {
+            "type" : "string",
+            "description" : "連結網址"
+          },
+          "target" : {
+            "type" : "string",
+            "description" : "是否另開視窗(Y：是,N：否)"
+          }
+        }
+      },
+      "WebSiteUnitList" : {
+        "type" : "object",
+        "properties" : {
+          "websitedn" : {
+            "type" : "string",
+            "description" : "發布站台DN值"
+          },
+          "websitename" : {
+            "type" : "string",
+            "description" : "發布站台名稱"
+          }
+        }
+      }
+    }
+  }
+}

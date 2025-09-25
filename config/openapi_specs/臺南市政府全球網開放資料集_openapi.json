@@ -1,0 +1,1372 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "此API為 市府全球網 所有 <a href='https://www.tainan.gov.tw'>網站連結</a>",    "version": "1.0.0",
+    "title": "市府全球網 開放資料集"  },
+  "host": "www.tainan.gov.tw",  "basePath": "/API/v3/Rest",
+  "tags": [
+    {
+      "name": "News",
+      "description": "取得本機關最新訊息"
+    }
+  ],
+  "schemes": [
+    "https"  ],
+  "paths": {
+    "/News/22C3B697A101DF19": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 市府新聞",        "description": "",
+        "operationId": "22C3B697A101DF19",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/3DE11E74CBD6C44E": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 機關新聞",        "description": "",
+        "operationId": "3DE11E74CBD6C44E",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/769ACA0A9CA10DF0": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 熱門活動",        "description": "",
+        "operationId": "769ACA0A9CA10DF0",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "活動名稱",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "活動內容",
+            "type": "string"
+          },
+          {
+            "name": "Column_6",
+            "in": "query",
+            "description": "活動開始日期",
+            "type": "string"
+          },
+          {
+            "name": "Column_8",
+            "in": "query",
+            "description": "活動地點",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/114B66117B4BF117": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 工程採購招標",        "description": "",
+        "operationId": "114B66117B4BF117",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/9F6EDEE5BB4543F6": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 財物採購招標",        "description": "",
+        "operationId": "9F6EDEE5BB4543F6",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/002E4A858BDAC4C3": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 勞務採購招標",        "description": "",
+        "operationId": "002E4A858BDAC4C3",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/E4CFAE92581A7EB7": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 勞務採購招標",        "description": "",
+        "operationId": "E4CFAE92581A7EB7",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/0210591EF6A9A24B": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 勞務採購招標",        "description": "",
+        "operationId": "0210591EF6A9A24B",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/3F111E57648FF61F": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 十五萬元以下報價",        "description": "",
+        "operationId": "3F111E57648FF61F",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/76E514D1CA642D79": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 工程決標公告",        "description": "",
+        "operationId": "76E514D1CA642D79",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/4061A3F0B105B5AE": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 財物決標公告",        "description": "",
+        "operationId": "4061A3F0B105B5AE",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/AF04D533FC93AA8D": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 勞務決標公告",        "description": "",
+        "operationId": "AF04D533FC93AA8D",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/20E7E5EED4327F75": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 廠商評選結果公告",        "description": "",
+        "operationId": "20E7E5EED4327F75",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/F8BAEBE9491FC830": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 市長施政總報告",        "description": "",
+        "operationId": "F8BAEBE9491FC830",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/3CCB37DA5F5EE326": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 議會定期會工作報告",        "description": "",
+        "operationId": "3CCB37DA5F5EE326",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/6EA5CDFDA3C567CF": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 市政大事紀",        "description": "",
+        "operationId": "6EA5CDFDA3C567CF",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/E7540492EC7ADFCE": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 臺南市政府年度施政計畫",        "description": "",
+        "operationId": "E7540492EC7ADFCE",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/D4530250726828B1": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 臺南市政府中程施政計畫",        "description": "",
+        "operationId": "D4530250726828B1",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/59DACBB77BAEDC12": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 市府公開行程",        "description": "",
+        "operationId": "59DACBB77BAEDC12",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "Column_4",
+            "in": "query",
+            "description": "活動起始時間",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/FCE654B9A9575A97": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 市長行程 JSON",        "description": "",
+        "operationId": "FCE654B9A9575A97",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "內容",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/8133A77AC99AE860": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 首長介紹",        "description": "",
+        "operationId": "8133A77AC99AE860",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "機關名稱",
+            "type": "string"
+          },
+          {
+            "name": "Column_3",
+            "in": "query",
+            "description": "職稱",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/05A42561296D614D": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 洽公服務窗口",        "description": "",
+        "operationId": "05A42561296D614D",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "機關名稱",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-200)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/71C132FC9ED2CB2E": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 澄清專區",        "description": "",
+        "operationId": "71C132FC9ED2CB2E",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-50)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+      {
+         "name": "sdate",
+         "in": "query",
+         "description": "發布日期(起)",
+         "type": "string",
+               "default": "2025-09-17"
+       },
+       {
+            "name": "edate",
+            "in": "query",
+            "description": "發布日期(迄)",
+            "type": "string",
+                  "default": "2025-09-24"
+       }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+,
+    "/News/D4E9AADAE6FAACF9": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "取得 公務出國報告",        "description": "",
+        "operationId": "D4E9AADAE6FAACF9",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Column_2",
+            "in": "query",
+            "description": "標題",
+            "type": "string"
+          },
+          {
+            "name": "Column_4",
+            "in": "query",
+            "description": "出國年度",
+            "type": "string"
+          },
+          {
+            "name": "Column_5",
+            "in": "query",
+            "description": "出國局處",
+            "type": "string"
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "取前幾筆 (資料最多筆數為-500)",            "type": "string",
+            "default": "10"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "跳過前幾筆",
+            "type": "string"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Result DataSet"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 教育百科開放資料API
+  description: ''
+servers:
+- url: https://pedia.cloud.edu.tw/api/v2
+paths:
+  /List:
+    get:
+      summary: 詞條檢索結果
+      description: 詞條檢索結果
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+          default: 樂不思蜀
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: api_key
+        in: query
+        schema:
+          type: string
+          default: ee1af97d-9ec5-4a09-9317-cc3b89aa25c8
+        description: 以下為測試所使用的金鑰，正式使用時，請登入會員後，使用自己的API Key進行資料下載
+      tags:
+      - 詞條
+      responses:
+        '200':
+          description: OK
+  /Detail:
+    get:
+      summary: 詞條內容顯示
+      description: 詞條內容顯示
+      parameters:
+      - name: term
+        in: query
+        schema:
+          type: string
+          default: 樂不思蜀
+      - name: api_key
+        in: query
+        schema:
+          type: string
+          default: ee1af97d-9ec5-4a09-9317-cc3b89aa25c8
+        description: 以下為測試所使用的金鑰，正式使用時，請登入會員後，使用自己的API Key進行資料下載
+      tags:
+      - 詞條
+      responses:
+        '200':
+          description: OK
