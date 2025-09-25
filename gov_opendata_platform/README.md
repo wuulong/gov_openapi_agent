@@ -103,3 +103,9 @@ CREATE TABLE openapi_dept (
 *   **Swagger UI (互動式文件):** `http://localhost:8801/docs`
 *   **ReDoc UI:** `http://localhost:8801/redoc`
 *   **OpenAPI JSON 規格文件:** `http://localhost:8801/openapi.json`
+
+## platform 清單收集
+- 平台收集資訊會放在 openapi_dept table, 有時會匯出到 ../data/openapi_dept.csv
+- 下載後會放入 ../config/open_specs 中，等待有緣時測試
+- 測試時會先用 validate_openapi.py 檢查格式
+- 想實際使用時，會添加 config_agent.yaml 成為候選名單，進入帶起階段
