@@ -448,3 +448,36 @@ graph TD
 
 ## spec issues
 - [openapi_spec_Issues](docs/openapi_spec_Issues.md)
+
+
+## 全流程
+```mermaid
+graph TD
+    subgraph 平台清單收集
+	    A[Agentic網路收集]
+	    F[表單來源]
+	    DB[轉入DB]
+	    V[平台CSV]
+	    
+		A-->DB
+		F-->DB
+		DB--> |匯出| V
+		
+		W[表單填寫]
+		W-->F
+		
+		C[平台遺漏檢核]
+		DB-->C
+
+    end
+
+    subgraph 平台代理人啟用
+        D[spec已下載]
+        L[spec已載入]
+        U[含認證後可使用]
+        
+        DB-->D-->L-->U
+
+    end
+
+```
