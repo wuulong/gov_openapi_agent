@@ -473,11 +473,15 @@ graph TD
 
     subgraph 平台代理人啟用
         D[spec已下載]
+        SV[spec validate]
+        Y[加入config_agent.yaml]
+        G[Debug載入]
         L[spec已載入]
         U[含認證後可使用]
         
-        DB-->D-->L-->U
+        DB-->|每一筆| D-->SV-->Y-->G-->L-->U
 
     end
+
 
 ```
