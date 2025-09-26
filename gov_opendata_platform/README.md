@@ -109,3 +109,36 @@ CREATE TABLE openapi_dept (
 - 下載後會放入 ../config/open_specs 中，等待有緣時測試
 - 測試時會先用 validate_openapi.py 檢查格式
 - 想實際使用時，會添加 config_agent.yaml 成為候選名單，進入帶起階段
+
+
+## 全流程
+```mermaid
+graph TD
+    subgraph 平台清單收集
+	    A[Agentic網路收集]
+	    F[表單來源]
+	    DB[轉入DB]
+	    V[平台CSV]
+	    
+		A-->DB
+		F-->DB
+		DB--> |匯出| V
+		
+		W[表單填寫]
+		W-->F
+		
+		C[平台遺漏檢核]
+		DB-->C
+
+    end
+
+    subgraph 平台代理人啟用
+        D[spec已下載]
+        L[spec已載入]
+        U[含認證後可使用]
+        
+        DB-->D-->L-->U
+
+    end
+
+```
