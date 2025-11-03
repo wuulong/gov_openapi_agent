@@ -8,6 +8,7 @@ from google.adk.models.lite_llm import LiteLlm # Keep LiteLlm for now, but model
 from google.adk.tools.openapi_tool.openapi_spec_parser.openapi_toolset import OpenAPIToolset
 from google.adk.auth.auth_credential import AuthCredential, AuthCredentialTypes, OAuth2Auth, HttpAuth, HttpCredentials # Added HttpAuth, HttpCredentials
 from dotenv import load_dotenv
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -48,6 +49,9 @@ class GovOpenApiAgent(LlmAgent):
                     api_key = os.environ.get(key_env_var)
                     if not api_key:
                         logger.warning(f"API Key for {platform_name} ({key_env_var}) not found in environment variables. API calls might fail.")
+                    else:
+                        masked_api_key = f"{api_key[:4]}...{api_key[-4:]}" if api_key else "None"
+                        logger.info(f"API Key for {platform_name} ({key_env_var}) successfully loaded: {masked_api_key}")
                     auth_credential = AuthCredential(auth_type=AuthCredentialTypes.API_KEY, api_key=api_key)
                 elif auth_method == "oauth2_client_credentials":
                     client_id_env_var = authentication_config.get("client_id_env_var")

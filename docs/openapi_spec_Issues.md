@@ -39,6 +39,7 @@ operation_parser.py line:90
 # 如果 'description' 鍵不存在，get() 會返回 None，因此 if not 條件會成立
 schema['description'] = description if not schema.get('description') else schema['description']
 
+schema.setdefault('description', description)
 fix_openapi_security.py
 
 ```
@@ -47,3 +48,55 @@ fix_openapi_security.py
 Error processing prompt with GovOpenApiAgent: HTTPConnectionPool(host='opendata.cwa.gov.tw', port=80): Max retries exceeded with url: /v1/rest/datastore/F-C0032-001?locationName=%E6%96%B0%E7%AB%B9%E5%B8%82 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x1297d9700>, 'Connection to opendata.cwa.gov.tw timed out. (connect timeout=None)')))
 
 ```
+
+## 新竹市政府資料開放平臺
+  File "/Users/wuulong/opt/anaconda3/envs/m2504/lib/python3.12/site-packages/google/adk/tools/openapi_tool/openapi_spec_parser/operation_parser.py", line 90, in _process_operation_parameters                                                                    
+    schema.description = (    
+
+
+附近換成： schema.setdefault('description', description)
+
+
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:__main__:Wuulong:process_user_prompt: {'prompt': '新竹市有哪些方空疏散設施'}
+INFO:__main__:Received prompt: 新竹市有哪些方空疏散設施
+INFO:__main__:Wuulong:Processing user input: 新竹市有哪些方空疏散設施
+INFO:google_adk.google.adk.models.google_llm:Sending out request, model: gemini-2.5-flash-lite, backend: GoogleLLMVariant.GEMINI_
+API, stream: False
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+ERROR:__main__:Error processing prompt with GovOpenApiAgent: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': '* Generate
+ContentRequest.tools[0].function_declarations[0].name: Invalid function name. 
+
+==>
+operationID 需要文字開頭
+"operationId": "P3C5FB164814DD7EA",
+
+將 "summary": xxx , "description": xxx 換成 "description"
+"description": "取得 新竹市政府1999服務專線熱門問答點閱數統計表",
+
+沒能取得資料
+==>
+加入：
+  "servers": [
+    {
+      "url": "https://opendata.hccg.gov.tw/API/v3/Rest"
+    }
+  ],
+
+刪掉：
+"host": "opendata.hccg.gov.tw",  "basePath": "/API/v3/Rest",
+
+
+成功： use: gov-openapi-agent-mcp：新竹市有哪些防空疏散設施
+✦ 新竹市共有以下這些防空疏散設施：
+
+   * 新竹市北區崇禮里9鄰中山路296巷1號-B1 (和泰耳鼻喉科)，一般住宅
+   * 新竹市北區崇禮里14鄰北大路457號B2 (台新銀行北大分行)，供公眾使用建築物
+   * 新竹市北區崇禮里6鄰中山路252號B1 (大樓)，一般住宅
+   * 新竹市北區潛園里1鄰西大路417號B1 (合悅都會商旅)，一般住宅
+   * 新竹市北區潛園里西大路469巷2號B1 (公寓)，一般住宅
+   * 新竹市北區潛園里西大路513號B1 (公寓)，一般住宅
+   * 新竹市北區仁德里仁德街50號 (鴻澤北大大樓)，一般住宅
+   * 新竹市北區仁德里長安街99號 (公寓)，一般住宅
+   * 新竹市北區中央里西門街16號B1 (新竹三信)，供公眾使用建築物
+   * 新竹市北區中央里西門街148號B1 (小小天地美語補習班)，供公眾使用建築物

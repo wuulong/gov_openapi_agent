@@ -1,6 +1,8 @@
 enable_platform:
-  - moea_wra_water_data_platform # 預設因無需認證，可使用
-#  - cwa_opendata_platform
+#  - hsinchu_platform
+#  - prs_platform
+#  - moea_wra_water_data_platform # 預設因無需認證，可使用
+  - cwa_opendata_platform
 
 # 能載入時，預設 enable 為 true
 api_platforms:
@@ -184,3 +186,34 @@ api_platforms:
     demo_prompt:
       - 查詢天氣預報。
       - 查詢地震資訊。
+
+# STATUS: 載入前 debug
+  - id: prs_platform
+    name: 採購文件審核系統
+    description: 提供採購文件審核系統的後端服務，支援專案管理、標案資料處理、審核流程執行、報告生成、檢查清單管理及智慧問答等功能。此 API 專為 LLM Agent 及其他自動化應用程式設計，不直接暴露給終端使用者。
+    spec_pathname: 採購文件審核系統_openapi.json
+    enable: true
+    authentication:
+      method: api_key
+      key_env_var: 採購文件審核系統_KEY
+    system_prompt: 你是政府採購審核的專家。請利用提供的工具來查詢相關資料。
+    process_tag: prs_platform
+    demo_prompt:
+      - 列出所有採購案
+
+# STATUS: 無需認證，spec,code 修改後可使用
+  - id: hsinchu_platform
+    name: 新竹市政府資料開放平臺
+    description: 提供新竹市政府資料開放平臺的後端服務，支援各類資料查詢及下載。
+    spec_pathname: 新竹市政府資料開放平臺_openapi.json
+    enable: true
+    authentication:
+      method: none
+    system_prompt: 你是新竹市政府資料開放平臺的專家。請利用提供的工具來查詢相關資料。
+    process_tag: hsinchu_platform
+    demo_prompt:
+      - 列出所有資料集
+
+
+      
+
